@@ -6,6 +6,8 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
+import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
+import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/view/EnergyDiagramAccordionBox.js';
 import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import alphaDecay from '../../alphaDecay.js';
@@ -23,6 +25,17 @@ export default class SingleAtomScreenView extends NuclearDecayScreenView {
     }, providedOptions );
 
     super( model, options );
+
+
+    // Bottom-left panel
+
+    const energyDiagramAccordionBox = new EnergyDiagramAccordionBox( {
+      minWidth: NuclearDecayCommonConstants.LONG_PANEL_WIDTH,
+      left: this.layoutBounds.minX + NuclearDecayCommonConstants.SCREEN_VIEW_X_MARGIN,
+      bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+      fill: NuclearDecayCommonConstants.MAIN_PANEL_FILL
+    } );
+    this.addChild( energyDiagramAccordionBox );
   }
 
   /**
