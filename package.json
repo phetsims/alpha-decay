@@ -11,19 +11,20 @@
   },
   "phet": {
     "requirejsNamespace": "ALPHA_DECAY",
-    "simulation": true,
-    "runnable": true,
-    "supportedBrands": [
-      "phet",
-      "adapted-from-phet"
-    ],
     "phetLibs": [
-      "nuclear-decay-common"
+      "nuclear-decay-common",
+      "shred"
     ],
     "screenNameKeys": [
       "ALPHA_DECAY/screen.singleAtom",
       "ALPHA_DECAY/screen.multipleAtoms",
       "ALPHA_DECAY/screen.decayRates"
+    ],
+    "simulation": true,
+    "runnable": true,
+    "supportedBrands": [
+      "phet",
+      "adapted-from-phet"
     ],
     "supportsOutputJS": true,
     "simFeatures": {
