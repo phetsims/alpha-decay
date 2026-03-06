@@ -16,7 +16,9 @@ type StringsType = {
     'titleStringProperty': LocalizedStringProperty;
   };
   'screen': {
-    'nameStringProperty': LocalizedStringProperty;
+    'singleAtomStringProperty': LocalizedStringProperty;
+    'multipleAtomsStringProperty': LocalizedStringProperty;
+    'decayRatesStringProperty': LocalizedStringProperty;
   }
 };
 

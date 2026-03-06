@@ -2,7 +2,13 @@
   "alpha-decay.title": {
     "value": "Alpha Decay"
   },
-  "screen.name": {
-    "value": "Alpha Decay"
+  "screen.singleAtom": {
+    "value": "Single Atom"
+  },
+  "screen.multipleAtoms": {
+    "value": "Multiple Atoms"
+  },
+  "screen.decayRates": {
+    "value": "Decay Rates"
   }
 }

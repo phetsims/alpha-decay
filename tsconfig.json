@@ -8,6 +8,9 @@
   ],
   "references": [
     {
+      "path": "../nuclear-decay-common/tsconfig.json"
+    },
+    {
       "path": "../perennial-alias/tsconfig/buildjson/tsconfig.json"
     }
   ]
