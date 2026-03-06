@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * TODO Describe this class and its responsibilities.
+ * NOTE: Describe this class and its responsibilities.
  *
  * @author John
  */
@@ -9,12 +9,12 @@
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import AlphaDecayConstants from '../../common/AlphaDecayConstants.js';
 import alphaDecay from '../../alphaDecay.js';
+import AlphaDecayConstants from '../../common/AlphaDecayConstants.js';
 import AlphaDecayModel from '../model/AlphaDecayModel.js';
 
 type SelfOptions = {
- //TODO add options that are specific to AlphaDecayScreenView here
+  //NOTE: add options that are specific to AlphaDecayScreenView here
 };
 
 type AlphaDecayScreenViewOptions = SelfOptions & ScreenViewOptions;
@@ -25,9 +25,9 @@ export default class AlphaDecayScreenView extends ScreenView {
 
     const options = optionize<AlphaDecayScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
 
-      //TODO add default values for optional SelfOptions here
+      //NOTE: add default values for optional SelfOptions here
 
-      //TODO add default values for optional ScreenViewOptions here
+      //NOTE: add default values for optional ScreenViewOptions here
     }, providedOptions );
 
     super( options );
@@ -48,7 +48,7 @@ export default class AlphaDecayScreenView extends ScreenView {
    * Resets the view.
    */
   public reset(): void {
-    //TODO
+    //NOTE: implement?
   }
 
   /**
@@ -56,7 +56,7 @@ export default class AlphaDecayScreenView extends ScreenView {
    * @param dt - time step, in seconds
    */
   public override step( dt: number ): void {
-    //TODO
+    //NOTE: implement?
   }
 }
 

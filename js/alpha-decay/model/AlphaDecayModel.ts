@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * TODO Describe this class and its responsibilities.
+ * NOTE: Describe this class and its responsibilities.
  *
  * @author John
  */
@@ -12,7 +12,7 @@ import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import alphaDecay from '../../alphaDecay.js';
 
 type SelfOptions = {
-  //TODO add options that are specific to AlphaDecayModel here
+  //NOTE: add options that are specific to AlphaDecayModel here
 };
 
 type AlphaDecayModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -20,14 +20,14 @@ type AlphaDecayModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 't
 export default class AlphaDecayModel implements TModel {
 
   public constructor( providedOptions: AlphaDecayModelOptions ) {
-    //TODO
+    //NOTE: implement me
   }
 
   /**
    * Resets the model.
    */
   public reset(): void {
-    //TODO
+    //NOTE: implement me
   }
 
   /**
@@ -35,7 +35,7 @@ export default class AlphaDecayModel implements TModel {
    * @param dt - time step, in seconds
    */
   public step( dt: number ): void {
-    //TODO
+    //NOTE: implement me
   }
 }
 

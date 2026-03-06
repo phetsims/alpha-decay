@@ -12,7 +12,7 @@ import { QueryStringMachine } from '../../../query-string-machine/js/QueryString
 import alphaDecay from '../alphaDecay.js';
 
 const AlphaDecayQueryParameters = QueryStringMachine.getAll( {
-  //TODO add schemas for query parameters
+  //NOTE: add schemas for query parameters
 } );
 
 alphaDecay.register( 'AlphaDecayQueryParameters', AlphaDecayQueryParameters );
