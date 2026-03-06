@@ -17,6 +17,9 @@
       "phet",
       "adapted-from-phet"
     ],
+    "phetLibs": [
+      "nuclear-decay-common"
+    ],
     "screenNameKeys": [
       "ALPHA_DECAY/screen.singleAtom",
       "ALPHA_DECAY/screen.multipleAtoms",
