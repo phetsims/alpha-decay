@@ -12,6 +12,7 @@ import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import alphaDecay from '../../alphaDecay.js';
 import SingleAtomModel from '../model/SingleAtomModel.js';
+import SingleAtomPlayAreaNode from './SingleAtomPlayAreaNode.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -26,6 +27,10 @@ export default class SingleAtomScreenView extends NuclearDecayScreenView {
 
     super( model, options );
 
+    const playAreaNode = new SingleAtomPlayAreaNode( model, {
+      top: this.halfLifePanel.bottom + 10
+    } );
+    this.addChild( playAreaNode );
 
     // Bottom-left panel
 

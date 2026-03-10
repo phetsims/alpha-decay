@@ -6,6 +6,9 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
+import Property from '../../../../axon/js/Property.js';
+import TProperty from '../../../../axon/js/TProperty.js';
+import DecayingIsotope from '../../../../nuclear-decay-common/js/model/DecayingIsotope.js';
 import NuclearDecayModel from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -18,9 +21,23 @@ type SingleAtomModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 't
 
 export default class SingleAtomModel extends NuclearDecayModel {
 
+  public readonly decayingIsotopeProperty: TProperty<DecayingIsotope | null>;
+
   public constructor( providedOptions: SingleAtomModelOptions ) {
     super( providedOptions );
-    // TO BE IMPLEMENTED
+
+    // No decaying isotope yet
+    this.decayingIsotopeProperty = new Property<DecayingIsotope | null>( null );
+  }
+
+  /**
+   * Adds exactly one of the selected isotopes into the model, and starts the decay process.
+   */
+  public addIsotope(): void {
+    if ( !this.decayingIsotopeProperty.value ) {
+      const selectedIsotope = this.selectedIsotopeProperty.value;
+      this.decayingIsotopeProperty.value = DecayingIsotope.startDecay( selectedIsotope );
+    }
   }
 }
 
