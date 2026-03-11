@@ -5,16 +5,16 @@
  * @author Agustín Vallejo
  */
 
+import nuclearDecayCommon from '../../../../nuclear-decay-common/js/nuclearDecayCommon.js';
+import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
+import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import ResetButton from '../../../../scenery-phet/js/buttons/ResetButton.js';
 import ShadedSphereNode from '../../../../scenery-phet/js/ShadedSphereNode.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ShredColors from '../../../../shred/js/ShredColors.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
-import nuclearDecayCommon from '../../../../nuclear-decay-common/js/nuclearDecayCommon.js';
 import SingleAtomModel from '../model/SingleAtomModel.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -34,7 +34,7 @@ export default class SingleAtomPlayAreaNode extends Node {
 
     // Decay Time label — top-left
     const decayTimeText = new Text( NuclearDecayCommonFluent.decayTimeStringProperty, {
-      font: new PhetFont( { size: 14, weight: 'bold' } ),
+      font: NuclearDecayCommonConstants.CONTROL_BOLD_FONT,
       left: MARGIN,
       top: MARGIN
     } );
@@ -43,7 +43,7 @@ export default class SingleAtomPlayAreaNode extends Node {
     const addAtomButton = new RectangularPushButton( {
       visibleProperty: model.decayingIsotopeProperty.derived( isotope => !isotope ), // only show when there is no isotope in the model
       content: new Text( NuclearDecayCommonFluent.addAtomStringProperty, {
-        font: new PhetFont( 14 )
+        font: NuclearDecayCommonConstants.CONTROL_FONT
       } ),
       listener: () => {
 
