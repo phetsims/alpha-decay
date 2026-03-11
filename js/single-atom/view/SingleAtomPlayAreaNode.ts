@@ -6,12 +6,14 @@
  */
 
 import nuclearDecayCommon from '../../../../nuclear-decay-common/js/nuclearDecayCommon.js';
+import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import ResetButton from '../../../../scenery-phet/js/buttons/ResetButton.js';
+import ResetShape from '../../../../scenery-phet/js/ResetShape.js';
 import ShadedSphereNode from '../../../../scenery-phet/js/ShadedSphereNode.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ShredColors from '../../../../shred/js/ShredColors.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
@@ -22,7 +24,7 @@ type SelfOptions = EmptySelfOptions;
 export type SingleAtomPlayAreaNodeOptions = SelfOptions & NodeOptions;
 
 // Play area dimensions
-const PLAY_AREA_WIDTH = 600;
+const PLAY_AREA_WIDTH = 750;
 const PLAY_AREA_HEIGHT = 200;
 const MARGIN = 10;
 
@@ -43,8 +45,10 @@ export default class SingleAtomPlayAreaNode extends Node {
     const addAtomButton = new RectangularPushButton( {
       visibleProperty: model.decayingIsotopeProperty.derived( isotope => !isotope ), // only show when there is no isotope in the model
       content: new Text( NuclearDecayCommonFluent.addAtomStringProperty, {
-        font: NuclearDecayCommonConstants.CONTROL_FONT
+        font: NuclearDecayCommonConstants.CONTROL_BOLD_FONT
       } ),
+      baseColor: NuclearDecayCommonColors.addButtonProperty,
+
       listener: () => {
 
         // Adds one of the selected isotopes into the model
@@ -70,11 +74,13 @@ export default class SingleAtomPlayAreaNode extends Node {
     } );
 
     // Reset button — top-right
-    const resetButton = new ResetButton( {
+    const BUTTON_RADIUS = 18;
+    const resetButton = new RectangularPushButton( {
+      content: new Path( new ResetShape( BUTTON_RADIUS, false ), { fill: 'black', rotation: Math.PI } ),
+      baseColor: NuclearDecayCommonColors.resetButtonProperty,
       listener: () => {
         model.decayingIsotopeProperty.value = null;
       },
-      radius: 18,
       right: PLAY_AREA_WIDTH - MARGIN,
       top: MARGIN
     } );
