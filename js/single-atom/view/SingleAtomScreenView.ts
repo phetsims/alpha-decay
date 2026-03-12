@@ -28,7 +28,8 @@ export default class SingleAtomScreenView extends NuclearDecayScreenView {
     super( model, options );
 
     const playAreaNode = new SingleAtomPlayAreaNode( model, {
-      top: this.halfLifePanel.bottom + 10
+      top: this.halfLifePanel.bottom + 10,
+      left: NuclearDecayCommonConstants.SCREEN_VIEW_X_MARGIN
     } );
     this.addChild( playAreaNode );
 
