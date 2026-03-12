@@ -28,6 +28,14 @@ export default class SingleAtomModel extends NuclearDecayModel {
 
     // No decaying isotope yet
     this.decayingIsotopeProperty = new Property<DecayingIsotope | null>( null );
+
+    this.decayingIsotopeProperty.link( isotope => {
+      this.isPlayAreaEmptyProperty.value = isotope === null;
+
+      if ( isotope === null ) {
+        this.timeProperty.value = 0;
+      }
+    } );
   }
 
   /**
