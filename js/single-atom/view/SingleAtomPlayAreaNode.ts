@@ -5,13 +5,17 @@
  * @author Agustín Vallejo
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import nuclearDecayCommon from '../../../../nuclear-decay-common/js/nuclearDecayCommon.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetShape from '../../../../scenery-phet/js/ResetShape.js';
 import ShadedSphereNode from '../../../../scenery-phet/js/ShadedSphereNode.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -35,10 +39,29 @@ export default class SingleAtomPlayAreaNode extends Node {
     }, providedOptions );
 
     // Decay Time label — top-left
+    const elapsedTimeStringProperty = new DerivedStringProperty(
+      [
+        model.timeProperty,
+        NuclearDecayCommonFluent.timeSecondsStringProperty
+      ], ( time: number, pattern: string ) => {
+        return StringUtils.fillIn( pattern, {
+          time: time > 0 ? toFixed( time, 1 ) : '--'
+        } );
+      }
+    );
+    const elapsedTimeText = new Text( elapsedTimeStringProperty, {
+      font: NuclearDecayCommonConstants.CONTROL_FONT
+    } );
+
     const decayTimeText = new Text( NuclearDecayCommonFluent.decayTimeStringProperty, {
-      font: NuclearDecayCommonConstants.CONTROL_BOLD_FONT,
+      font: NuclearDecayCommonConstants.CONTROL_BOLD_FONT
+    } );
+
+    const decayTimeReadout = new HBox( {
       left: MARGIN,
-      top: MARGIN
+      top: MARGIN,
+      spacing: 5,
+      children: [ decayTimeText, elapsedTimeText ]
     } );
 
     // Add Atom button — center
@@ -86,7 +109,7 @@ export default class SingleAtomPlayAreaNode extends Node {
     } );
 
     options.children = [
-      decayTimeText,
+      decayTimeReadout,
       addAtomButton,
       resetButton,
       alphaParticleIcon
