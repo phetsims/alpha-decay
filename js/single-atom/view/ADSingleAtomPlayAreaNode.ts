@@ -21,20 +21,20 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ShredColors from '../../../../shred/js/ShredColors.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import SingleAtomModel from '../model/SingleAtomModel.js';
+import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type SingleAtomPlayAreaNodeOptions = SelfOptions & NodeOptions;
+export type ADSingleAtomPlayAreaNodeOptions = SelfOptions & NodeOptions;
 
 // Play area dimensions
 const PLAY_AREA_WIDTH = 750;
 const PLAY_AREA_HEIGHT = 200;
 const MARGIN = 10;
 
-export default class SingleAtomPlayAreaNode extends Node {
-  public constructor( model: SingleAtomModel, providedOptions?: SingleAtomPlayAreaNodeOptions ) {
-    const options = optionize<SelfOptions, EmptySelfOptions, SingleAtomPlayAreaNodeOptions>()( {
+export default class ADSingleAtomPlayAreaNode extends Node {
+  public constructor( model: ADSingleAtomModel, providedOptions?: ADSingleAtomPlayAreaNodeOptions ) {
+    const options = optionize<SelfOptions, EmptySelfOptions, ADSingleAtomPlayAreaNodeOptions>()( {
       // Default options go here
     }, providedOptions );
 
@@ -120,4 +120,4 @@ export default class SingleAtomPlayAreaNode extends Node {
   }
 }
 
-nuclearDecayCommon.register( 'SingleAtomPlayAreaNode', SingleAtomPlayAreaNode );
+nuclearDecayCommon.register( 'ADSingleAtomPlayAreaNode', ADSingleAtomPlayAreaNode );

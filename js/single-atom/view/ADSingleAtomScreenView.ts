@@ -11,23 +11,23 @@ import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/view/
 import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import alphaDecay from '../../alphaDecay.js';
-import SingleAtomModel from '../model/SingleAtomModel.js';
-import SingleAtomPlayAreaNode from './SingleAtomPlayAreaNode.js';
+import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
+import ADSingleAtomPlayAreaNode from './ADSingleAtomPlayAreaNode.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type SingleAtomScreenViewOptions = SelfOptions & NuclearDecayScreenViewOptions;
+type ADSingleAtomScreenViewOptions = SelfOptions & NuclearDecayScreenViewOptions;
 
-export default class SingleAtomScreenView extends NuclearDecayScreenView {
+export default class ADSingleAtomScreenView extends NuclearDecayScreenView {
 
-  public constructor( model: SingleAtomModel, providedOptions: SingleAtomScreenViewOptions ) {
+  public constructor( model: ADSingleAtomModel, providedOptions: ADSingleAtomScreenViewOptions ) {
 
-    const options = optionize<SingleAtomScreenViewOptions, SelfOptions, NuclearDecayScreenViewOptions>()( {
+    const options = optionize<ADSingleAtomScreenViewOptions, SelfOptions, NuclearDecayScreenViewOptions>()( {
     }, providedOptions );
 
     super( model, options );
 
-    const playAreaNode = new SingleAtomPlayAreaNode( model, {
+    const playAreaNode = new ADSingleAtomPlayAreaNode( model, {
       top: this.halfLifePanel.bottom + 10,
       left: NuclearDecayCommonConstants.SCREEN_VIEW_X_MARGIN
     } );
@@ -60,4 +60,4 @@ export default class SingleAtomScreenView extends NuclearDecayScreenView {
   }
 }
 
-alphaDecay.register( 'SingleAtomScreenView', SingleAtomScreenView );
+alphaDecay.register( 'ADSingleAtomScreenView', ADSingleAtomScreenView );

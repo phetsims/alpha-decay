@@ -14,14 +14,14 @@ import alphaDecay from '../../alphaDecay.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type MultipleAtomsModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+type ADMultipleAtomsModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class MultipleAtomsModel extends NuclearDecayModel {
+export default class ADMultipleAtomsModel extends NuclearDecayModel {
 
-  public constructor( providedOptions: MultipleAtomsModelOptions ) {
+  public constructor( providedOptions: ADMultipleAtomsModelOptions ) {
     super( providedOptions );
     // TO BE IMPLEMENTED
   }
 }
 
-alphaDecay.register( 'MultipleAtomsModel', MultipleAtomsModel );
+alphaDecay.register( 'ADMultipleAtomsModel', ADMultipleAtomsModel );

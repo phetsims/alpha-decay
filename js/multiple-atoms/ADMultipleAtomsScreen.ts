@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * The Screen for Single Atom Decay.
+ * The Screen for Multiple Atoms Decay.
  *
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
@@ -11,28 +11,28 @@ import optionize, { EmptySelfOptions } from '../../../phet-core/js/optionize.js'
 import alphaDecay from '../alphaDecay.js';
 import AlphaDecayFluent from '../AlphaDecayFluent.js';
 import AlphaDecayColors from '../common/AlphaDecayColors.js';
-import SingleAtomModel from './model/SingleAtomModel.js';
-import SingleAtomScreenView from './view/SingleAtomScreenView.js';
+import ADMultipleAtomsModel from './model/ADMultipleAtomsModel.js';
+import ADMultipleAtomsScreenView from './view/ADMultipleAtomsScreenView.js';
 
 type SelfOptions = EmptySelfOptions;
 
 type AlphaDecayScreenOptions = SelfOptions & ScreenOptions;
 
-export default class SingleAtomScreen extends Screen<SingleAtomModel, SingleAtomScreenView> {
+export default class ADMultipleAtomsScreen extends Screen<ADMultipleAtomsModel, ADMultipleAtomsScreenView> {
 
   public constructor( providedOptions: AlphaDecayScreenOptions ) {
 
     const options = optionize<AlphaDecayScreenOptions, SelfOptions, ScreenOptions>()( {
-      name: AlphaDecayFluent.screen.singleAtomStringProperty,
+      name: AlphaDecayFluent.screen.multipleAtomsStringProperty,
       backgroundColorProperty: AlphaDecayColors.screenBackgroundColorProperty
     }, providedOptions );
 
     super(
-      () => new SingleAtomModel( { tandem: options.tandem.createTandem( 'model' ) } ),
-      model => new SingleAtomScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
+      () => new ADMultipleAtomsModel( { tandem: options.tandem.createTandem( 'model' ) } ),
+      model => new ADMultipleAtomsScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
       options
     );
   }
 }
 
-alphaDecay.register( 'SingleAtomScreen', SingleAtomScreen );
+alphaDecay.register( 'ADMultipleAtomsScreen', ADMultipleAtomsScreen );

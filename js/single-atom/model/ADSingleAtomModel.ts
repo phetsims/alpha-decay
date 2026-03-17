@@ -17,13 +17,13 @@ import alphaDecay from '../../alphaDecay.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type SingleAtomModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+type ADSingleAtomModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class SingleAtomModel extends NuclearDecayModel {
+export default class ADSingleAtomModel extends NuclearDecayModel {
 
   public readonly decayingIsotopeProperty: TProperty<DecayingIsotope | null>;
 
-  public constructor( providedOptions: SingleAtomModelOptions ) {
+  public constructor( providedOptions: ADSingleAtomModelOptions ) {
     super( providedOptions );
 
     // No decaying isotope yet
@@ -49,4 +49,4 @@ export default class SingleAtomModel extends NuclearDecayModel {
   }
 }
 
-alphaDecay.register( 'SingleAtomModel', SingleAtomModel );
+alphaDecay.register( 'ADSingleAtomModel', ADSingleAtomModel );
