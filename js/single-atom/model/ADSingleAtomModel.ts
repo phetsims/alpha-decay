@@ -8,7 +8,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import TProperty from '../../../../axon/js/TProperty.js';
-import DecayingIsotope from '../../../../nuclear-decay-common/js/model/DecayingIsotope.js';
+import DecayingAtom from '../../../../nuclear-decay-common/js/model/DecayingAtom.js';
 import NuclearDecayModel from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -21,13 +21,13 @@ type ADSingleAtomModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 
 
 export default class ADSingleAtomModel extends NuclearDecayModel {
 
-  public readonly decayingIsotopeProperty: TProperty<DecayingIsotope | null>;
+  public readonly decayingIsotopeProperty: TProperty<DecayingAtom | null>;
 
   public constructor( providedOptions: ADSingleAtomModelOptions ) {
     super( providedOptions );
 
     // No decaying isotope yet
-    this.decayingIsotopeProperty = new Property<DecayingIsotope | null>( null );
+    this.decayingIsotopeProperty = new Property<DecayingAtom | null>( null );
 
     this.decayingIsotopeProperty.link( isotope => {
       this.isPlayAreaEmptyProperty.value = isotope === null;
@@ -44,7 +44,7 @@ export default class ADSingleAtomModel extends NuclearDecayModel {
   public addIsotope(): void {
     if ( !this.decayingIsotopeProperty.value ) {
       const selectedIsotope = this.selectedIsotopeProperty.value;
-      this.decayingIsotopeProperty.value = DecayingIsotope.startDecay( selectedIsotope );
+      this.decayingIsotopeProperty.value = DecayingAtom.startDecay( selectedIsotope );
     }
   }
 }
