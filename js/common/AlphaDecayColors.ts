@@ -28,6 +28,3 @@ export default class AlphaDecayColors {
     default: 'white'
   } );
 }
-
-
-alphaDecay.register( 'AlphaDecayColors', AlphaDecayColors );

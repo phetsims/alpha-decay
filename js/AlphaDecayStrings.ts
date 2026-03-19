@@ -24,6 +24,4 @@ type StringsType = {
 
 const AlphaDecayStrings = getStringModule( 'ALPHA_DECAY' ) as StringsType;
 
-alphaDecay.register( 'AlphaDecayStrings', AlphaDecayStrings );
-
 export default AlphaDecayStrings;

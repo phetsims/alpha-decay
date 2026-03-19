@@ -7,7 +7,6 @@
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
-import nuclearDecayCommon from '../../../../nuclear-decay-common/js/nuclearDecayCommon.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
@@ -119,5 +118,3 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
   }
 }
-
-nuclearDecayCommon.register( 'ADSingleAtomPlayAreaNode', ADSingleAtomPlayAreaNode );

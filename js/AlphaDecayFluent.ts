@@ -51,5 +51,3 @@ const AlphaDecayFluent = {
 };
 
 export default AlphaDecayFluent;
-
-alphaDecay.register('AlphaDecayFluent', AlphaDecayFluent);

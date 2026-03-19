@@ -9,13 +9,10 @@
 
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
-import alphaDecay from '../alphaDecay.js';
 
 const AlphaDecayQueryParameters = QueryStringMachine.getAll( {
   //NOTE: add schemas for query parameters
 } );
-
-alphaDecay.register( 'AlphaDecayQueryParameters', AlphaDecayQueryParameters );
 
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );

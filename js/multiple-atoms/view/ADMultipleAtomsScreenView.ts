@@ -8,7 +8,6 @@
 
 import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import alphaDecay from '../../alphaDecay.js';
 import ADMultipleAtomsModel from '../model/ADMultipleAtomsModel.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -40,5 +39,3 @@ export default class ADMultipleAtomsScreenView extends NuclearDecayScreenView {
     // TO BE IMPLEMENTED
   }
 }
-
-alphaDecay.register( 'ADMultipleAtomsScreenView', ADMultipleAtomsScreenView );

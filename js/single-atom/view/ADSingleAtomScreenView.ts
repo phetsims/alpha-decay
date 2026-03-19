@@ -10,7 +10,6 @@ import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/Nuc
 import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/view/EnergyDiagramAccordionBox.js';
 import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import alphaDecay from '../../alphaDecay.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 import ADSingleAtomPlayAreaNode from './ADSingleAtomPlayAreaNode.js';
 
@@ -59,5 +58,3 @@ export default class ADSingleAtomScreenView extends NuclearDecayScreenView {
     // TO BE IMPLEMENTED
   }
 }
-
-alphaDecay.register( 'ADSingleAtomScreenView', ADSingleAtomScreenView );

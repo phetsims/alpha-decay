@@ -8,7 +8,6 @@
 
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import optionize, { EmptySelfOptions } from '../../../phet-core/js/optionize.js';
-import alphaDecay from '../alphaDecay.js';
 import AlphaDecayFluent from '../AlphaDecayFluent.js';
 import AlphaDecayColors from '../common/AlphaDecayColors.js';
 import ADSingleAtomModel from './model/ADSingleAtomModel.js';
@@ -34,5 +33,3 @@ export default class ADSingleAtomScreen extends Screen<ADSingleAtomModel, ADSing
     );
   }
 }
-
-alphaDecay.register( 'ADSingleAtomScreen', ADSingleAtomScreen );
