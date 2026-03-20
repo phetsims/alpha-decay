@@ -65,7 +65,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
     // Add Atom button — center
     const addAtomButton = new RectangularPushButton( {
-      visibleProperty: model.decayingIsotopeProperty.derived( isotope => !isotope ), // only show when there is no isotope in the model
+      visibleProperty: model.decayingAtomProperty.derived( isotope => !isotope ), // only show when there is no isotope in the model
       content: new Text( NuclearDecayCommonFluent.addAtomStringProperty, {
         font: NuclearDecayCommonConstants.CONTROL_BOLD_FONT
       } ),
@@ -74,7 +74,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       listener: () => {
 
         // Adds one of the selected isotopes into the model
-        model.addIsotope();
+        model.addAtom();
       },
       centerX: PLAY_AREA_WIDTH / 2,
       centerY: PLAY_AREA_HEIGHT / 2
@@ -84,7 +84,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     const SPHERE_DIAMETER = 20;
     const PARTICLE_OFFSET = 0.7 * SPHERE_DIAMETER; // how far apart the particles are in the icon
     const alphaParticleIcon = new Node( {
-      visibleProperty: model.decayingIsotopeProperty.derived( isotope => isotope !== null ),
+      visibleProperty: model.decayingAtomProperty.derived( isotope => isotope !== null ),
       children: [
         new ShadedSphereNode( SPHERE_DIAMETER, { mainColor: ShredColors.protonColorProperty, x: 0, y: 0 } ),
         new ShadedSphereNode( SPHERE_DIAMETER, { mainColor: ShredColors.neutronColorProperty, x: PARTICLE_OFFSET, y: 0 } ),
@@ -101,7 +101,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       content: new Path( new ResetShape( BUTTON_RADIUS, false ), { fill: 'black', rotation: Math.PI } ),
       baseColor: NuclearDecayCommonColors.resetButtonProperty,
       listener: () => {
-        model.decayingIsotopeProperty.value = null;
+        model.resetAtomDecay();
       },
       right: PLAY_AREA_WIDTH - MARGIN,
       top: MARGIN
