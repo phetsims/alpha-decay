@@ -10,15 +10,14 @@ import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
+import AlphaParticleNode from '../../../../nuclear-decay-common/js/view/AlphaParticleNode.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetShape from '../../../../scenery-phet/js/ResetShape.js';
-import ShadedSphereNode from '../../../../scenery-phet/js/ShadedSphereNode.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import ShredColors from '../../../../shred/js/ShredColors.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 
@@ -80,17 +79,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       centerY: PLAY_AREA_HEIGHT / 2
     } );
 
-    // TODO: This should use Shred's built in AtomNode creator. https://github.com/phetsims/alpha-decay/issues/3
-    const SPHERE_DIAMETER = 20;
-    const PARTICLE_OFFSET = 0.7 * SPHERE_DIAMETER; // how far apart the particles are in the icon
-    const alphaParticleIcon = new Node( {
+    const alphaParticleIcon = new AlphaParticleNode( {
       visibleProperty: model.decayingAtomProperty.derived( isotope => isotope !== null ),
-      children: [
-        new ShadedSphereNode( SPHERE_DIAMETER, { mainColor: ShredColors.protonColorProperty, x: 0, y: 0 } ),
-        new ShadedSphereNode( SPHERE_DIAMETER, { mainColor: ShredColors.neutronColorProperty, x: PARTICLE_OFFSET, y: 0 } ),
-        new ShadedSphereNode( SPHERE_DIAMETER, { mainColor: ShredColors.neutronColorProperty, x: 0, y: PARTICLE_OFFSET } ),
-        new ShadedSphereNode( SPHERE_DIAMETER, { mainColor: ShredColors.protonColorProperty, x: PARTICLE_OFFSET, y: PARTICLE_OFFSET } )
-      ],
       centerX: PLAY_AREA_WIDTH / 2,
       centerY: PLAY_AREA_HEIGHT / 2
     } );
