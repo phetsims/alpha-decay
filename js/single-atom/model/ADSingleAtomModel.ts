@@ -9,22 +9,26 @@
 import Property from '../../../../axon/js/Property.js';
 import TProperty from '../../../../axon/js/TProperty.js';
 import NuclearDecayAtom from '../../../../nuclear-decay-common/js/model/NuclearDecayAtom.js';
-import NuclearDecayModel from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
-import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import NuclearDecayModel, { NuclearDecayModelOptions } from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import AlphaDecayModel from '../../common/model/AlphaDecayModel.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ADSingleAtomModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+type ADSingleAtomModelOptions = SelfOptions & NuclearDecayModelOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class ADSingleAtomModel extends NuclearDecayModel {
+export default class ADSingleAtomModel extends AlphaDecayModel {
 
   // The atom that may be decaying, may have already decayed, or may be null if no atom has been added yet.
   public readonly decayingAtomProperty: TProperty<NuclearDecayAtom | null>;
 
   public constructor( providedOptions: ADSingleAtomModelOptions ) {
-    super( providedOptions );
+    const options = optionize<ADSingleAtomModelOptions, SelfOptions, NuclearDecayModelOptions>()( {
+    }, providedOptions );
+
+    super( options );
 
     // No decaying isotope yet
     this.decayingAtomProperty = new Property<NuclearDecayAtom | null>( null );

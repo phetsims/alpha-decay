@@ -9,8 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
-import AddAtomsControlPanel from '../../../../nuclear-decay-common/js/view/AddAtomsControlPanel.js';
-import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
@@ -21,13 +19,14 @@ import RadialGradient from '../../../../scenery/js/util/RadialGradient.js';
 import { rasterizeNode } from '../../../../scenery/js/util/rasterizeNode.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import AlphaDecayScreenView, { AlphaDecayScreenViewOptions } from '../../common/view/AlphaDecayScreenView.js';
 import ADMultipleAtomsModel from '../model/ADMultipleAtomsModel.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ADMultipleAtomsScreenViewOptions = SelfOptions & NuclearDecayScreenViewOptions;
+type ADMultipleAtomsScreenViewOptions = SelfOptions & AlphaDecayScreenViewOptions;
 
-export default class ADMultipleAtomsScreenView extends NuclearDecayScreenView {
+export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
 
   public constructor( model: ADMultipleAtomsModel, providedOptions: ADMultipleAtomsScreenViewOptions ) {
 
@@ -78,17 +77,11 @@ export default class ADMultipleAtomsScreenView extends NuclearDecayScreenView {
       } )
     );
 
-    const options = optionize<ADMultipleAtomsScreenViewOptions, SelfOptions, NuclearDecayScreenViewOptions>()( {
+    const options = optionize<ADMultipleAtomsScreenViewOptions, SelfOptions, AlphaDecayScreenViewOptions>()( {
       isotopePanelMiddleContent: [ electronCloudCheckbox, stopwatchCheckbox ]
     }, providedOptions );
 
     super( model, options );
-
-    const addAtomsPanel = new AddAtomsControlPanel( model, {
-      centerX: this.layoutBounds.centerX,
-      bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
-    } );
-    this.addChild( addAtomsPanel );
   }
 
   /**

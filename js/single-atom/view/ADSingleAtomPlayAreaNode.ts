@@ -14,11 +14,11 @@ import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/Nuclea
 import DecayingAtomNode from '../../../../nuclear-decay-common/js/view/DecayingAtomNode.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import ResetShape from '../../../../scenery-phet/js/ResetShape.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import undoSolidShape from '../../../../sherpa/js/fontawesome-5/undoSolidShape.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 
@@ -90,8 +90,9 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     } );
 
     // Reset button — top-right
+    const BUTTON_RADIUS = 18;
     const resetButton = new RectangularPushButton( {
-      content: new Path( undoSolidShape, { scale: 0.038, fill: 'black' } ),
+      content: new Path( new ResetShape( BUTTON_RADIUS, false ), { fill: 'black', rotation: Math.PI } ),
       baseColor: NuclearDecayCommonColors.resetButtonProperty,
       listener: () => {
         model.resetAtomDecay();

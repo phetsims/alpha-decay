@@ -8,20 +8,20 @@
 
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/view/EnergyDiagramAccordionBox.js';
-import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import AlphaDecayScreenView, { AlphaDecayScreenViewOptions } from '../../common/view/AlphaDecayScreenView.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 import ADSingleAtomPlayAreaNode from './ADSingleAtomPlayAreaNode.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ADSingleAtomScreenViewOptions = SelfOptions & NuclearDecayScreenViewOptions;
+type ADSingleAtomScreenViewOptions = SelfOptions & AlphaDecayScreenViewOptions;
 
-export default class ADSingleAtomScreenView extends NuclearDecayScreenView {
+export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
 
-  public constructor( model: ADSingleAtomModel, providedOptions: ADSingleAtomScreenViewOptions ) {
+  public constructor( model: ADSingleAtomModel, providedOptions: AlphaDecayScreenViewOptions ) {
 
-    const options = optionize<ADSingleAtomScreenViewOptions, SelfOptions, NuclearDecayScreenViewOptions>()( {
+    const options = optionize<ADSingleAtomScreenViewOptions, SelfOptions, AlphaDecayScreenViewOptions>()( {
     }, providedOptions );
 
     super( model, options );
