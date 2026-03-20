@@ -10,7 +10,7 @@ import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
-import AlphaParticleNode from '../../../../nuclear-decay-common/js/view/AlphaParticleNode.js';
+import DecayingAtomNode from '../../../../nuclear-decay-common/js/view/DecayingAtomNode.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetShape from '../../../../scenery-phet/js/ResetShape.js';
@@ -79,7 +79,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       centerY: PLAY_AREA_HEIGHT / 2
     } );
 
-    const alphaParticleIcon = new AlphaParticleNode( {
+    const decayingAtomNode = new DecayingAtomNode( model.decayingAtomProperty.value!, {
       visibleProperty: model.decayingAtomProperty.derived( isotope => isotope !== null ),
       centerX: PLAY_AREA_WIDTH / 2,
       centerY: PLAY_AREA_HEIGHT / 2
@@ -101,7 +101,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       decayTimeReadout,
       addAtomButton,
       resetButton,
-      alphaParticleIcon
+      decayingAtomNode
     ];
 
     super( options );
