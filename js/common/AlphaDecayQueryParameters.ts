@@ -17,6 +17,6 @@ const AlphaDecayQueryParameters = QueryStringMachine.getAll( {
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );
 logGlobal( 'phet.preloads.phetio.queryParameters' );
-logGlobal( 'phet.alphaDecay.AlphaDecayQueryParameters' );
+phet.log && phet.log( `AlphaDecayQueryParameters: ${JSON.stringify( AlphaDecayQueryParameters, null, 2 )}` );
 
 export default AlphaDecayQueryParameters;
