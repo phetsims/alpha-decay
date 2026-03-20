@@ -7,6 +7,7 @@
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import NuclearDecayAtom from '../../../../nuclear-decay-common/js/model/NuclearDecayAtom.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
@@ -36,7 +37,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       // Default options go here
     }, providedOptions );
 
-    // Decay Time label — top-left
+    // Decay Time label, top-left
     const elapsedTimeStringProperty = new DerivedStringProperty(
       [
         model.timeProperty,
@@ -79,7 +80,10 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       centerY: PLAY_AREA_HEIGHT / 2
     } );
 
-    const decayingAtomNode = new DecayingAtomNode( model.decayingAtomProperty.value!, {
+    const polonium = NuclearDecayCommonConstants.POLONIUM_211;
+    const lead = NuclearDecayCommonConstants.LEAD_207;
+    const decayingAtom = new NuclearDecayAtom( polonium, lead );
+    const decayingAtomNode = new DecayingAtomNode( decayingAtom, {
       visibleProperty: model.decayingAtomProperty.derived( isotope => isotope !== null ),
       centerX: PLAY_AREA_WIDTH / 2,
       centerY: PLAY_AREA_HEIGHT / 2

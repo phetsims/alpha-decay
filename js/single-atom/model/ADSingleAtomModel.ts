@@ -8,9 +8,8 @@
 
 import Property from '../../../../axon/js/Property.js';
 import TProperty from '../../../../axon/js/TProperty.js';
-import DecayingAtom from '../../../../nuclear-decay-common/js/model/DecayingAtom.js';
+import NuclearDecayAtom from '../../../../nuclear-decay-common/js/model/NuclearDecayAtom.js';
 import NuclearDecayModel from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
@@ -22,15 +21,18 @@ type ADSingleAtomModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 
 export default class ADSingleAtomModel extends NuclearDecayModel {
 
   // The atom that may be decaying, may have already decayed, or may be null if no atom has been added yet.
-  public readonly decayingAtomProperty: TProperty<DecayingAtom | null> = new Property( null );
+  public readonly decayingAtomProperty: TProperty<NuclearDecayAtom | null>;
 
   public constructor( providedOptions: ADSingleAtomModelOptions ) {
     super( providedOptions );
 
-    this.decayingAtomProperty.link( isotope => {
-      this.isPlayAreaEmptyProperty.value = isotope === null;
+    // No decaying isotope yet
+    this.decayingAtomProperty = new Property<NuclearDecayAtom | null>( null );
 
-      if ( isotope === null ) {
+    this.decayingAtomProperty.link( atom => {
+      this.isPlayAreaEmptyProperty.value = atom === null;
+
+      if ( atom === null ) {
         this.timeProperty.value = 0;
       }
     } );
@@ -40,9 +42,13 @@ export default class ADSingleAtomModel extends NuclearDecayModel {
    * Adds exactly one of the selected isotopes into the model, and starts the decay process.
    */
   public addAtom(): void {
-    affirm( !this.decayingAtomProperty.value, 'There is already an atom, and this model only handles one.' );
-    const selectedIsotope = this.selectedIsotopeProperty.value;
-    this.decayingAtomProperty.value = DecayingAtom.startDecay( selectedIsotope );
+    if ( !this.decayingAtomProperty.value ) {
+      const selectedIsotope = this.selectedIsotopeProperty.value;
+      if ( selectedIsotope !== 'custom' ) {
+        const atomConfig = NuclearDecayModel.getIsotopeAtomConfig( selectedIsotope );
+        this.decayingAtomProperty.value = new NuclearDecayAtom( atomConfig, atomConfig );
+      }
+    }
   }
 
   /**
