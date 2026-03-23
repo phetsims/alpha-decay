@@ -9,6 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
+import AddAtomsControlPanel from '../../../../nuclear-decay-common/js/view/AddAtomsControlPanel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
@@ -82,6 +83,12 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
     }, providedOptions );
 
     super( model, options );
+
+    const addAtomsPanel = new AddAtomsControlPanel( model, {
+      centerX: this.layoutBounds.centerX,
+      bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
+    } );
+    this.addChild( addAtomsPanel );
   }
 
   /**
