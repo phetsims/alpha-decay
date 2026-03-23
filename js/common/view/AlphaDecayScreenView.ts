@@ -5,10 +5,9 @@
  * @author Agustín Vallejo
  */
 
-import { ADSelectableIsotopes } from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
 import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import AlphaDecayModel from '../model/AlphaDecayModel.js';
+import AlphaDecayModel, { ADSelectableIsotopes } from '../model/AlphaDecayModel.js';
 
 type SelfOptions = EmptySelfOptions;
 

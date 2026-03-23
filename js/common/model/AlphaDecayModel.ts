@@ -6,10 +6,14 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import NuclearDecayModel, { ADSelectableIsotopes, ADSelectableIsotopesValues, NuclearDecayModelOptions } from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
+import NuclearDecayModel, { NuclearDecayModelOptions } from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
+
+// Selectable isotopes in alpha-decay
+export const ADSelectableIsotopesValues = [ 'custom', 'polonium-211' ] as const;
+export type ADSelectableIsotopes = ( typeof ADSelectableIsotopesValues )[ number ];
 
 export type AlphaDecayModelOptions = SelfOptions & NuclearDecayModelOptions;
 
