@@ -6,7 +6,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import NuclearDecayModel, { NuclearDecayModelOptions } from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
+import NuclearDecayModel, { NuclearDecayModelOptions, SelectableIsotopes } from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -17,11 +17,11 @@ export type ADSelectableIsotopes = ( typeof ADSelectableIsotopesValues )[ number
 
 export type AlphaDecayModelOptions = SelfOptions & NuclearDecayModelOptions;
 
-export default class AlphaDecayModel extends NuclearDecayModel<ADSelectableIsotopes> {
+export default class AlphaDecayModel extends NuclearDecayModel {
 
   public override readonly selectableIsotopes: ADSelectableIsotopes[];
 
-  public override readonly selectedIsotopeProperty: Property<ADSelectableIsotopes>;
+  public override readonly selectedIsotopeProperty: Property<SelectableIsotopes>;
 
   public constructor( providedOptions: AlphaDecayModelOptions ) {
     const options = optionize<SelfOptions, EmptySelfOptions, AlphaDecayModelOptions>()( {
@@ -32,6 +32,6 @@ export default class AlphaDecayModel extends NuclearDecayModel<ADSelectableIsoto
 
     this.selectableIsotopes = [ ...ADSelectableIsotopesValues ];
 
-    this.selectedIsotopeProperty = new Property<ADSelectableIsotopes>( 'polonium-211' );
+    this.selectedIsotopeProperty = new Property<SelectableIsotopes>( 'polonium-211' );
   }
 }

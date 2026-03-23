@@ -7,13 +7,13 @@
 
 import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import AlphaDecayModel, { ADSelectableIsotopes } from '../model/AlphaDecayModel.js';
+import AlphaDecayModel from '../model/AlphaDecayModel.js';
 
 type SelfOptions = EmptySelfOptions;
 
 export type AlphaDecayScreenViewOptions = SelfOptions & NuclearDecayScreenViewOptions;
 
-export default class AlphaDecayScreenView extends NuclearDecayScreenView<ADSelectableIsotopes> {
+export default class AlphaDecayScreenView extends NuclearDecayScreenView {
   public constructor( model: AlphaDecayModel, providedOptions: AlphaDecayScreenViewOptions ) {
     const options = optionize<AlphaDecayScreenViewOptions, SelfOptions, NuclearDecayScreenViewOptions>()( {
       // Default options go here
