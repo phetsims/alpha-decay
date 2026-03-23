@@ -6,6 +6,8 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
+import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
+import AddAtomsControlPanel from '../../../../nuclear-decay-common/js/view/AddAtomsControlPanel.js';
 import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ADDecayRatesModel from '../model/ADDecayRatesModel.js';
@@ -22,6 +24,12 @@ export default class ADDecayRatesScreenView extends NuclearDecayScreenView {
     }, providedOptions );
 
     super( model, options );
+
+    const addAtomsPanel = new AddAtomsControlPanel( model, {
+      centerX: this.layoutBounds.centerX,
+      bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
+    } );
+    this.addChild( addAtomsPanel );
   }
 
   /**
