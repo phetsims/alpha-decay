@@ -8,13 +8,11 @@
 
 import { NuclearDecayModelOptions } from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import AlphaDecayModel from '../../common/model/AlphaDecayModel.js';
+import AlphaDecayModel, { AlphaDecayModelOptions } from '../../common/model/AlphaDecayModel.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ADDecayRatesModelOptions = SelfOptions & NuclearDecayModelOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+type ADDecayRatesModelOptions = SelfOptions & AlphaDecayModelOptions;
 
 export default class ADDecayRatesModel extends AlphaDecayModel {
 

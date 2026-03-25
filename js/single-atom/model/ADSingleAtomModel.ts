@@ -11,13 +11,12 @@ import TProperty from '../../../../axon/js/TProperty.js';
 import NuclearDecayAtom from '../../../../nuclear-decay-common/js/model/NuclearDecayAtom.js';
 import NuclearDecayModel, { NuclearDecayModelOptions } from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import AlphaDecayModel from '../../common/model/AlphaDecayModel.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import AlphaDecayModel, { AlphaDecayModelOptions } from '../../common/model/AlphaDecayModel.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ADSingleAtomModelOptions = SelfOptions & NuclearDecayModelOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+type ADSingleAtomModelOptions = SelfOptions & AlphaDecayModelOptions;
 
 export default class ADSingleAtomModel extends AlphaDecayModel {
 
@@ -32,7 +31,10 @@ export default class ADSingleAtomModel extends AlphaDecayModel {
     super( options );
 
     // No decaying isotope yet
-    this.decayingAtomProperty = new Property<NuclearDecayAtom | null>( null );
+    this.decayingAtomProperty = new Property<NuclearDecayAtom | null>( null, {
+      tandem: options.tandem.createTandem( 'decayingAtomProperty' ),
+      phetioValueType: NullableIO( NuclearDecayAtom.NuclearDecayAtomIO )
+    } );
 
     this.decayingAtomProperty.link( atom => {
       this.isPlayAreaEmptyProperty.value = atom === null;

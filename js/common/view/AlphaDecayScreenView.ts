@@ -7,11 +7,12 @@
 
 import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import AlphaDecayModel from '../model/AlphaDecayModel.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type AlphaDecayScreenViewOptions = SelfOptions & NuclearDecayScreenViewOptions;
+export type AlphaDecayScreenViewOptions = SelfOptions & WithRequired<NuclearDecayScreenViewOptions, 'tandem'>;
 
 export default class AlphaDecayScreenView extends NuclearDecayScreenView {
   public constructor( model: AlphaDecayModel, providedOptions: AlphaDecayScreenViewOptions ) {
