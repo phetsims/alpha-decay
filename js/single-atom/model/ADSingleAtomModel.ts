@@ -26,6 +26,7 @@ export default class ADSingleAtomModel extends AlphaDecayModel {
 
   public constructor( providedOptions: ADSingleAtomModelOptions ) {
     const options = optionize<ADSingleAtomModelOptions, SelfOptions, NuclearDecayModelOptions>()( {
+      singleAtomModel: true
     }, providedOptions );
 
     super( options );
