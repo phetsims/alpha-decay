@@ -48,7 +48,8 @@ export default class ADSingleAtomModel extends AlphaDecayModel {
   /**
    * Adds exactly one of the selected isotopes into the model, and starts the decay process.
    */
-  public addAtom(): void {
+  public override addAtom(): void {
+    super.addAtom();
     if ( !this.decayingAtomProperty.value ) {
       const selectedIsotope = this.selectedIsotopeProperty.value;
       if ( selectedIsotope !== 'custom' ) {
