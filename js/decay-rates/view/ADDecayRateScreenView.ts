@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * DecayRatesScreenView is responsible for the visual representation of the Decay Rates Screen in the Alpha Decay simulation.
+ * DecayRateScreenView is responsible for the visual representation of the Decay Rates Screen in the Alpha Decay simulation.
  *
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
@@ -9,21 +9,21 @@
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import AddAtomsControlPanel from '../../../../nuclear-decay-common/js/view/AddAtomsControlPanel.js';
-import DecayRatesGraph from '../../../../nuclear-decay-common/js/view/DecayRatesGraph.js';
+import DecayRateGraph from '../../../../nuclear-decay-common/js/view/DecayRateGraph.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
-import ADDecayRatesModel from '../model/ADDecayRatesModel.js';
+import ADDecayRateModel from '../model/ADDecayRateModel.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ADDecayRatesScreenViewOptions = SelfOptions & ScreenViewOptions;
+type ADDecayRateScreenViewOptions = SelfOptions & ScreenViewOptions;
 
-export default class ADDecayRatesScreenView extends ScreenView {
+export default class ADDecayRateScreenView extends ScreenView {
 
-  public constructor( model: ADDecayRatesModel, providedOptions: ADDecayRatesScreenViewOptions ) {
+  public constructor( model: ADDecayRateModel, providedOptions: ADDecayRateScreenViewOptions ) {
 
-    const options = optionize<ADDecayRatesScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
+    const options = optionize<ADDecayRateScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
     }, providedOptions );
 
     const MARGIN_X = NuclearDecayCommonConstants.SCREEN_VIEW_X_MARGIN;
@@ -63,11 +63,11 @@ export default class ADDecayRatesScreenView extends ScreenView {
     } );
     this.addChild( addAtomsPanel );
 
-    const decayRatesGraphPanel = new DecayRatesGraph( model, {
+    const decayRateGraphPanel = new DecayRateGraph( model, {
       left: this.layoutBounds.minX + MARGIN_X,
       top: this.layoutBounds.minY + MARGIN_Y
     } );
-    this.addChild( decayRatesGraphPanel );
+    this.addChild( decayRateGraphPanel );
   }
 
   /**

@@ -1,4 +1,4 @@
 alpha-decay.title: 'Alpha Decay'
 screen.singleAtom: 'Single Atom'
 screen.multipleAtoms: 'Multiple Atoms'
-screen.decayRates: 'Decay Rates'
+screen.decayRate: 'Decay Rate'

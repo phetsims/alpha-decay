@@ -1,7 +1,7 @@
 // Copyright 2026, University of Colorado Boulder
 
 /**
- * DecayRatesModel handles the state and behavior of the Decay Rates screen in the Alpha Decay simulation.
+ * DecayRateModel handles the state and behavior of the Decay Rates screen in the Alpha Decay simulation.
  *
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
@@ -12,12 +12,12 @@ import AlphaDecayModel, { AlphaDecayModelOptions } from '../../common/model/Alph
 
 type SelfOptions = EmptySelfOptions;
 
-type ADDecayRatesModelOptions = SelfOptions & AlphaDecayModelOptions;
+type ADDecayRateModelOptions = SelfOptions & AlphaDecayModelOptions;
 
-export default class ADDecayRatesModel extends AlphaDecayModel {
+export default class ADDecayRateModel extends AlphaDecayModel {
 
-  public constructor( providedOptions: ADDecayRatesModelOptions ) {
-    const options = optionize<ADDecayRatesModelOptions, SelfOptions, NuclearDecayModelOptions>()( {
+  public constructor( providedOptions: ADDecayRateModelOptions ) {
+    const options = optionize<ADDecayRateModelOptions, SelfOptions, NuclearDecayModelOptions>()( {
     }, providedOptions );
 
     super( options );

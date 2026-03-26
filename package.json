@@ -18,7 +18,7 @@
     "screenNameKeys": [
       "ALPHA_DECAY/screen.singleAtom",
       "ALPHA_DECAY/screen.multipleAtoms",
-      "ALPHA_DECAY/screen.decayRates"
+      "ALPHA_DECAY/screen.decayRate"
     ],
     "simulation": true,
     "runnable": true,

@@ -8,7 +8,7 @@
   "screen.multipleAtoms": {
     "value": "Multiple Atoms"
   },
-  "screen.decayRates": {
-    "value": "Decay Rates"
+  "screen.decayRate": {
+    "value": "Decay Rate"
   }
 }

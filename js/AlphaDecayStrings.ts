@@ -18,10 +18,12 @@ type StringsType = {
   'screen': {
     'singleAtomStringProperty': LocalizedStringProperty;
     'multipleAtomsStringProperty': LocalizedStringProperty;
-    'decayRatesStringProperty': LocalizedStringProperty;
+    'decayRateStringProperty': LocalizedStringProperty;
   }
 };
 
 const AlphaDecayStrings = getStringModule( 'ALPHA_DECAY' ) as StringsType;
+
+alphaDecay.register( 'AlphaDecayStrings', AlphaDecayStrings );
 
 export default AlphaDecayStrings;
