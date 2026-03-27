@@ -94,9 +94,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       content: new Path( undoSolidShape, { scale: 0.038, fill: 'black' } ),
       baseColor: NuclearDecayCommonColors.resetButtonProperty,
       listener: () => {
-        model.activeAtoms.forEach( atom => {
-          atom.resetDecay();
-        } );
+        model.activeAtoms.clear();
+        model.addAtom();
       },
       right: PLAY_AREA_WIDTH - MARGIN,
       top: MARGIN
