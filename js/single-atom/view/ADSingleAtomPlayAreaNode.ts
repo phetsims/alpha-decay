@@ -65,7 +65,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
     // Add Atom button — center
     const addAtomButton = new RectangularPushButton( {
-      visibleProperty: model.decayingAtomProperty.derived( isotope => !isotope ), // only show when there is no isotope in the model
+      visibleProperty: model.activeAtoms.lengthProperty.derived( length => length === 0 ),
       content: new Text( NuclearDecayCommonFluent.addAtomStringProperty, {
         font: NuclearDecayCommonConstants.CONTROL_BOLD_FONT
       } ),
@@ -84,7 +84,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     const lead = NuclearDecayCommonConstants.LEAD_207;
     const decayingAtom = new NuclearDecayAtom( polonium, lead );
     const decayingAtomNode = new DecayingAtomNode( decayingAtom, {
-      visibleProperty: model.decayingAtomProperty.derived( isotope => isotope !== null ),
+      visibleProperty: model.activeAtoms.lengthProperty.derived( length => length !== 0 ),
       centerX: PLAY_AREA_WIDTH / 2,
       centerY: PLAY_AREA_HEIGHT / 2
     } );
@@ -94,7 +94,9 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       content: new Path( undoSolidShape, { scale: 0.038, fill: 'black' } ),
       baseColor: NuclearDecayCommonColors.resetButtonProperty,
       listener: () => {
-        model.resetAtomDecay();
+        model.activeAtoms.forEach( atom => {
+          atom.resetDecay();
+        } );
       },
       right: PLAY_AREA_WIDTH - MARGIN,
       top: MARGIN

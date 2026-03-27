@@ -34,5 +34,11 @@ export default class AlphaDecayModel extends NuclearDecayModel {
     this.selectableIsotopes = [ ...ADSelectableIsotopesValues ];
 
     this.selectedIsotopeProperty = new Property<SelectableIsotopes>( 'polonium-211' );
+
+    this.selectedIsotopeProperty.link( selectedIsotope => {
+      if ( selectedIsotope !== 'custom' ) {
+        this.selectedHalflifeProperty.value = NuclearDecayModel.getHalfLife( selectedIsotope );
+      }
+    } );
   }
 }
