@@ -37,7 +37,7 @@ export default class AlphaDecayModel extends NuclearDecayModel {
 
     this.selectedIsotopeProperty.link( selectedIsotope => {
       if ( selectedIsotope !== 'custom' ) {
-        this.selectedHalflifeProperty.value = this.getHalfLife( selectedIsotope );
+        this.selectedHalfLifeProperty.value = this.getHalfLife( selectedIsotope );
       }
     } );
   }
