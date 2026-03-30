@@ -57,7 +57,11 @@ export default class ADDecayRateScreenView extends ScreenView {
 
     this.addChild( timeControlNode );
 
-    const addAtomsPanel = new AddAtomsControlPanel( model, {
+    const addAtomsPanel = new AddAtomsControlPanel(
+      model.atomsToAddProperty,
+      model.selectedIsotopeProperty,
+      ( n: number ) => { model.addNAtoms( n ); },
+      {
       centerX: this.layoutBounds.centerX,
       bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
     } );
