@@ -6,12 +6,9 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
-import Vector2 from '../../../../dot/js/Vector2.js';
-import ScreenView from '../../../../joist/js/ScreenView.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/view/EnergyDiagramAccordionBox.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import AlphaDecayScreenView, { AlphaDecayScreenViewOptions } from '../../common/view/AlphaDecayScreenView.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 import ADSingleAtomPlayAreaNode from './ADSingleAtomPlayAreaNode.js';
@@ -24,18 +21,7 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
 
   public constructor( model: ADSingleAtomModel, providedOptions: AlphaDecayScreenViewOptions ) {
 
-    // Create the model-view transform needed for this particular screen.
-    const modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
-      Vector2.ZERO,
-      new Vector2(
-        ScreenView.DEFAULT_LAYOUT_BOUNDS.width * 0.375,
-        ScreenView.DEFAULT_LAYOUT_BOUNDS.height * 0.45
-      ),
-      1
-    );
-
     const options = optionize<ADSingleAtomScreenViewOptions, SelfOptions, AlphaDecayScreenViewOptions>()( {
-      modelViewTransform: modelViewTransform
     }, providedOptions );
 
     super( model, options );
