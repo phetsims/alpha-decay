@@ -11,7 +11,7 @@ import NuclearDecayAtom from '../../../../nuclear-decay-common/js/model/NuclearD
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
-import DecayingAtomNode from '../../../../nuclear-decay-common/js/view/DecayingAtomNode.js';
+import NuclearDecayAtomNode from '../../../../nuclear-decay-common/js/view/NuclearDecayAtomNode.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
@@ -83,7 +83,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     const polonium = NuclearDecayCommonConstants.POLONIUM_211;
     const lead = NuclearDecayCommonConstants.LEAD_207;
     const decayingAtom = new NuclearDecayAtom( polonium, lead );
-    const decayingAtomNode = new DecayingAtomNode( decayingAtom, {
+    const decayingAtomNode = new NuclearDecayAtomNode( decayingAtom, {
       visibleProperty: model.activeAtoms.lengthProperty.derived( length => length !== 0 ),
       centerX: PLAY_AREA_WIDTH / 2,
       centerY: PLAY_AREA_HEIGHT / 2
