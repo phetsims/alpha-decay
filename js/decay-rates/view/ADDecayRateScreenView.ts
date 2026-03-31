@@ -6,6 +6,8 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import AddAtomsControlPanel from '../../../../nuclear-decay-common/js/view/AddAtomsControlPanel.js';
@@ -40,8 +42,8 @@ export default class ADDecayRateScreenView extends ScreenView {
         this.reset();
       },
       right: this.layoutBounds.maxX - MARGIN_X,
-      bottom: this.layoutBounds.maxY - MARGIN_Y
-      // tandem: options.tandem.createTandem( 'resetAllButton' )
+      bottom: this.layoutBounds.maxY - MARGIN_Y,
+      tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
 
@@ -57,8 +59,15 @@ export default class ADDecayRateScreenView extends ScreenView {
 
     this.addChild( timeControlNode );
 
+    const defaultAtomsToAdd = 100;
+    const atomsToAddProperty = new NumberProperty(
+      Math.min( model.maxNumberOfAtoms, defaultAtomsToAdd ), {
+        range: new Range( 1, model.maxNumberOfAtoms ),
+        tandem: options.tandem.createTandem( 'atomsToAddProperty' )
+      } );
+
     const addAtomsPanel = new AddAtomsControlPanel(
-      model.atomsToAddProperty,
+      atomsToAddProperty,
       model.selectedIsotopeProperty,
       ( n: number ) => { model.addMultipleAtoms( n ); },
       {

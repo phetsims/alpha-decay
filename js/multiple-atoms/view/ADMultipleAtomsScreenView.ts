@@ -7,6 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
@@ -113,8 +114,15 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
       } );
     };
 
+
+    const defaultAtomsToAdd = 10;
+    const atomsToAddProperty = new NumberProperty(
+      Math.min( model.maxNumberOfAtoms, defaultAtomsToAdd ), {
+        range: new Range( 1, model.maxNumberOfAtoms ),
+        tandem: options.tandem.createTandem( 'atomsToAddProperty' )
+      } );
     const addAtomsPanel = new AddAtomsControlPanel(
-      model.atomsToAddProperty,
+      atomsToAddProperty,
       model.selectedIsotopeProperty,
       ( n: number ) => {
         model.addMultipleAtoms( n );
