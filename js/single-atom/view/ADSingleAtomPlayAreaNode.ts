@@ -6,6 +6,8 @@
  */
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import NuclearDecayAtom from '../../../../nuclear-decay-common/js/model/NuclearDecayAtom.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
@@ -14,6 +16,7 @@ import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/Nuclea
 import NuclearDecayAtomNode from '../../../../nuclear-decay-common/js/view/NuclearDecayAtomNode.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -26,13 +29,13 @@ type SelfOptions = EmptySelfOptions;
 
 export type ADSingleAtomPlayAreaNodeOptions = SelfOptions & NodeOptions;
 
-// Play area dimensions
-const PLAY_AREA_WIDTH = 750;
-const PLAY_AREA_HEIGHT = 200;
-const MARGIN = 10;
-
 export default class ADSingleAtomPlayAreaNode extends Node {
-  public constructor( model: ADSingleAtomModel, providedOptions?: ADSingleAtomPlayAreaNodeOptions ) {
+  public constructor(
+    model: ADSingleAtomModel,
+    bounds: Bounds2,
+    modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+    providedOptions?: ADSingleAtomPlayAreaNodeOptions
+  ) {
     const options = optionize<SelfOptions, EmptySelfOptions, ADSingleAtomPlayAreaNodeOptions>()( {
       // Default options go here
     }, providedOptions );
@@ -57,8 +60,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     } );
 
     const decayTimeReadout = new HBox( {
-      left: MARGIN,
-      top: MARGIN,
+      left: bounds.left,
+      top: bounds.top,
       spacing: 5,
       children: [ decayTimeText, elapsedTimeText ]
     } );
@@ -76,17 +79,15 @@ export default class ADSingleAtomPlayAreaNode extends Node {
         // Adds one of the selected isotopes into the model
         model.addAtom();
       },
-      centerX: PLAY_AREA_WIDTH / 2,
-      centerY: PLAY_AREA_HEIGHT / 2
+      center: bounds.center
     } );
 
     const polonium = NuclearDecayCommonConstants.POLONIUM_211;
     const lead = NuclearDecayCommonConstants.LEAD_207;
     const decayingAtom = new NuclearDecayAtom( polonium, lead );
-    const decayingAtomNode = new NuclearDecayAtomNode( decayingAtom, {
+    const decayingAtomNode = new NuclearDecayAtomNode( decayingAtom, modelViewTransformProperty, {
       visibleProperty: model.activeAtoms.lengthProperty.derived( length => length !== 0 ),
-      centerX: PLAY_AREA_WIDTH / 2,
-      centerY: PLAY_AREA_HEIGHT / 2
+      center: bounds.center
     } );
 
     // Reset button — top-right
@@ -97,8 +98,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
         model.activeAtoms.clear();
         model.addAtom();
       },
-      right: PLAY_AREA_WIDTH - MARGIN,
-      top: MARGIN
+      right: bounds.right,
+      top: bounds.top
     } );
 
     options.children = [

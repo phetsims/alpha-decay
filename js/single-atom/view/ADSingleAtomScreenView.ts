@@ -6,6 +6,7 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/view/EnergyDiagramAccordionBox.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
@@ -26,12 +27,6 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
 
     super( model, options );
 
-    const playAreaNode = new ADSingleAtomPlayAreaNode( model, {
-      top: this.halfLifePanel.bottom + 10,
-      left: NuclearDecayCommonConstants.SCREEN_VIEW_X_MARGIN
-    } );
-    this.addChild( playAreaNode );
-
     // Bottom-left panel
 
     const energyDiagramAccordionBox = new EnergyDiagramAccordionBox( {
@@ -41,6 +36,20 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
       fill: NuclearDecayCommonConstants.MAIN_PANEL_FILL
     } );
     this.addChild( energyDiagramAccordionBox );
+
+    const playAreaBounds = new Bounds2(
+      this.halfLifePanel.left,
+      this.halfLifePanel.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+      this.rightColumnControls.left - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+      energyDiagramAccordionBox.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
+    );
+    const playAreaNode = new ADSingleAtomPlayAreaNode(
+      model,
+      playAreaBounds,
+      this.modelViewTransformProperty
+    );
+    this.setPlayAreaBounds( playAreaBounds );
+    this.addChild( playAreaNode );
   }
 
   /**

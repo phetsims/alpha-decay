@@ -8,17 +8,17 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import NuclearDecayAtom from '../../../../nuclear-decay-common/js/model/NuclearDecayAtom.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import AddAtomsControlPanel from '../../../../nuclear-decay-common/js/view/AddAtomsControlPanel.js';
+import NuclearDecayAtomNode from '../../../../nuclear-decay-common/js/view/NuclearDecayAtomNode.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Color from '../../../../scenery/js/util/Color.js';
 import RadialGradient from '../../../../scenery/js/util/RadialGradient.js';
 import { rasterizeNode } from '../../../../scenery/js/util/rasterizeNode.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
@@ -82,7 +82,8 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
     );
 
     const options = optionize<ADMultipleAtomsScreenViewOptions, SelfOptions, AlphaDecayScreenViewOptions>()( {
-      isotopePanelMiddleContent: [ electronCloudCheckbox, stopwatchCheckbox ]
+      isotopePanelMiddleContent: [ electronCloudCheckbox, stopwatchCheckbox ],
+      numberOfAtomsInPlayAreaWidth: 40
     }, providedOptions );
 
     super( model, options );
@@ -92,24 +93,26 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
       model.selectedIsotopeProperty,
       ( n: number ) => { model.addNAtoms( n ); },
       {
-      centerX: this.layoutBounds.centerX,
-      bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
-    } );
+        centerX: this.layoutBounds.centerX,
+        bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
+      } );
     this.addChild( addAtomsPanel );
 
     // TODO: Refine this. See https://github.com/phetsims/alpha-decay/issues/3.  Get the info back to the view for
     //       where the atoms can be placed in the model.
-    const atomAreaMargin = NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN;
-    const atomAreaViewBounds = new Bounds2(
+    const playAreaBounds = new Bounds2(
       this.halfLifePanel.left,
-      this.halfLifePanel.bottom + atomAreaMargin,
-      this.rightColumnControls.left - atomAreaMargin,
-      addAtomsPanel.top - atomAreaMargin
+      this.halfLifePanel.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+      this.rightColumnControls.left - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+      addAtomsPanel.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
     );
-    this.addChild( new Rectangle( atomAreaViewBounds, {
-      fill: new Color( 0, 255, 0, 0.5 ),
-      stroke: new Color( 0, 255, 0, 0.5 )
-    } ) );
+    this.setPlayAreaBounds( playAreaBounds );
+
+    const polonium = NuclearDecayCommonConstants.POLONIUM_211;
+    const lead = NuclearDecayCommonConstants.LEAD_207;
+    const decayingAtom = new NuclearDecayAtom( polonium, lead );
+    const decayingAtomNode = new NuclearDecayAtomNode( decayingAtom, this.modelViewTransformProperty );
+    this.addChild( decayingAtomNode );
   }
 
   /**
