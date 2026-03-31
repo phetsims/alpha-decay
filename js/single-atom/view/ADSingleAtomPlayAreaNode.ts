@@ -75,9 +75,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       baseColor: NuclearDecayCommonColors.addButtonProperty,
 
       listener: () => {
-
-        // Adds one of the selected isotopes into the model
-        model.addAtom();
+        model.activateAtom();
       },
       center: bounds.center
     } );
@@ -86,17 +84,20 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     const lead = NuclearDecayCommonConstants.LEAD_207;
     const decayingAtom = new NuclearDecayAtom( polonium, lead );
     const decayingAtomNode = new NuclearDecayAtomNode( decayingAtom, modelViewTransformProperty, {
-      visibleProperty: model.activeAtoms.lengthProperty.derived( length => length !== 0 ),
       center: bounds.center
     } );
+    model.activeAtoms.lengthProperty.derived( length => {
+      decayingAtomNode.visible = length > 0;
+    } );
+
 
     // Reset button — top-right
     const resetButton = new RectangularPushButton( {
       content: new Path( undoSolidShape, { scale: 0.038, fill: 'black' } ),
       baseColor: NuclearDecayCommonColors.resetButtonProperty,
       listener: () => {
-        model.activeAtoms.clear();
-        model.addAtom();
+        model.resetAtoms();
+        model.activateAtom();
       },
       right: bounds.right,
       top: bounds.top

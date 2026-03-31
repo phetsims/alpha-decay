@@ -5,8 +5,7 @@
  * @author Agustín Vallejo
  */
 
-import Property from '../../../../axon/js/Property.js';
-import NuclearDecayModel, { NuclearDecayModelOptions, SelectableIsotopes } from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
+import NuclearDecayModel, { NuclearDecayModelOptions } from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
@@ -22,8 +21,6 @@ export default class AlphaDecayModel extends NuclearDecayModel {
 
   public override readonly selectableIsotopes: ADSelectableIsotopes[];
 
-  public override readonly selectedIsotopeProperty: Property<SelectableIsotopes>;
-
   public constructor( providedOptions: AlphaDecayModelOptions ) {
     const options = optionize<SelfOptions, EmptySelfOptions, AlphaDecayModelOptions>()( {
       tandem: Tandem.REQUIRED
@@ -32,13 +29,5 @@ export default class AlphaDecayModel extends NuclearDecayModel {
     super( options );
 
     this.selectableIsotopes = [ ...ADSelectableIsotopesValues ];
-
-    this.selectedIsotopeProperty = new Property<SelectableIsotopes>( 'polonium-211' );
-
-    this.selectedIsotopeProperty.link( selectedIsotope => {
-      if ( selectedIsotope !== 'custom' ) {
-        this.selectedHalfLifeProperty.value = this.getHalfLife( selectedIsotope );
-      }
-    } );
   }
 }

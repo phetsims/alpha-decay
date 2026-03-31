@@ -9,20 +9,17 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import AddAtomsControlPanel from '../../../../nuclear-decay-common/js/view/AddAtomsControlPanel.js';
-import NuclearDecayAtomNode from '../../../../nuclear-decay-common/js/view/NuclearDecayAtomNode.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import RadialGradient from '../../../../scenery/js/util/RadialGradient.js';
@@ -96,21 +93,14 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
 
     super( model, options );
 
-    const decayingAtomsLayerNode = new Node();
-    this.addChild( decayingAtomsLayerNode );
-
-    const populateAtoms = () => {
-      decayingAtomsLayerNode.removeAllChildren();
-
-      const modelBounds = this.modelViewTransformProperty.value.viewToModelBounds( playAreaBounds );
-
+    const activateAtomNodes = ( n: number ) => {
+      this.resetAtomNodes();
+      model.activateMultipleAtoms( n );
       model.activeAtoms.forEach( atom => {
-        atom.position = new Vector2(
-          dotRandom.nextDoubleInRange( new Range( modelBounds.minX, modelBounds.maxX ) ),
-          dotRandom.nextDoubleInRange( new Range( modelBounds.minY, modelBounds.maxY ) )
-        );
-        const atomNode = new NuclearDecayAtomNode( atom, this.modelViewTransformProperty );
-        decayingAtomsLayerNode.addChild( atomNode );
+        const atomNode = this.atomNodesMap.get( atom );
+        affirm( atomNode, 'Atom Node should exist for active atom' );
+        atomNode.setPosition( model.getRandomPositionWithinBounds() );
+        atomNode.visible = true;
       } );
     };
 
@@ -125,9 +115,8 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
       atomsToAddProperty,
       model.selectedIsotopeProperty,
       ( n: number ) => {
-        model.addMultipleAtoms( n );
-        populateAtoms();
-        },
+        activateAtomNodes( n );
+      },
       {
         centerX: this.layoutBounds.centerX,
         bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
@@ -149,27 +138,12 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
       content: new Path( undoSolidShape, { scale: 0.038, fill: 'black' } ),
       baseColor: NuclearDecayCommonColors.resetButtonProperty,
       listener: () => {
-        model.activeAtoms.clear();
-        model.addAtom();
+        model.clearAtomLists();
+        activateAtomNodes( atomsToAddProperty.value );
       },
       right: playAreaBounds.right,
       top: playAreaBounds.top
     } );
     this.addChild( resetButton );
-  }
-
-  /**
-   * Resets the view.
-   */
-  public override reset(): void {
-    // TO BE IMPLEMENTED
-  }
-
-  /**
-   * Steps the view.
-   * @param dt - time step, in seconds
-   */
-  public override step( dt: number ): void {
-    // TO BE IMPLEMENTED
   }
 }
