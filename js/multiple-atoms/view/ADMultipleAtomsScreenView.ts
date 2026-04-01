@@ -105,7 +105,7 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
     };
 
 
-    const defaultAtomsToAdd = 10;
+    const defaultAtomsToAdd = 100;
     const atomsToAddProperty = new NumberProperty(
       Math.min( model.maxNumberOfAtoms, defaultAtomsToAdd ), {
         range: new Range( 1, model.maxNumberOfAtoms ),
