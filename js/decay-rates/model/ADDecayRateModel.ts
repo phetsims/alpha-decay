@@ -18,6 +18,7 @@ export default class ADDecayRateModel extends AlphaDecayModel {
 
   public constructor( providedOptions: ADDecayRateModelOptions ) {
     const options = optionize<ADDecayRateModelOptions, SelfOptions, NuclearDecayModelOptions>()( {
+      maxNumberOfAtoms: 1000
     }, providedOptions );
 
     super( options );

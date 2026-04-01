@@ -5,17 +5,17 @@
  * @author Agustín Vallejo
  */
 
-import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
+import DecayHistogramScreenView, { DecayHistogramScreenViewOptions } from '../../../../nuclear-decay-common/js/view/DecayHistogramScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import AlphaDecayModel from '../model/AlphaDecayModel.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type AlphaDecayScreenViewOptions = SelfOptions & NuclearDecayScreenViewOptions;
+export type AlphaDecayScreenViewOptions = SelfOptions & DecayHistogramScreenViewOptions;
 
-export default class AlphaDecayScreenView extends NuclearDecayScreenView {
+export default class AlphaDecayScreenView extends DecayHistogramScreenView {
   public constructor( model: AlphaDecayModel, providedOptions: AlphaDecayScreenViewOptions ) {
-    const options = optionize<AlphaDecayScreenViewOptions, SelfOptions, NuclearDecayScreenViewOptions>()( {
+    const options = optionize<AlphaDecayScreenViewOptions, SelfOptions, DecayHistogramScreenViewOptions>()( {
       // Default options go here
     }, providedOptions );
 

@@ -7,59 +7,37 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
-import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
+import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import AddAtomsControlPanel from '../../../../nuclear-decay-common/js/view/AddAtomsControlPanel.js';
 import DecayRateGraph from '../../../../nuclear-decay-common/js/view/DecayRateGraph.js';
+import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import undoSolidShape from '../../../../sherpa/js/fontawesome-5/undoSolidShape.js';
+import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import ADDecayRateModel from '../model/ADDecayRateModel.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ADDecayRateScreenViewOptions = SelfOptions & ScreenViewOptions;
+type ADDecayRateScreenViewOptions = SelfOptions & NuclearDecayScreenViewOptions;
 
-export default class ADDecayRateScreenView extends ScreenView {
+export default class ADDecayRateScreenView extends NuclearDecayScreenView {
 
   public constructor( model: ADDecayRateModel, providedOptions: ADDecayRateScreenViewOptions ) {
 
-    const options = optionize<ADDecayRateScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
+    const options = optionize<ADDecayRateScreenViewOptions, SelfOptions, NuclearDecayScreenViewOptions>()( {
+      numberOfAtomsInPlayAreaWidth: 200
     }, providedOptions );
 
     const MARGIN_X = NuclearDecayCommonConstants.SCREEN_VIEW_X_MARGIN;
     const MARGIN_Y = NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN;
-    const PANEL_SPACING = NuclearDecayCommonConstants.PANEL_SPACING;
 
-    super( options );
+    super( model, options );
 
-    // Bottom-right controls
-
-    const resetAllButton = new ResetAllButton( {
-      listener: () => {
-        model.reset();
-        this.reset();
-      },
-      right: this.layoutBounds.maxX - MARGIN_X,
-      bottom: this.layoutBounds.maxY - MARGIN_Y,
-      tandem: options.tandem.createTandem( 'resetAllButton' )
-    } );
-    this.addChild( resetAllButton );
-
-    const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
-      playPauseStepButtonOptions: {
-        stepForwardButtonOptions: {
-          listener: () => model.manualStep()
-        }
-      },
-      bottom: resetAllButton.bottom,
-      right: resetAllButton.left - 5 * PANEL_SPACING
-    } );
-
-    this.addChild( timeControlNode );
-
-    const defaultAtomsToAdd = 100;
+    const defaultAtomsToAdd = 500;
     const atomsToAddProperty = new NumberProperty(
       Math.min( model.maxNumberOfAtoms, defaultAtomsToAdd ), {
         range: new Range( 1, model.maxNumberOfAtoms ),
@@ -69,11 +47,14 @@ export default class ADDecayRateScreenView extends ScreenView {
     const addAtomsPanel = new AddAtomsControlPanel(
       atomsToAddProperty,
       model.selectedIsotopeProperty,
-      ( n: number ) => { model.activateMultipleAtoms( n ); },
+      ( n: number ) => {
+        this.activateMultipleAtomNodes( n );
+      },
       {
-      centerX: this.layoutBounds.centerX,
-      bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
-    } );
+        stepSize: 100,
+        centerX: this.layoutBounds.centerX,
+        bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
+      } );
     this.addChild( addAtomsPanel );
 
     const decayRateGraphPanel = new DecayRateGraph( model, {
@@ -81,20 +62,26 @@ export default class ADDecayRateScreenView extends ScreenView {
       top: this.layoutBounds.minY + MARGIN_Y
     } );
     this.addChild( decayRateGraphPanel );
-  }
 
-  /**
-   * Resets the view.
-   */
-  public reset(): void {
-    // TO BE IMPLEMENTED
-  }
+    const playAreaBounds = new Bounds2(
+      decayRateGraphPanel.left,
+      decayRateGraphPanel.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+      this.layoutBounds.right - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+      addAtomsPanel.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
+    );
+    this.setPlayAreaBounds( playAreaBounds );
 
-  /**
-   * Steps the view.
-   * @param dt - time step, in seconds
-   */
-  public override step( dt: number ): void {
-    // TO BE IMPLEMENTED
+    // Reset button — top-right
+    const resetButton = new RectangularPushButton( {
+      content: new Path( undoSolidShape, { scale: 0.038, fill: 'black' } ),
+      baseColor: NuclearDecayCommonColors.resetButtonProperty,
+      listener: () => {
+        model.clearAtomLists();
+        this.activateMultipleAtomNodes( atomsToAddProperty.value );
+      },
+      right: playAreaBounds.right,
+      top: playAreaBounds.top
+    } );
+    this.addChild( resetButton );
   }
 }

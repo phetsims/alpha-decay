@@ -14,7 +14,6 @@ import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/Nuclea
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import AddAtomsControlPanel from '../../../../nuclear-decay-common/js/view/AddAtomsControlPanel.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
@@ -93,18 +92,6 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
 
     super( model, options );
 
-    const activateAtomNodes = ( n: number ) => {
-      this.resetAtomNodes();
-      model.activateMultipleAtoms( n );
-      model.activeAtoms.forEach( atom => {
-        const atomNode = this.atomNodesMap.get( atom );
-        affirm( atomNode, 'Atom Node should exist for active atom' );
-        atomNode.setPosition( model.getRandomPositionWithinBounds() );
-        atomNode.visible = true;
-      } );
-    };
-
-
     const defaultAtomsToAdd = 100;
     const atomsToAddProperty = new NumberProperty(
       Math.min( model.maxNumberOfAtoms, defaultAtomsToAdd ), {
@@ -115,7 +102,7 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
       atomsToAddProperty,
       model.selectedIsotopeProperty,
       ( n: number ) => {
-        activateAtomNodes( n );
+        this.activateMultipleAtomNodes( n );
       },
       {
         centerX: this.layoutBounds.centerX,
@@ -137,7 +124,7 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
       baseColor: NuclearDecayCommonColors.resetButtonProperty,
       listener: () => {
         model.clearAtomLists();
-        activateAtomNodes( atomsToAddProperty.value );
+        this.activateMultipleAtomNodes( atomsToAddProperty.value );
       },
       right: playAreaBounds.right,
       top: playAreaBounds.top
