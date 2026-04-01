@@ -125,4 +125,9 @@ export default class ADDecayRateScreenView extends NuclearDecayScreenView {
       this.decayRateModel.decayedDataPoints
     );
   }
+
+  public override reset(): void {
+    super.reset();
+    this.decayRateGraphPanel.reset();
+  }
 }

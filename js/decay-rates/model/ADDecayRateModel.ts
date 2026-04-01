@@ -65,5 +65,7 @@ export default class ADDecayRateModel extends AlphaDecayModel {
     this.percentageOfDecayedProperty.reset();
     this.undecayedDataPoints.length = 0;
     this.decayedDataPoints.length = 0;
+    this.undecayedDataPoints.push( new Vector2( 0, 1 ) );
+    this.decayedDataPoints.push( new Vector2( 0, 0 ) );
   }
 }
