@@ -38,8 +38,8 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
     this.addChild( energyDiagramAccordionBox );
 
     const playAreaBounds = new Bounds2(
-      this.halfLifePanel.left,
-      this.halfLifePanel.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+      this.decayTimeHistogramPanel.left,
+      this.decayTimeHistogramPanel.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
       this.rightColumnControls.left - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
       energyDiagramAccordionBox.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
     );

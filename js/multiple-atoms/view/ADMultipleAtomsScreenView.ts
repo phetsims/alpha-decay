@@ -123,11 +123,9 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
       } );
     this.addChild( addAtomsPanel );
 
-    // TODO: Refine this. See https://github.com/phetsims/alpha-decay/issues/3.  Get the info back to the view for
-    //       where the atoms can be placed in the model.
     const playAreaBounds = new Bounds2(
-      this.halfLifePanel.left,
-      this.halfLifePanel.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+      this.decayTimeHistogramPanel.left,
+      this.decayTimeHistogramPanel.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
       this.rightColumnControls.left - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
       addAtomsPanel.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
     );
