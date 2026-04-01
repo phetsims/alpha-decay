@@ -15,6 +15,8 @@ import AddAtomsControlPanel from '../../../../nuclear-decay-common/js/view/AddAt
 import DecayRateGraph from '../../../../nuclear-decay-common/js/view/DecayRateGraph.js';
 import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
+import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import undoSolidShape from '../../../../sherpa/js/fontawesome-5/undoSolidShape.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
@@ -34,8 +36,34 @@ export default class ADDecayRateScreenView extends NuclearDecayScreenView {
 
     const MARGIN_X = NuclearDecayCommonConstants.SCREEN_VIEW_X_MARGIN;
     const MARGIN_Y = NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN;
+    const PANEL_SPACING = NuclearDecayCommonConstants.PANEL_SPACING;
 
     super( model, options );
+
+    // Bottom-right controls
+
+    const resetAllButton = new ResetAllButton( {
+      listener: () => {
+        model.reset();
+        this.reset();
+      },
+      right: this.layoutBounds.maxX - MARGIN_X,
+      bottom: this.layoutBounds.maxY - MARGIN_Y,
+      tandem: options.tandem.createTandem( 'resetAllButton' )
+    } );
+    this.addChild( resetAllButton );
+
+    const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
+      playPauseStepButtonOptions: {
+        stepForwardButtonOptions: {
+          listener: () => model.manualStep()
+        }
+      },
+      bottom: resetAllButton.bottom,
+      right: resetAllButton.left - 5 * PANEL_SPACING
+    } );
+
+    this.addChild( timeControlNode );
 
     const defaultAtomsToAdd = 500;
     const atomsToAddProperty = new NumberProperty(
