@@ -12,7 +12,7 @@ import Range from '../../../../dot/js/Range.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import AddAtomsControlPanel from '../../../../nuclear-decay-common/js/view/AddAtomsControlPanel.js';
-import DecayRateGraph from '../../../../nuclear-decay-common/js/view/DecayRateGraph.js';
+import DecayRateGraphPanel from '../../../../nuclear-decay-common/js/view/DecayRateGraphPanel.js';
 import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -27,6 +27,9 @@ type SelfOptions = EmptySelfOptions;
 type ADDecayRateScreenViewOptions = SelfOptions & NuclearDecayScreenViewOptions;
 
 export default class ADDecayRateScreenView extends NuclearDecayScreenView {
+
+  private readonly decayRateModel: ADDecayRateModel;
+  private readonly decayRateGraphPanel: DecayRateGraphPanel;
 
   public constructor( model: ADDecayRateModel, providedOptions: ADDecayRateScreenViewOptions ) {
 
@@ -85,15 +88,17 @@ export default class ADDecayRateScreenView extends NuclearDecayScreenView {
       } );
     this.addChild( addAtomsPanel );
 
-    const decayRateGraphPanel = new DecayRateGraph( model, {
+    this.decayRateModel = model;
+
+    this.decayRateGraphPanel = new DecayRateGraphPanel( model, {
       left: this.layoutBounds.minX + MARGIN_X,
       top: this.layoutBounds.minY + MARGIN_Y
     } );
-    this.addChild( decayRateGraphPanel );
+    this.addChild( this.decayRateGraphPanel );
 
     const playAreaBounds = new Bounds2(
-      decayRateGraphPanel.left,
-      decayRateGraphPanel.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+      this.decayRateGraphPanel.left,
+      this.decayRateGraphPanel.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
       this.layoutBounds.right - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
       addAtomsPanel.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
     );
@@ -111,5 +116,13 @@ export default class ADDecayRateScreenView extends NuclearDecayScreenView {
       top: playAreaBounds.top
     } );
     this.addChild( resetButton );
+  }
+
+  public override step( dt: number ): void {
+    super.step( dt );
+    this.decayRateGraphPanel.update(
+      this.decayRateModel.undecayedDataPoints,
+      this.decayRateModel.decayedDataPoints
+    );
   }
 }
