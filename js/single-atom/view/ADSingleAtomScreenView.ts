@@ -51,19 +51,4 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
     this.setPlayAreaBounds( playAreaBounds );
     this.addChild( playAreaNode );
   }
-
-  /**
-   * Resets the view.
-   */
-  public override reset(): void {
-    // TO BE IMPLEMENTED
-  }
-
-  /**
-   * Steps the view.
-   * @param dt - time step, in seconds
-   */
-  public override step( dt: number ): void {
-    // TO BE IMPLEMENTED
-  }
 }

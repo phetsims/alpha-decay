@@ -96,6 +96,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       content: new Path( undoSolidShape, { scale: 0.038, fill: 'black' } ),
       baseColor: NuclearDecayCommonColors.resetButtonProperty,
       listener: () => {
+        model.timeProperty.reset();
         model.resetAtoms();
         model.activateAtom();
       },
