@@ -68,7 +68,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
     // Add Atom button — center
     const addAtomButton = new RectangularPushButton( {
-      visibleProperty: model.activeAtoms.lengthProperty.derived( length => length === 0 ),
+      visibleProperty: model.isPlayAreaEmptyProperty,
       content: new Text( NuclearDecayCommonFluent.addAtomStringProperty, {
         font: NuclearDecayCommonConstants.CONTROL_BOLD_FONT
       } ),
@@ -84,12 +84,9 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     const lead = NuclearDecayCommonConstants.LEAD_207;
     const decayingAtom = new NuclearDecayAtom( polonium, lead );
     const decayingAtomNode = new NuclearDecayAtomNode( decayingAtom, modelViewTransformProperty, {
-      center: bounds.center
+      center: bounds.center,
+      visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
     } );
-    model.activeAtoms.lengthProperty.derived( length => {
-      decayingAtomNode.visible = length > 0;
-    } );
-
 
     // Reset button — top-right
     const resetButton = new RectangularPushButton( {
