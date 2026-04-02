@@ -40,14 +40,19 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       // Default options go here
     }, providedOptions );
 
+
     // Decay Time label, top-left
     const elapsedTimeStringProperty = new DerivedStringProperty(
       [
         model.timeProperty,
         NuclearDecayCommonFluent.timeSecondsStringProperty
       ], ( time: number, pattern: string ) => {
+        const atom = model.atomPool[ 0 ];
+
+        // Show the current time unless the single atom has decayed, in which case we show the decay time.
+        const decayTime = atom.decayTime ? atom.decayTime : time;
         return StringUtils.fillIn( pattern, {
-          time: time > 0 ? toFixed( time, 1 ) : '--'
+          time: time > 0 ? toFixed( decayTime, 1 ) : '--'
         } );
       }
     );
