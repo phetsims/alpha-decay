@@ -14,6 +14,7 @@ import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/Nuclea
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import AddAtomsControlPanel from '../../../../nuclear-decay-common/js/view/AddAtomsControlPanel.js';
+import IsotopeLegendPanel from '../../../../nuclear-decay-common/js/view/IsotopeLegendPanel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
@@ -130,5 +131,13 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
       top: playAreaBounds.top
     } );
     this.addChild( resetButton );
+
+    const isotopesLegendPanel = new IsotopeLegendPanel(
+      [ NuclearDecayCommonConstants.POLONIUM_211, NuclearDecayCommonConstants.LEAD_207 ],
+      {
+        minWidth: this.rightColumnControls.width
+      }
+    );
+    this.rightColumnControls.addChild( isotopesLegendPanel );
   }
 }

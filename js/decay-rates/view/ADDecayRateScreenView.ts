@@ -13,6 +13,7 @@ import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/Nuclea
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import AddAtomsControlPanel from '../../../../nuclear-decay-common/js/view/AddAtomsControlPanel.js';
 import DecayRateGraphPanel from '../../../../nuclear-decay-common/js/view/DecayRateGraphPanel.js';
+import IsotopeLegendPanel from '../../../../nuclear-decay-common/js/view/IsotopeLegendPanel.js';
 import NuclearDecayScreenView, { NuclearDecayScreenViewOptions } from '../../../../nuclear-decay-common/js/view/NuclearDecayScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -87,6 +88,16 @@ export default class ADDecayRateScreenView extends NuclearDecayScreenView {
         bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
       } );
     this.addChild( addAtomsPanel );
+
+    const isotopesLegendPanel = new IsotopeLegendPanel(
+      [ NuclearDecayCommonConstants.POLONIUM_211, NuclearDecayCommonConstants.LEAD_207 ],
+      {
+        includeAtomRepresentation: true,
+        left: this.layoutBounds.minX + MARGIN_X,
+        bottom: this.layoutBounds.maxY - MARGIN_Y
+      }
+    );
+    this.addChild( isotopesLegendPanel );
 
     this.decayRateModel = model;
 
