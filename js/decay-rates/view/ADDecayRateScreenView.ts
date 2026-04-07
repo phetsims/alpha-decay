@@ -64,7 +64,8 @@ export default class ADDecayRateScreenView extends NuclearDecayScreenView {
         }
       },
       bottom: resetAllButton.bottom,
-      right: resetAllButton.left - 5 * PANEL_SPACING
+      right: resetAllButton.left - 5 * PANEL_SPACING,
+      tandem: options.tandem.createTandem( 'timeControlNode' )
     } );
 
     this.addChild( timeControlNode );
@@ -85,7 +86,8 @@ export default class ADDecayRateScreenView extends NuclearDecayScreenView {
       {
         stepSize: 100,
         centerX: this.layoutBounds.centerX,
-        bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
+        bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+        tandem: options.tandem.createTandem( 'addAtomsPanel' )
       } );
     this.addChild( addAtomsPanel );
 
@@ -103,7 +105,8 @@ export default class ADDecayRateScreenView extends NuclearDecayScreenView {
 
     this.decayRateGraphPanel = new DecayRateGraphPanel( model, {
       left: this.layoutBounds.minX + MARGIN_X,
-      top: this.layoutBounds.minY + MARGIN_Y
+      top: this.layoutBounds.minY + MARGIN_Y,
+      tandem: options.tandem.createTandem( 'decayRateGraphPanel' )
     } );
     this.addChild( this.decayRateGraphPanel );
 
@@ -124,7 +127,8 @@ export default class ADDecayRateScreenView extends NuclearDecayScreenView {
         this.activateMultipleAtomNodes( atomsToAddProperty.value );
       },
       right: playAreaBounds.right,
-      top: playAreaBounds.top
+      top: playAreaBounds.top,
+      tandem: options.tandem.createTandem( 'resetButton' )
     } );
     this.addChild( resetButton );
   }

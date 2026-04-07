@@ -40,8 +40,14 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
   public constructor( model: ADMultipleAtomsModel, providedOptions: ADMultipleAtomsScreenViewOptions ) {
 
     // TODO: Move them to wherever we create VisibleProperties https://github.com/phetsims/alpha-decay/issues/3
-    const electronCloudVisibleProperty = new BooleanProperty( false );
-    const stopwatchVisibleProperty = new BooleanProperty( false );
+    const electronCloudVisibleProperty = new BooleanProperty( false, {
+      tandem: providedOptions.tandem.createTandem( 'electronCloudVisibleProperty' ),
+      phetioFeatured: true
+    } );
+    const stopwatchVisibleProperty = new BooleanProperty( false, {
+      tandem: providedOptions.tandem.createTandem( 'stopwatchVisibleProperty' ),
+      phetioFeatured: true
+    } );
 
     const stopwatchIcon = rasterizeNode( new StopwatchNode( new Stopwatch( {
       isVisible: true,
@@ -74,7 +80,9 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
               .addColorStop( 0.9, 'rgba( 0, 0, 255, 0 )' )
           } )
         ]
-      } )
+      } ), {
+      tandem: providedOptions.tandem.createTandem( 'electronCloudCheckbox' )
+      }
     );
     const stopwatchCheckbox = new Checkbox( stopwatchVisibleProperty,
       new HBox( {
@@ -83,7 +91,9 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
           new Text( NuclearDecayCommonFluent.stopwatchStringProperty, { font: NuclearDecayCommonConstants.CONTROL_FONT } ),
           stopwatchIcon
         ]
-      } )
+      } ), {
+        tandem: providedOptions.tandem.createTandem( 'stopwatchCheckbox' )
+      }
     );
 
     const options = optionize<ADMultipleAtomsScreenViewOptions, SelfOptions, AlphaDecayScreenViewOptions>()( {
@@ -107,7 +117,8 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
       },
       {
         centerX: this.layoutBounds.centerX,
-        bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
+        bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+        tandem: options.tandem.createTandem( 'addAtomsPanel' )
       } );
     this.addChild( addAtomsPanel );
 
@@ -128,7 +139,8 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
         this.activateMultipleAtomNodes( atomsToAddProperty.value );
       },
       right: playAreaBounds.right,
-      top: playAreaBounds.top
+      top: playAreaBounds.top,
+      tandem: options.tandem.createTandem( 'resetButton' )
     } );
     this.addChild( resetButton );
 

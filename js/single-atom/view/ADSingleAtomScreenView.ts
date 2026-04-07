@@ -49,7 +49,8 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
         minWidth: NuclearDecayCommonConstants.LONG_PANEL_WIDTH,
         left: this.layoutBounds.minX + NuclearDecayCommonConstants.SCREEN_VIEW_X_MARGIN,
         bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
-        fill: NuclearDecayCommonConstants.MAIN_PANEL_FILL
+        fill: NuclearDecayCommonConstants.MAIN_PANEL_FILL,
+        tandem: options.tandem.createTandem( 'energyDiagramAccordionBox' )
       } );
     this.addChild( energyDiagramAccordionBox );
 
@@ -62,7 +63,10 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
     const playAreaNode = new ADSingleAtomPlayAreaNode(
       model,
       playAreaBounds,
-      this.modelViewTransformProperty
+      this.modelViewTransformProperty,
+      {
+        tandem: options.tandem.createTandem( 'playAreaNode' )
+      }
     );
     this.setPlayAreaBounds( playAreaBounds );
     this.addChild( playAreaNode );

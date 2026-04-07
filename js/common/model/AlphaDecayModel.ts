@@ -7,7 +7,6 @@
 
 import NuclearDecayModel, { NuclearDecayModelOptions } from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -22,8 +21,7 @@ export default class AlphaDecayModel extends NuclearDecayModel {
   public override readonly selectableIsotopes: ADSelectableIsotopes[];
 
   public constructor( providedOptions: AlphaDecayModelOptions ) {
-    const options = optionize<SelfOptions, EmptySelfOptions, AlphaDecayModelOptions>()( {
-      tandem: Tandem.REQUIRED
+    const options = optionize<AlphaDecayModelOptions, EmptySelfOptions, NuclearDecayModelOptions>()( {
     }, providedOptions );
 
     super( options );

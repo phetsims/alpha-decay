@@ -15,6 +15,7 @@ import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/Nuc
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import NuclearDecayAtomNode from '../../../../nuclear-decay-common/js/view/NuclearDecayAtomNode.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
@@ -27,7 +28,7 @@ import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type ADSingleAtomPlayAreaNodeOptions = SelfOptions & NodeOptions;
+export type ADSingleAtomPlayAreaNodeOptions = SelfOptions & WithRequired<NodeOptions, 'tandem'>;
 
 export default class ADSingleAtomPlayAreaNode extends Node {
   public constructor(
@@ -36,7 +37,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
     providedOptions?: ADSingleAtomPlayAreaNodeOptions
   ) {
-    const options = optionize<SelfOptions, EmptySelfOptions, ADSingleAtomPlayAreaNodeOptions>()( {
+    const options = optionize<ADSingleAtomPlayAreaNodeOptions, EmptySelfOptions, ADSingleAtomPlayAreaNodeOptions>()( {
       // Default options go here
     }, providedOptions );
 
@@ -82,7 +83,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       listener: () => {
         model.activateAtom();
       },
-      center: bounds.center
+      center: bounds.center,
+      tandem: options.tandem.createTandem( 'addAtomButton' )
     } );
 
     const polonium = NuclearDecayCommonConstants.POLONIUM_211;
@@ -103,7 +105,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
         model.activateAtom();
       },
       right: bounds.right,
-      top: bounds.top
+      top: bounds.top,
+      tandem: options.tandem.createTandem( 'resetButton' )
     } );
 
     options.children = [
