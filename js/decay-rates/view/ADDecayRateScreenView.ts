@@ -81,6 +81,7 @@ export default class ADDecayRateScreenView extends NuclearDecayScreenView {
       atomsToAddProperty,
       model.selectedIsotopeProperty,
       ( n: number ) => {
+        this.decayRateModel.reset();
         this.activateMultipleAtomNodes( n );
       },
       {
