@@ -6,6 +6,10 @@
  * @author John
  */
 
+// Selectable isotopes in alpha-decay
+const ADSelectableIsotopesValues = [ 'custom', 'polonium-211' ] as const;
+export type ADSelectableIsotopes = ( typeof ADSelectableIsotopesValues )[ number ];
+
 export default class AlphaDecayConstants {
 
   private constructor() {
@@ -14,4 +18,7 @@ export default class AlphaDecayConstants {
 
   public static readonly SCREEN_VIEW_X_MARGIN = 15;
   public static readonly SCREEN_VIEW_Y_MARGIN = 15;
+
+  public static readonly SELECTABLE_ISOTOPES = [ ...ADSelectableIsotopesValues ];
+
 }

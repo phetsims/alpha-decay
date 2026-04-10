@@ -9,15 +9,15 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { NuclearDecayModelOptions } from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
+import DecayRateModel, { DecayRateModelOptions } from '../../../../nuclear-decay-common/js/model/DecayRateModel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import AlphaDecayModel, { AlphaDecayModelOptions } from '../../common/model/AlphaDecayModel.js';
+import AlphaDecayConstants from '../../common/AlphaDecayConstants.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ADDecayRateModelOptions = SelfOptions & AlphaDecayModelOptions;
+type ADDecayRateModelOptions = SelfOptions & DecayRateModelOptions;
 
-export default class ADDecayRateModel extends AlphaDecayModel {
+export default class ADDecayRateModel extends DecayRateModel {
 
   // Current percentage of undecayed atoms (0-1).
   public readonly percentageOfUndecayedProperty: NumberProperty;
@@ -30,11 +30,11 @@ export default class ADDecayRateModel extends AlphaDecayModel {
   public readonly decayedDataPoints: Vector2[] = [];
 
   public constructor( providedOptions: ADDecayRateModelOptions ) {
-    const options = optionize<ADDecayRateModelOptions, SelfOptions, NuclearDecayModelOptions>()( {
+    const options = optionize<ADDecayRateModelOptions, SelfOptions, DecayRateModelOptions>()( {
       maxNumberOfAtoms: 1000
     }, providedOptions );
 
-    super( options );
+    super( AlphaDecayConstants.SELECTABLE_ISOTOPES, options );
 
     this.percentageOfUndecayedProperty = new NumberProperty( 1 );
     this.percentageOfDecayedProperty = new NumberProperty( 0 );
