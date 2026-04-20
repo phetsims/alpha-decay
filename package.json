@@ -29,7 +29,8 @@
     ],
     "supportsOutputJS": true,
     "simFeatures": {
-      "supportsDynamicLocale": true
+      "supportsDynamicLocale": true,
+      "supportsInteractiveDescription": true
     }
   }
 }
