@@ -41,14 +41,16 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
     this.rightColumnControls.addChild( particleCountsAccordionBox );
     this.rightColumnControls.addChild( equationAccordionBox );
 
-    // Bottom-left panel
-
+    // Bottom-left panel: sized to fit between the screen's left edge and the time controls on the bottom-right.
+    const energyDiagramBounds = new Bounds2(
+      this.layoutBounds.minX + NuclearDecayCommonConstants.SCREEN_VIEW_X_MARGIN,
+      0,
+      this.timeControlNode.left - 100,
+      this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
+    );
     const energyDiagramAccordionBox = new EnergyDiagramAccordionBox(
-      model, this.modelViewTransformProperty,
+      model, energyDiagramBounds, this.modelViewTransformProperty,
       {
-        minWidth: NuclearDecayCommonConstants.LONG_PANEL_WIDTH,
-        left: this.layoutBounds.minX + NuclearDecayCommonConstants.SCREEN_VIEW_X_MARGIN,
-        bottom: this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
         fill: NuclearDecayCommonConstants.MAIN_PANEL_FILL,
         tandem: options.tandem.createTandem( 'energyDiagramAccordionBox' )
       } );
