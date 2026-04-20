@@ -6,6 +6,7 @@
  */
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
@@ -19,6 +20,7 @@ import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -95,6 +97,22 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
     } );
 
+    const potentialAreaCircle = new Circle( 50, {
+      stroke: 'black',
+      lineWidth: 1,
+      lineDash: [ 5, 5 ],
+      center: bounds.center,
+      visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
+    } );
+
+    Multilink.multilink(
+      [
+        model.potentialEnergyProperty, model.initialEnergyProperty
+      ], ( potentialEnergy, initialEnergy ) => {
+        potentialAreaCircle.radius = 100 * ( potentialEnergy - initialEnergy + 1 ) / 2;
+      }
+    );
+
     // Reset button — top-right
     const resetButton = new RectangularPushButton( {
       content: new Path( undoSolidShape, { scale: 0.038, fill: 'black' } ),
@@ -113,7 +131,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       decayTimeReadout,
       addAtomButton,
       resetButton,
-      decayingAtomNode
+      decayingAtomNode,
+      potentialAreaCircle
     ];
 
     super( options );
