@@ -19,6 +19,33 @@ type StringsType = {
     'singleAtomStringProperty': LocalizedStringProperty;
     'multipleAtomsStringProperty': LocalizedStringProperty;
     'decayRateStringProperty': LocalizedStringProperty;
+  };
+  'a11y': {
+    'screenSummary': {
+      'playAreaStringProperty': LocalizedStringProperty;
+      'controlAreaStringProperty': LocalizedStringProperty;
+      'currentDetails': {
+        'noAtomStringProperty': LocalizedStringProperty;
+        'withAtomStringProperty': LocalizedStringProperty;
+      };
+      'interactionHint': {
+        'addAtomStringProperty': LocalizedStringProperty;
+        'afterDecayStringProperty': LocalizedStringProperty;
+      }
+    };
+    'radioactiveAtomHeadingStringProperty': LocalizedStringProperty;
+    'addAtomButton': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'atomInPlayArea': {
+      'readyToDecayStringProperty': LocalizedStringProperty;
+      'readyToDecayLastDecayStringProperty': LocalizedStringProperty;
+      'nowPresentStringProperty': LocalizedStringProperty;
+    };
+    'resetAtomButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+    };
+    'decayDataHeadingStringProperty': LocalizedStringProperty;
   }
 };
 

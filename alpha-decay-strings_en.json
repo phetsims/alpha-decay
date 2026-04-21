@@ -10,5 +10,58 @@
   },
   "screen.decayRate": {
     "value": "Decay Rate"
+  },
+  "a11y": {
+    "screenSummary": {
+      "playArea": {
+        "value": "In the play area, a radioactive atom with jiggling nucleons sits in the center. You can watch it decay, observe how the nucleus changes, and reset the atom to repeat your experiment. A timeline shows the moment of each decay relative to half-life. An energy diagram shows the potential energy barrier and alpha particle energy. With a custom isotope, you can experiment with the barrier height, initial energy, and half-life."
+      },
+      "controlArea": {
+        "value": "In the control area, you can replay the last decay and control how fast the action happens. Reset sim to start over."
+      },
+      "currentDetails": {
+        "noAtom": {
+          "value": "Currently no atom in the play area."
+        },
+        "withAtom": {
+          "value": "{{isotope}} atom in play area."
+        }
+      },
+      "interactionHint": {
+        "addAtom": {
+          "value": "Add atom to begin observations."
+        },
+        "afterDecay": {
+          "value": "Reset atom to continue observations."
+        }
+      }
+    },
+    "radioactiveAtomHeading": {
+      "value": "Radioactive Atom"
+    },
+    "addAtomButton": {
+      "accessibleHelpText": {
+        "value": "Add atom to begin observations."
+      }
+    },
+    "atomInPlayArea": {
+      "readyToDecay": {
+        "value": "{{isotope}} ready to decay."
+      },
+      "readyToDecayLastDecay": {
+        "value": "{{isotope}} ready to decay. Last decay, {{decayTime}} seconds."
+      },
+      "nowPresent": {
+        "value": "{{isotope}} now present. Last decay, {{decayTime}} seconds."
+      }
+    },
+    "resetAtomButton": {
+      "accessibleName": {
+        "value": "Reset Atom"
+      }
+    },
+    "decayDataHeading": {
+      "value": "Decay Data"
+    }
   }
 }

@@ -12,9 +12,12 @@ import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/view/
 import EquationAccordionBox from '../../../../nuclear-decay-common/js/view/EquationAccordionBox.js';
 import ParticleCountsAccordionBox from '../../../../nuclear-decay-common/js/view/ParticleCountsAccordionBox.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import AlphaDecayFluent from '../../AlphaDecayFluent.js';
 import AlphaDecayScreenView, { AlphaDecayScreenViewOptions } from '../../common/view/AlphaDecayScreenView.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 import ADSingleAtomPlayAreaNode from './ADSingleAtomPlayAreaNode.js';
+import ADSingleAtomScreenSummaryContent from './ADSingleAtomScreenSummaryContent.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -24,7 +27,9 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
 
   public constructor( model: ADSingleAtomModel, providedOptions: AlphaDecayScreenViewOptions ) {
 
-    const options = optionize<ADSingleAtomScreenViewOptions, SelfOptions, AlphaDecayScreenViewOptions>()( {}, providedOptions );
+    const options = optionize<ADSingleAtomScreenViewOptions, SelfOptions, AlphaDecayScreenViewOptions>()( {
+      screenSummaryContent: new ADSingleAtomScreenSummaryContent( model )
+    }, providedOptions );
 
     super( model, options );
 
@@ -72,5 +77,28 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
     );
     this.setPlayAreaBounds( playAreaBounds );
     this.addChild( playAreaNode );
+
+    // Heading node grouping the decay timeline histogram panel under "Decay Data".
+    const decayDataHeadingNode = new Node( {
+      accessibleHeading: AlphaDecayFluent.a11y.decayDataHeadingStringProperty
+    } );
+    decayDataHeadingNode.pdomOrder = [ this.decayTimeHistogramPanel ];
+    this.addChild( decayDataHeadingNode );
+
+    // Play area PDOM order: Radioactive Atom → Energy Diagram → Decay Data → Isotope Panel → Particle Counts → Nuclear Equation
+    this.pdomPlayAreaNode.pdomOrder = [
+      playAreaNode,
+      energyDiagramAccordionBox,
+      decayDataHeadingNode,
+      this.isotopePanel,
+      particleCountsAccordionBox,
+      equationAccordionBox
+    ];
+
+    // Control area PDOM order: Time Controls → Reset All
+    this.pdomControlAreaNode.pdomOrder = [
+      this.timeControlNode,
+      this.resetAllButton
+    ];
   }
 }

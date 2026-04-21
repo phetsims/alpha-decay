@@ -25,7 +25,9 @@ import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import undoSolidShape from '../../../../sherpa/js/fontawesome-5/undoSolidShape.js';
+import AtomNameUtils from '../../../../shred/js/AtomNameUtils.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
+import AlphaDecayFluent from '../../AlphaDecayFluent.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -40,7 +42,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     providedOptions?: ADSingleAtomPlayAreaNodeOptions
   ) {
     const options = optionize<ADSingleAtomPlayAreaNodeOptions, EmptySelfOptions, ADSingleAtomPlayAreaNodeOptions>()( {
-      // Default options go here
+      accessibleHeading: AlphaDecayFluent.a11y.radioactiveAtomHeadingStringProperty
     }, providedOptions );
 
 
@@ -81,7 +83,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
         font: NuclearDecayCommonConstants.CONTROL_BOLD_FONT
       } ),
       baseColor: NuclearDecayCommonColors.addButtonProperty,
-
+      accessibleHelpText: AlphaDecayFluent.a11y.addAtomButton.accessibleHelpTextStringProperty,
       listener: () => {
         model.activateAtom();
       },
@@ -113,10 +115,64 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       }
     );
 
+    // Atom state description, shown when an atom is in the play area.
+    const poloniumNameProperty = AtomNameUtils.getNameAndMass( 84, 127 );
+    const leadNameProperty = AtomNameUtils.getNameAndMass( 82, 125 );
+
+    const currentIsotopeNameProperty = new DerivedStringProperty(
+      [
+        model.selectedIsotopeProperty,
+        model.hasDecayOccurredProperty,
+        NuclearDecayCommonFluent.isotopeAStringProperty,
+        NuclearDecayCommonFluent.isotopeBStringProperty,
+        poloniumNameProperty,
+        leadNameProperty
+      ],
+      ( selectedIsotope, hasDecayOccurred, isotopeAName, isotopeBName, poloniumName, leadName ) => {
+        if ( selectedIsotope === 'custom' ) {
+          return hasDecayOccurred ? isotopeBName : isotopeAName;
+        }
+        return hasDecayOccurred ? leadName : poloniumName;
+      }
+    );
+
+    const atomDescriptionStringProperty = new DerivedStringProperty(
+      [
+        model.isPlayAreaEmptyProperty,
+        model.hasDecayOccurredProperty,
+        model.lastDecayTimeProperty,
+        currentIsotopeNameProperty,
+        AlphaDecayFluent.a11y.atomInPlayArea.readyToDecayStringProperty,
+        AlphaDecayFluent.a11y.atomInPlayArea.readyToDecayLastDecayStringProperty,
+        AlphaDecayFluent.a11y.atomInPlayArea.nowPresentStringProperty
+      ],
+      ( isPlayAreaEmpty, hasDecayOccurred, lastDecayTime, isotopeName, readyToDecay, readyToDecayLastDecay, nowPresent ) => {
+        if ( isPlayAreaEmpty ) {
+          return '';
+        }
+        const decayTimeFormatted = lastDecayTime !== null ? toFixed( lastDecayTime, 2 ) : '';
+        if ( hasDecayOccurred ) {
+          return StringUtils.fillIn( nowPresent, { isotope: isotopeName, decayTime: decayTimeFormatted } );
+        }
+        else if ( lastDecayTime !== null ) {
+          return StringUtils.fillIn( readyToDecayLastDecay, { isotope: isotopeName, decayTime: decayTimeFormatted } );
+        }
+        else {
+          return StringUtils.fillIn( readyToDecay, { isotope: isotopeName } );
+        }
+      }
+    );
+
+    const atomDescriptionNode = new Node( {
+      accessibleParagraph: atomDescriptionStringProperty,
+      visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
+    } );
+
     // Reset button — top-right
     const resetButton = new RectangularPushButton( {
       content: new Path( undoSolidShape, { scale: 0.038, fill: 'black' } ),
       baseColor: NuclearDecayCommonColors.resetButtonProperty,
+      accessibleName: AlphaDecayFluent.a11y.resetAtomButton.accessibleNameStringProperty,
       listener: () => {
         model.timeProperty.reset();
         model.resetAtoms();
@@ -132,10 +188,12 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       addAtomButton,
       resetButton,
       decayingAtomNode,
-      potentialAreaCircle
+      potentialAreaCircle,
+      atomDescriptionNode
     ];
 
     super( options );
 
+    this.pdomOrder = [ addAtomButton, atomDescriptionNode, resetButton ];
   }
 }
