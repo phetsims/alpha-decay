@@ -6,12 +6,12 @@ screen.decayRate: 'Decay Rate'
 a11y:
   screenSummary:
     playArea: >-
-      In the play area, a radioactive atom with jiggling nucleons sits in the center. You can watch it decay,
+      A radioactive atom with jiggling nucleons sits in the center. You can watch it decay,
       observe how the nucleus changes, and reset the atom to repeat your experiment. A timeline shows the moment
       of each decay relative to half-life. An energy diagram shows the potential energy barrier and alpha particle
       energy. With a custom isotope, you can experiment with the barrier height, initial energy, and half-life.
     controlArea: >-
-      In the control area, you can replay the last decay and control how fast the action happens. Reset sim to
+      You can replay the last decay and control how fast the action happens. Reset sim to
       start over.
     currentDetails:
       noAtom: Currently no atom in the play area.
