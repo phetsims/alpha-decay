@@ -24,10 +24,7 @@ type StringsType = {
     'screenSummary': {
       'playAreaStringProperty': LocalizedStringProperty;
       'controlAreaStringProperty': LocalizedStringProperty;
-      'currentDetails': {
-        'noAtomStringProperty': LocalizedStringProperty;
-        'withAtomStringProperty': LocalizedStringProperty;
-      };
+      'currentDetailsStringProperty': LocalizedStringProperty;
       'interactionHint': {
         'addAtomStringProperty': LocalizedStringProperty;
         'afterDecayStringProperty': LocalizedStringProperty;
@@ -36,14 +33,20 @@ type StringsType = {
     'radioactiveAtomHeadingStringProperty': LocalizedStringProperty;
     'addAtomButton': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
     'atomInPlayArea': {
       'readyToDecayStringProperty': LocalizedStringProperty;
       'readyToDecayLastDecayStringProperty': LocalizedStringProperty;
       'nowPresentStringProperty': LocalizedStringProperty;
     };
+    'atomDecay': {
+      'alphaParticleEmittedStringProperty': LocalizedStringProperty;
+      'resetAtomHintStringProperty': LocalizedStringProperty;
+    };
     'resetAtomButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
     'decayDataHeadingStringProperty': LocalizedStringProperty;
   }

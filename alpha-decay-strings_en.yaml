@@ -14,18 +14,24 @@ a11y:
       You can replay the last decay and control how fast the action happens. Reset sim to
       start over.
     currentDetails:
-      noAtom: Currently no atom in the play area.
-      withAtom: '{{isotope}} atom in play area.'
+      select_atom:
+        noAtom: Currently no atom in the play area.
+        withAtom: '{ $isotope } atom in play area.'
     interactionHint:
       addAtom: Add atom to begin observations.
       afterDecay: Reset atom to continue observations.
   radioactiveAtomHeading: Radioactive Atom
   addAtomButton:
     accessibleHelpText: Add atom to begin observations.
+    accessibleContextResponse: '{ $isotope } added.'
   atomInPlayArea:
-    readyToDecay: '{{isotope}} ready to decay.'
-    readyToDecayLastDecay: '{{isotope}} ready to decay. Last decay, {{decayTime}} seconds.'
-    nowPresent: '{{isotope}} now present. Last decay, {{decayTime}} seconds.'
+    readyToDecay: '{ $isotope } ready to decay.'
+    readyToDecayLastDecay: '{ $isotope } ready to decay. Last decay, { $decayTime } seconds.'
+    nowPresent: '{ $isotope } now present. Last decay, { $decayTime } seconds.'
+  atomDecay:
+    alphaParticleEmitted: 'Alpha particle emitted from nucleus. Decay time, { $decayTime } seconds.'
+    resetAtomHint: Reset atom to make more observations.
   resetAtomButton:
     accessibleName: Reset Atom
+    accessibleContextResponse: Nucleus reset.
   decayDataHeading: Decay Data

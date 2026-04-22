@@ -76,6 +76,28 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       children: [ decayTimeText, elapsedTimeText ]
     } );
 
+    // Isotope name properties used in context responses and atom description — defined here so they are
+    // available in addAtomButton's listener below.
+    const poloniumNameProperty = AtomNameUtils.getNameAndMass( 84, 127 );
+    const leadNameProperty = AtomNameUtils.getNameAndMass( 82, 125 );
+
+    const currentIsotopeNameProperty = new DerivedStringProperty(
+      [
+        model.selectedIsotopeProperty,
+        model.hasDecayOccurredProperty,
+        NuclearDecayCommonFluent.isotopeAStringProperty,
+        NuclearDecayCommonFluent.isotopeBStringProperty,
+        poloniumNameProperty,
+        leadNameProperty
+      ],
+      ( selectedIsotope, hasDecayOccurred, isotopeAName, isotopeBName, poloniumName, leadName ) => {
+        if ( selectedIsotope === 'custom' ) {
+          return hasDecayOccurred ? isotopeBName : isotopeAName;
+        }
+        return hasDecayOccurred ? leadName : poloniumName;
+      }
+    );
+
     // Add Atom button — center
     const addAtomButton = new RectangularPushButton( {
       visibleProperty: model.isPlayAreaEmptyProperty,
@@ -84,9 +106,10 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       } ),
       baseColor: NuclearDecayCommonColors.addButtonProperty,
       accessibleHelpText: AlphaDecayFluent.a11y.addAtomButton.accessibleHelpTextStringProperty,
-      listener: () => {
-        model.activateAtom();
-      },
+      accessibleContextResponse: AlphaDecayFluent.a11y.addAtomButton.accessibleContextResponse.createProperty( {
+        isotope: currentIsotopeNameProperty
+      } ),
+      listener: () => model.activateAtom(),
       center: bounds.center,
       tandem: options.tandem.createTandem( 'addAtomButton' )
     } );
@@ -116,49 +139,26 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     );
 
     // Atom state description, shown when an atom is in the play area.
-    const poloniumNameProperty = AtomNameUtils.getNameAndMass( 84, 127 );
-    const leadNameProperty = AtomNameUtils.getNameAndMass( 82, 125 );
-
-    const currentIsotopeNameProperty = new DerivedStringProperty(
-      [
-        model.selectedIsotopeProperty,
-        model.hasDecayOccurredProperty,
-        NuclearDecayCommonFluent.isotopeAStringProperty,
-        NuclearDecayCommonFluent.isotopeBStringProperty,
-        poloniumNameProperty,
-        leadNameProperty
-      ],
-      ( selectedIsotope, hasDecayOccurred, isotopeAName, isotopeBName, poloniumName, leadName ) => {
-        if ( selectedIsotope === 'custom' ) {
-          return hasDecayOccurred ? isotopeBName : isotopeAName;
-        }
-        return hasDecayOccurred ? leadName : poloniumName;
-      }
-    );
-
     const atomDescriptionStringProperty = new DerivedStringProperty(
       [
         model.isPlayAreaEmptyProperty,
         model.hasDecayOccurredProperty,
         model.lastDecayTimeProperty,
-        currentIsotopeNameProperty,
-        AlphaDecayFluent.a11y.atomInPlayArea.readyToDecayStringProperty,
-        AlphaDecayFluent.a11y.atomInPlayArea.readyToDecayLastDecayStringProperty,
-        AlphaDecayFluent.a11y.atomInPlayArea.nowPresentStringProperty
+        currentIsotopeNameProperty
       ],
-      ( isPlayAreaEmpty, hasDecayOccurred, lastDecayTime, isotopeName, readyToDecay, readyToDecayLastDecay, nowPresent ) => {
+      ( isPlayAreaEmpty, hasDecayOccurred, lastDecayTime, isotopeName ) => {
         if ( isPlayAreaEmpty ) {
           return '';
         }
         const decayTimeFormatted = lastDecayTime !== null ? toFixed( lastDecayTime, 2 ) : '';
         if ( hasDecayOccurred ) {
-          return StringUtils.fillIn( nowPresent, { isotope: isotopeName, decayTime: decayTimeFormatted } );
+          return AlphaDecayFluent.a11y.atomInPlayArea.nowPresent.format( { isotope: isotopeName, decayTime: decayTimeFormatted } );
         }
         else if ( lastDecayTime !== null ) {
-          return StringUtils.fillIn( readyToDecayLastDecay, { isotope: isotopeName, decayTime: decayTimeFormatted } );
+          return AlphaDecayFluent.a11y.atomInPlayArea.readyToDecayLastDecay.format( { isotope: isotopeName, decayTime: decayTimeFormatted } );
         }
         else {
-          return StringUtils.fillIn( readyToDecay, { isotope: isotopeName } );
+          return AlphaDecayFluent.a11y.atomInPlayArea.readyToDecay.format( { isotope: isotopeName } );
         }
       }
     );
@@ -173,6 +173,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       content: new Path( undoSolidShape, { scale: 0.038, fill: 'black' } ),
       baseColor: NuclearDecayCommonColors.resetButtonProperty,
       accessibleName: AlphaDecayFluent.a11y.resetAtomButton.accessibleNameStringProperty,
+      accessibleContextResponse: AlphaDecayFluent.a11y.resetAtomButton.accessibleContextResponseStringProperty,
       listener: () => {
         model.timeProperty.reset();
         model.resetAtoms();
@@ -181,6 +182,22 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       right: bounds.right,
       top: bounds.top,
       tandem: options.tandem.createTandem( 'resetButton' )
+    } );
+
+    // Fire two context responses when the atom decays: one describing the decay event,
+    // and a hint prompting the user to reset.
+    model.hasDecayOccurredProperty.lazyLink( hasDecayOccurred => {
+      if ( hasDecayOccurred ) {
+        const decayTime = model.lastDecayTimeProperty.value !== null
+                          ? toFixed( model.lastDecayTimeProperty.value, 2 )
+                          : toFixed( model.timeProperty.value, 2 );
+        atomDescriptionNode.addAccessibleContextResponse(
+          AlphaDecayFluent.a11y.atomDecay.alphaParticleEmitted.format( { decayTime: decayTime } )
+        );
+        atomDescriptionNode.addAccessibleContextResponse(
+          AlphaDecayFluent.a11y.atomDecay.resetAtomHintStringProperty.value
+        );
+      }
     } );
 
     options.children = [

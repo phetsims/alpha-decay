@@ -9,7 +9,6 @@
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import AtomNameUtils from '../../../../shred/js/AtomNameUtils.js';
 import AlphaDecayFluent from '../../AlphaDecayFluent.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
@@ -39,20 +38,10 @@ export default class ADSingleAtomScreenSummaryContent extends ScreenSummaryConte
       }
     );
 
-    const currentDetailsStringProperty = new DerivedStringProperty(
-      [
-        model.isPlayAreaEmptyProperty,
-        currentAtomNameProperty,
-        AlphaDecayFluent.a11y.screenSummary.currentDetails.noAtomStringProperty,
-        AlphaDecayFluent.a11y.screenSummary.currentDetails.withAtomStringProperty
-      ],
-      ( isPlayAreaEmpty, atomName, noAtomString, withAtomPattern ) => {
-        if ( isPlayAreaEmpty ) {
-          return noAtomString;
-        }
-        return StringUtils.fillIn( withAtomPattern, { isotope: atomName } );
-      }
-    );
+    const currentDetailsStringProperty = AlphaDecayFluent.a11y.screenSummary.currentDetails.createProperty( {
+      atom: model.isPlayAreaEmptyProperty.derived( isEmpty => isEmpty ? 'noAtom' : 'withAtom' ),
+      isotope: currentAtomNameProperty
+    } );
 
     const interactionHintStringProperty = new DerivedStringProperty(
       [
