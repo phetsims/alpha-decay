@@ -56,9 +56,6 @@
     "atomDecay": {
       "alphaParticleEmitted": {
         "value": "Alpha particle emitted from nucleus. Decay time, { $decayTime } seconds."
-      },
-      "resetAtomHint": {
-        "value": "Reset atom to make more observations."
       }
     },
     "resetAtomButton": {

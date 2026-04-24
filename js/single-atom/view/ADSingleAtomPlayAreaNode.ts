@@ -196,9 +196,6 @@ export default class ADSingleAtomPlayAreaNode extends Node {
         atomDescriptionNode.addAccessibleContextResponse(
           AlphaDecayFluent.a11y.atomDecay.alphaParticleEmitted.format( { decayTime: decayTime } )
         );
-        atomDescriptionNode.addAccessibleContextResponse(
-          AlphaDecayFluent.a11y.atomDecay.resetAtomHintStringProperty.value
-        );
       }
     } );
 

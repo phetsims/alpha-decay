@@ -42,7 +42,6 @@ type StringsType = {
     };
     'atomDecay': {
       'alphaParticleEmittedStringProperty': LocalizedStringProperty;
-      'resetAtomHintStringProperty': LocalizedStringProperty;
     };
     'resetAtomButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;

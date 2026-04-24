@@ -5,7 +5,7 @@
 /* eslint-disable */
 /* @formatter:off */
 
-import { TReadOnlyProperty } from '../../axon/js/TReadOnlyProperty.js';
+import {TReadOnlyProperty} from '../../axon/js/TReadOnlyProperty.js';
 import FluentLibrary from '../../chipper/js/browser-and-node/FluentLibrary.js';
 import FluentConstant from '../../chipper/js/browser/FluentConstant.js';
 import FluentContainer from '../../chipper/js/browser/FluentContainer.js';
@@ -43,7 +43,6 @@ addToMapIfDefined( 'a11y_atomInPlayArea_readyToDecay', 'a11y.atomInPlayArea.read
 addToMapIfDefined( 'a11y_atomInPlayArea_readyToDecayLastDecay', 'a11y.atomInPlayArea.readyToDecayLastDecayStringProperty' );
 addToMapIfDefined( 'a11y_atomInPlayArea_nowPresent', 'a11y.atomInPlayArea.nowPresentStringProperty' );
 addToMapIfDefined( 'a11y_atomDecay_alphaParticleEmitted', 'a11y.atomDecay.alphaParticleEmittedStringProperty' );
-addToMapIfDefined( 'a11y_atomDecay_resetAtomHint', 'a11y.atomDecay.resetAtomHintStringProperty' );
 addToMapIfDefined( 'a11y_resetAtomButton_accessibleName', 'a11y.resetAtomButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_resetAtomButton_accessibleContextResponse', 'a11y.resetAtomButton.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_decayDataHeading', 'a11y.decayDataHeadingStringProperty' );
@@ -89,8 +88,7 @@ const AlphaDecayFluent = {
       nowPresent: new FluentPattern<{ decayTime: FluentVariable, isotope: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_atomInPlayArea_nowPresent', _.get( AlphaDecayStrings, 'a11y.atomInPlayArea.nowPresentStringProperty' ), [{"name":"decayTime"},{"name":"isotope"}] )
     },
     atomDecay: {
-      alphaParticleEmitted: new FluentPattern<{ decayTime: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_atomDecay_alphaParticleEmitted', _.get( AlphaDecayStrings, 'a11y.atomDecay.alphaParticleEmittedStringProperty' ), [{"name":"decayTime"}] ),
-      resetAtomHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_atomDecay_resetAtomHint', _.get( AlphaDecayStrings, 'a11y.atomDecay.resetAtomHintStringProperty' ) )
+      alphaParticleEmitted: new FluentPattern<{ decayTime: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_atomDecay_alphaParticleEmitted', _.get( AlphaDecayStrings, 'a11y.atomDecay.alphaParticleEmittedStringProperty' ), [{"name":"decayTime"}] )
     },
     resetAtomButton: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_resetAtomButton_accessibleName', _.get( AlphaDecayStrings, 'a11y.resetAtomButton.accessibleNameStringProperty' ) ),
