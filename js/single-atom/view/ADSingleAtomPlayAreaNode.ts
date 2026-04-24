@@ -144,13 +144,15 @@ export default class ADSingleAtomPlayAreaNode extends Node {
         model.isPlayAreaEmptyProperty,
         model.hasDecayOccurredProperty,
         model.lastDecayTimeProperty,
+        model.selectedIsotopeProperty,
         currentIsotopeNameProperty
       ],
-      ( isPlayAreaEmpty, hasDecayOccurred, lastDecayTime, isotopeName ) => {
+      ( isPlayAreaEmpty, hasDecayOccurred, lastDecayTime, selectedIsotope, isotopeName ) => {
         if ( isPlayAreaEmpty ) {
           return '';
         }
-        const decayTimeFormatted = lastDecayTime !== null ? toFixed( lastDecayTime, 2 ) : '';
+        const decimalPlaces = selectedIsotope === 'custom' ? 1 : 2;
+        const decayTimeFormatted = lastDecayTime !== null ? toFixed( lastDecayTime, decimalPlaces ) : '';
         if ( hasDecayOccurred ) {
           return AlphaDecayFluent.a11y.atomInPlayArea.nowPresent.format( { isotope: isotopeName, decayTime: decayTimeFormatted } );
         }
