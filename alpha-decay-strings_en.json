@@ -20,7 +20,7 @@
         "value": "You can replay the last decay and control how fast the action happens. Reset sim to start over."
       },
       "currentDetails": {
-        "value": "{ $atom ->\n  [noAtom] Currently no atom in the play area.\n  *[withAtom] { $isotope } atom in play area.\n}"
+        "value": "{ $atom ->\n  [noAtom] Currently no atom in play area.\n  *[withAtom] Currently { $isotope } atom in play area.\n}"
       },
       "interactionHint": {
         "addAtom": {

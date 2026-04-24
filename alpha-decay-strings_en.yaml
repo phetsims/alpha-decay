@@ -15,8 +15,8 @@ a11y:
       start over.
     currentDetails:
       select_atom:
-        noAtom: Currently no atom in the play area.
-        withAtom: '{ $isotope } atom in play area.'
+        noAtom: Currently no atom in play area.
+        withAtom: 'Currently { $isotope } atom in play area.'
     interactionHint:
       addAtom: Add atom to begin observations.
       afterDecay: Reset atom to continue observations.
