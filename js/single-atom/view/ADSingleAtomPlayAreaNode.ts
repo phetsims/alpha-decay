@@ -10,6 +10,7 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import NuclearDecayAtom from '../../../../nuclear-decay-common/js/model/NuclearDecayAtom.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
@@ -21,6 +22,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
+import Line from '../../../../scenery/js/nodes/Line.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -40,6 +42,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     model: ADSingleAtomModel,
     boundsProperty: TReadOnlyProperty<Bounds2>,
     modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+    energyIntersectionPointProperty: TReadOnlyProperty<Vector2>,
     providedOptions?: ADSingleAtomPlayAreaNodeOptions
   ) {
     const options = optionize<ADSingleAtomPlayAreaNodeOptions, EmptySelfOptions, ADSingleAtomPlayAreaNodeOptions>()( {
@@ -131,18 +134,30 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
     } );
 
-    const potentialAreaCircle = new Circle( 50, {
+
+    const potentialLineOptions = {
       stroke: 'black',
       lineWidth: 1,
       lineDash: [ 5, 5 ],
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
+    };
+    const potentialAreaCircle = new Circle( 50, potentialLineOptions );
+    energyIntersectionPointProperty.link( point => {
+      potentialAreaCircle.radius = point.x;
     } );
 
+    const leftMarkerLine = new Line( 0, 0, 0, 0, potentialLineOptions );
+    const rightMarkerLine = new Line( 0, 0, 0, 0, potentialLineOptions );
+
     Multilink.multilink(
-      [
-        model.potentialEnergyProperty, model.initialEnergyProperty
-      ], ( potentialEnergy, initialEnergy ) => {
-        potentialAreaCircle.radius = 100 * ( potentialEnergy - initialEnergy + 1 ) / 2;
+      [ boundsProperty, energyIntersectionPointProperty ],
+      ( bounds: Bounds2, point: Vector2 ) => {
+        const centerX = bounds.center.x;
+        const centerY = bounds.center.y;
+
+        const radius = point.x;
+        leftMarkerLine.setLine( centerX - radius, centerY, centerX - radius, centerY + point.y );
+        rightMarkerLine.setLine( centerX + radius, centerY, centerX + radius, centerY + point.y );
       }
     );
 
@@ -222,6 +237,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       resetButton,
       decayingAtomNode,
       potentialAreaCircle,
+      leftMarkerLine,
+      rightMarkerLine,
       atomDescriptionNode
     ];
 

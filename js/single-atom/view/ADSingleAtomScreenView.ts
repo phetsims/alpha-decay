@@ -6,6 +6,7 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/view/EnergyDiagramAccordionBox.js';
@@ -70,10 +71,23 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
       );
     } );
 
+    // We obtain the energy intersection point from the energy diagram, but since it's in the diagram's
+    // own coordinates, it has to be shifted downwards for the correct positioning
+    const energyIntersectionPointProperty = new DerivedProperty(
+      [
+        energyDiagramAccordionBox.energyIntersectionPointProperty,
+        energyDiagramAccordionBox.boundsProperty,
+        this.playAreaBoundsProperty
+      ], ( intersectionPoint, diagramBounds, playAreaBounds ) => {
+        return intersectionPoint.plusXY( 0, diagramBounds.centerY - playAreaBounds.centerY );
+      }
+    );
+
     const playAreaNode = new ADSingleAtomPlayAreaNode(
       model,
       this.playAreaBoundsProperty,
       this.modelViewTransformProperty,
+      energyIntersectionPointProperty,
       {
         tandem: options.tandem.createTandem( 'playAreaNode' )
       }
