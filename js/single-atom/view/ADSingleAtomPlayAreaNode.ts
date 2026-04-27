@@ -6,7 +6,6 @@
  */
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
@@ -22,7 +21,6 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -134,32 +132,15 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
     } );
 
-
-    const potentialLineOptions = {
+    const potentialAreaCircle = new Circle( 50, {
       stroke: 'black',
       lineWidth: 1,
       lineDash: [ 5, 5 ],
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
-    };
-    const potentialAreaCircle = new Circle( 50, potentialLineOptions );
+    } );
     energyIntersectionPointProperty.link( point => {
       potentialAreaCircle.radius = point.x;
     } );
-
-    const leftMarkerLine = new Line( 0, 0, 0, 0, potentialLineOptions );
-    const rightMarkerLine = new Line( 0, 0, 0, 0, potentialLineOptions );
-
-    Multilink.multilink(
-      [ boundsProperty, energyIntersectionPointProperty ],
-      ( bounds: Bounds2, point: Vector2 ) => {
-        const centerX = bounds.center.x;
-        const centerY = bounds.center.y;
-
-        const radius = point.x;
-        leftMarkerLine.setLine( centerX - radius, centerY, centerX - radius, centerY + point.y );
-        rightMarkerLine.setLine( centerX + radius, centerY, centerX + radius, centerY + point.y );
-      }
-    );
 
     // Atom state description, shown when an atom is in the play area.
     const atomDescriptionStringProperty = new DerivedStringProperty(
@@ -237,8 +218,6 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       resetButton,
       decayingAtomNode,
       potentialAreaCircle,
-      leftMarkerLine,
-      rightMarkerLine,
       atomDescriptionNode
     ];
 

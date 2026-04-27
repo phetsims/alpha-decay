@@ -132,6 +132,9 @@ export default class ADDecayRateScreenView extends NuclearDecayScreenView {
       tandem: options.tandem.createTandem( 'resetButton' )
     } );
     this.addChild( resetButton );
+
+    this.children = [ this.playAreaBoundsRectangle, ...this.children ];
+
   }
 
   public override step( dt: number ): void {

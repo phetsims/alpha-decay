@@ -7,12 +7,15 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/view/EnergyDiagramAccordionBox.js';
 import EquationAccordionBox from '../../../../nuclear-decay-common/js/view/EquationAccordionBox.js';
 import ParticleCountsAccordionBox from '../../../../nuclear-decay-common/js/view/ParticleCountsAccordionBox.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import AlphaDecayFluent from '../../AlphaDecayFluent.js';
 import AlphaDecayScreenView, { AlphaDecayScreenViewOptions } from '../../common/view/AlphaDecayScreenView.js';
@@ -92,7 +95,32 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
         tandem: options.tandem.createTandem( 'playAreaNode' )
       }
     );
-    this.addChild( playAreaNode );
+    this.children = [ this.playAreaBoundsRectangle, playAreaNode, ...this.children ];
+
+
+    const markerLineOptions = {
+      stroke: 'black',
+      lineWidth: 1,
+      lineDash: [ 5, 5 ],
+      visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
+    };
+    const leftMarkerLine = new Line( 0, 0, 0, 0, markerLineOptions );
+    const rightMarkerLine = new Line( 0, 0, 0, 0, markerLineOptions );
+
+    this.addChild( leftMarkerLine );
+    this.addChild( rightMarkerLine );
+
+    Multilink.multilink(
+      [ this.playAreaBoundsProperty, energyIntersectionPointProperty ],
+      ( bounds: Bounds2, point: Vector2 ) => {
+        const centerX = bounds.center.x;
+        const centerY = bounds.center.y;
+
+        const radius = point.x;
+        leftMarkerLine.setLine( centerX - radius, centerY, centerX - radius, centerY + point.y );
+        rightMarkerLine.setLine( centerX + radius, centerY, centerX + radius, centerY + point.y );
+      }
+    );
 
     // Heading node grouping the decay timeline histogram panel under "Decay Data".
     const decayDataHeadingNode = new Node( {

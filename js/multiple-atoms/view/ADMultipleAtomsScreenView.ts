@@ -151,5 +151,7 @@ export default class ADMultipleAtomsScreenView extends AlphaDecayScreenView {
       }
     );
     this.rightColumnControls.addChild( isotopesLegendPanel );
+
+    this.children = [ this.playAreaBoundsRectangle, ...this.children ];
   }
 }
