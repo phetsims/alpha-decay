@@ -23,6 +23,7 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import undoSolidShape from '../../../../sherpa/js/fontawesome-5/undoSolidShape.js';
 import AtomNameUtils from '../../../../shred/js/AtomNameUtils.js';
@@ -56,12 +57,24 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
         // Show the current time unless the single atom has decayed, in which case we show the decay time.
         const decayTime = atom.decayTime ? atom.decayTime : time;
-        return StringUtils.fillIn( pattern, {
-          time: time > 0 ? toFixed( decayTime, 1 ) : '--'
-        } );
+
+        if ( model.selectedIsotopeProperty.value === 'custom' ) {
+
+          // TODO: Properly use log time https://github.com/phetsims/alpha-decay/issues/7
+          const decayLogTime = toFixed( NuclearDecayCommonConstants.LINEAR_TIME_TO_LOGARITHMIC( decayTime ), 1 );
+          const exponent = `10<sup>${decayLogTime}</sup>`;
+          return StringUtils.fillIn( pattern, {
+            time: time > 0 ? exponent : '--'
+          } );
+        }
+        else {
+          return StringUtils.fillIn( pattern, {
+            time: time > 0 ? toFixed( decayTime, 1 ) : '--'
+          } );
+        }
       }
     );
-    const elapsedTimeText = new Text( elapsedTimeStringProperty, {
+    const elapsedTimeText = new RichText( elapsedTimeStringProperty, {
       font: NuclearDecayCommonConstants.CONTROL_FONT
     } );
 
