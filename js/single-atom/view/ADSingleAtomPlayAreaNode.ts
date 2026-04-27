@@ -37,7 +37,7 @@ export type ADSingleAtomPlayAreaNodeOptions = SelfOptions & WithRequired<NodeOpt
 export default class ADSingleAtomPlayAreaNode extends Node {
   public constructor(
     model: ADSingleAtomModel,
-    bounds: Bounds2,
+    boundsProperty: TReadOnlyProperty<Bounds2>,
     modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
     providedOptions?: ADSingleAtomPlayAreaNodeOptions
   ) {
@@ -70,8 +70,6 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     } );
 
     const decayTimeReadout = new HBox( {
-      left: bounds.left,
-      top: bounds.top,
       spacing: 5,
       children: [ decayTimeText, elapsedTimeText ]
     } );
@@ -110,7 +108,6 @@ export default class ADSingleAtomPlayAreaNode extends Node {
         isotope: currentIsotopeNameProperty
       } ),
       listener: () => model.activateAtom(),
-      center: bounds.center,
       tandem: options.tandem.createTandem( 'addAtomButton' )
     } );
 
@@ -118,7 +115,6 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     const lead = NuclearDecayCommonConstants.LEAD_207;
     const decayingAtom = new NuclearDecayAtom( polonium, lead );
     const decayingAtomNode = new NuclearDecayAtomNode( decayingAtom, modelViewTransformProperty, {
-      center: bounds.center,
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
     } );
 
@@ -126,7 +122,6 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       stroke: 'black',
       lineWidth: 1,
       lineDash: [ 5, 5 ],
-      center: bounds.center,
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
     } );
 
@@ -181,9 +176,18 @@ export default class ADSingleAtomPlayAreaNode extends Node {
         model.resetAtoms();
         model.activateAtom();
       },
-      right: bounds.right,
-      top: bounds.top,
       tandem: options.tandem.createTandem( 'resetButton' )
+    } );
+
+    // Linking the ui components' position to the changing bounds
+    boundsProperty.link( bounds => {
+      decayTimeReadout.left = bounds.left;
+      decayTimeReadout.top = bounds.top;
+      resetButton.right = bounds.right;
+      resetButton.top = bounds.top;
+      addAtomButton.center = bounds.center;
+      decayingAtomNode.center = bounds.center;
+      potentialAreaCircle.center = bounds.center;
     } );
 
     // Fire two context responses when the atom decays: one describing the decay event,

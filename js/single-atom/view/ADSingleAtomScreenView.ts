@@ -61,21 +61,23 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
       } );
     this.addChild( energyDiagramAccordionBox );
 
-    const playAreaBounds = new Bounds2(
-      this.decayTimeHistogramPanel.left,
-      this.decayTimeHistogramPanel.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
-      this.rightColumnControls.left - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
-      energyDiagramAccordionBox.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
-    );
+    this.decayTimeHistogramPanel.boundsProperty.link( bounds => {
+      this.playAreaBoundsProperty.value = new Bounds2(
+        this.decayTimeHistogramPanel.left,
+        this.decayTimeHistogramPanel.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+        this.rightColumnControls.left - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+        energyDiagramAccordionBox.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
+      );
+    } );
+
     const playAreaNode = new ADSingleAtomPlayAreaNode(
       model,
-      playAreaBounds,
+      this.playAreaBoundsProperty,
       this.modelViewTransformProperty,
       {
         tandem: options.tandem.createTandem( 'playAreaNode' )
       }
     );
-    this.setPlayAreaBounds( playAreaBounds );
     this.addChild( playAreaNode );
 
     // Heading node grouping the decay timeline histogram panel under "Decay Data".
