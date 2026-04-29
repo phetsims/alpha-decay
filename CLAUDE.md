@@ -21,7 +21,7 @@ NuclearDecayModel (nuclear-decay-common)
        ├─ ADMultipleAtomsModel
        └─ ADDecayRateModel      (tracks decay percentages over time)
 
-NuclearDecayScreenView / DecayHistogramScreenView (nuclear-decay-common)
+NuclearDecayScreenView / SingleAndMultipleAtomsScreenView (nuclear-decay-common)
   └─ AlphaDecayScreenView (alpha-decay/js/common/)
        ├─ ADSingleAtomScreenView
        ├─ ADMultipleAtomsScreenView
