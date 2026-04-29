@@ -174,26 +174,26 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
     } );
 
-    // Reset button — top-right
-    const resetButton = new RectangularPushButton( {
+    // Create the button for resetting the decay state of the atom.
+    const resetDecayButton = new RectangularPushButton( {
       content: new Path( undoSolidShape, { scale: 0.038, fill: 'black' } ),
       baseColor: NuclearDecayCommonColors.resetButtonProperty,
       accessibleName: AlphaDecayFluent.a11y.resetAtomButton.accessibleNameStringProperty,
       accessibleContextResponse: AlphaDecayFluent.a11y.resetAtomButton.accessibleContextResponseStringProperty,
       listener: () => {
         model.timeProperty.reset();
-        model.resetAtoms();
+        model.resetAtomDecayStates();
         model.activateAtom();
       },
-      tandem: options.tandem.createTandem( 'resetButton' )
+      tandem: options.tandem.createTandem( 'resetDecayButton' )
     } );
 
     // Linking the ui components' position to the changing bounds
     boundsProperty.link( bounds => {
       decayTimeReadout.left = bounds.left;
       decayTimeReadout.top = bounds.top;
-      resetButton.right = bounds.right;
-      resetButton.top = bounds.top;
+      resetDecayButton.right = bounds.right;
+      resetDecayButton.top = bounds.top;
       addAtomButton.center = bounds.center;
       decayingAtomNode.center = bounds.center;
       potentialAreaCircle.center = bounds.center;
@@ -215,7 +215,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     options.children = [
       decayTimeReadout,
       addAtomButton,
-      resetButton,
+      resetDecayButton,
       decayingAtomNode,
       potentialAreaCircle,
       atomDescriptionNode
@@ -223,6 +223,6 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
     super( options );
 
-    this.pdomOrder = [ addAtomButton, atomDescriptionNode, resetButton ];
+    this.pdomOrder = [ addAtomButton, atomDescriptionNode, resetDecayButton ];
   }
 }
