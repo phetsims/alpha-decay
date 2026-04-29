@@ -11,44 +11,29 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/common/view/EnergyDiagramAccordionBox.js';
-import EquationAccordionBox from '../../../../nuclear-decay-common/js/common/view/EquationAccordionBox.js';
-import ParticleCountsAccordionBox from '../../../../nuclear-decay-common/js/common/view/ParticleCountsAccordionBox.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
+import SingleAtomScreenView, { SingleAtomScreenViewOptions } from '../../../../nuclear-decay-common/js/single-atom/view/SingleAtomScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import AlphaDecayFluent from '../../AlphaDecayFluent.js';
-import AlphaDecayScreenView, { AlphaDecayScreenViewOptions } from '../../common/view/AlphaDecayScreenView.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 import ADSingleAtomPlayAreaNode from './ADSingleAtomPlayAreaNode.js';
 import ADSingleAtomScreenSummaryContent from './ADSingleAtomScreenSummaryContent.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ADSingleAtomScreenViewOptions = SelfOptions & AlphaDecayScreenViewOptions;
+type ADSingleAtomScreenViewOptions = SelfOptions & SingleAtomScreenViewOptions;
 
-export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
+export default class ADSingleAtomScreenView extends SingleAtomScreenView {
 
-  public constructor( model: ADSingleAtomModel, providedOptions: AlphaDecayScreenViewOptions ) {
+  public constructor( model: ADSingleAtomModel, providedOptions: SingleAtomScreenViewOptions ) {
 
-    const options = optionize<ADSingleAtomScreenViewOptions, SelfOptions, AlphaDecayScreenViewOptions>()( {
+    const options = optionize<ADSingleAtomScreenViewOptions, SelfOptions, SingleAtomScreenViewOptions>()( {
       screenSummaryContent: new ADSingleAtomScreenSummaryContent( model )
     }, providedOptions );
 
     super( model, options );
-
-    // Right contents panel
-    const particleCountsAccordionBox = new ParticleCountsAccordionBox( model, {
-      tandem: options.tandem.createTandem( 'particleCountsAccordionBox' )
-    } );
-    const equationAccordionBox = new EquationAccordionBox( model.selectedIsotopeProperty,
-      model.isPlayAreaEmptyProperty,
-      model.hasDecayOccurredProperty,
-      {
-        tandem: options.tandem.createTandem( 'equationAccordionBox' )
-      } );
-    this.rightColumnControls.addChild( particleCountsAccordionBox );
-    this.rightColumnControls.addChild( equationAccordionBox );
 
     // Bottom-left panel: sized to fit between the screen's left edge and the time controls on the bottom-right.
     const energyDiagramBounds = new Bounds2(
@@ -83,7 +68,6 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
         model.escapeDistanceProperty.value = mvt.viewToModelX( point.x );
       }
     );
-
 
     // We obtain the energy intersection point from the energy diagram, but since it's in the diagram's
     // own coordinates, it has to be shifted downwards for the correct positioning
@@ -137,7 +121,6 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
     const decayDataHeadingNode = new Node( {
       accessibleHeading: AlphaDecayFluent.a11y.decayDataHeadingStringProperty
     } );
-    decayDataHeadingNode.pdomOrder = [ this.decayTimeHistogramPanel ];
     this.addChild( decayDataHeadingNode );
 
     // Play area PDOM order: Radioactive Atom → Energy Diagram → Decay Data → Isotope Panel → Particle Counts → Nuclear Equation
@@ -146,14 +129,8 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
       energyDiagramAccordionBox,
       decayDataHeadingNode,
       this.isotopePanel,
-      particleCountsAccordionBox,
-      equationAccordionBox
-    ];
-
-    // Control area PDOM order: Time Controls → Reset All
-    this.pdomControlAreaNode.pdomOrder = [
-      this.timeControlNode,
-      this.resetAllButton
+      this.particleCountsAccordionBox,
+      this.equationAccordionBox
     ];
   }
 }

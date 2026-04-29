@@ -6,7 +6,7 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
-import MultipleAtomDecayModel, { MultipleAtomDecayModelOptions } from '../../../../nuclear-decay-common/js/common/model/MultipleAtomDecayModel.js';
+import MultipleAtomsModel, { MultipleAtomDecayModelOptions } from '../../../../nuclear-decay-common/js/multiple-atoms/model/MultipleAtomsModel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import AlphaDecayConstants from '../../common/AlphaDecayConstants.js';
 
@@ -14,7 +14,7 @@ type SelfOptions = EmptySelfOptions;
 
 type ADMultipleAtomsModelOptions = SelfOptions & MultipleAtomDecayModelOptions;
 
-export default class ADMultipleAtomsModel extends MultipleAtomDecayModel {
+export default class ADMultipleAtomsModel extends MultipleAtomsModel {
 
   public constructor( providedOptions: ADMultipleAtomsModelOptions ) {
     const options = optionize<ADMultipleAtomsModelOptions, SelfOptions, MultipleAtomDecayModelOptions>()( {

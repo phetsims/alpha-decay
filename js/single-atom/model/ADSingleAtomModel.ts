@@ -6,7 +6,7 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
-import SingleAtomDecayModel, { SingleAtomDecayModelOptions } from '../../../../nuclear-decay-common/js/common/model/SingleAtomDecayModel.js';
+import SingleAtomModel, { SingleAtomDecayModelOptions } from '../../../../nuclear-decay-common/js/single-atom/model/SingleAtomModel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import AlphaDecayConstants from '../../common/AlphaDecayConstants.js';
 
@@ -14,7 +14,7 @@ type SelfOptions = EmptySelfOptions;
 
 type ADSingleAtomModelOptions = SelfOptions & SingleAtomDecayModelOptions;
 
-export default class ADSingleAtomModel extends SingleAtomDecayModel {
+export default class ADSingleAtomModel extends SingleAtomModel {
 
   public constructor( providedOptions: ADSingleAtomModelOptions ) {
     const options = optionize<ADSingleAtomModelOptions, SelfOptions, SingleAtomDecayModelOptions>()( {
