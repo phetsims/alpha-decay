@@ -5,8 +5,8 @@
  * @author Agustín Vallejo
  */
 
-import NuclearDecayModel from '../../../../nuclear-decay-common/js/model/NuclearDecayModel.js';
-import DecayHistogramScreenView, { DecayHistogramScreenViewOptions } from '../../../../nuclear-decay-common/js/view/DecayHistogramScreenView.js';
+import NuclearDecayModel from '../../../../nuclear-decay-common/js/common/model/NuclearDecayModel.js';
+import DecayHistogramScreenView, { DecayHistogramScreenViewOptions } from '../../../../nuclear-decay-common/js/common/view/DecayHistogramScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;

@@ -6,7 +6,7 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
-import MultipleAtomDecayModel, { MultipleAtomDecayModelOptions } from '../../../../nuclear-decay-common/js/model/MultipleAtomDecayModel.js';
+import MultipleAtomDecayModel, { MultipleAtomDecayModelOptions } from '../../../../nuclear-decay-common/js/common/model/MultipleAtomDecayModel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import AlphaDecayConstants from '../../common/AlphaDecayConstants.js';
 

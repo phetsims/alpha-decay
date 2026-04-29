@@ -6,7 +6,7 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
-import DecayRateModel, { DecayRateModelOptions } from '../../../../nuclear-decay-common/js/model/DecayRateModel.js';
+import DecayRateModel, { DecayRateModelOptions } from '../../../../nuclear-decay-common/js/common/model/DecayRateModel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import AlphaDecayConstants from '../../common/AlphaDecayConstants.js';
 
