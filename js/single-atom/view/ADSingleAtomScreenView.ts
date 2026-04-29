@@ -74,6 +74,17 @@ export default class ADSingleAtomScreenView extends AlphaDecayScreenView {
       );
     } );
 
+    // The escape distance from the center of the atom is also given by the intersection point of the energy curves
+    Multilink.multilink(
+      [
+        energyDiagramAccordionBox.energyIntersectionPointProperty,
+        this.modelViewTransformProperty
+      ], ( point, mvt ) => {
+        model.escapeDistanceProperty.value = mvt.viewToModelX( point.x );
+      }
+    );
+
+
     // We obtain the energy intersection point from the energy diagram, but since it's in the diagram's
     // own coordinates, it has to be shifted downwards for the correct positioning
     const energyIntersectionPointProperty = new DerivedProperty(
