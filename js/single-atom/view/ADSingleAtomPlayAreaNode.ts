@@ -61,8 +61,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
         if ( model.selectedIsotopeProperty.value === 'custom' ) {
 
-          // TODO: Properly use log time https://github.com/phetsims/alpha-decay/issues/7
-          const decayLogTime = toFixed( NuclearDecayCommonConstants.LINEAR_TIME_TO_LOGARITHMIC( decayTime ), 1 );
+          const decayLogTime = toFixed( Math.log10( decayTime ), 1 );
           const exponent = `10<sup>${decayLogTime}</sup>`;
           return StringUtils.fillIn( pattern, {
             time: time > 0 ? exponent : '--'
