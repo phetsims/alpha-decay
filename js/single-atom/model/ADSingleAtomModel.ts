@@ -21,7 +21,7 @@ export default class ADSingleAtomModel extends SingleAtomModel {
       maxNumberOfAtoms: 1
     }, providedOptions );
 
-    super( AlphaDecayConstants.SELECTABLE_ISOTOPES, options );
+    super( AlphaDecayConstants.SELECTABLE_ISOTOPES, 'alphaDecay', options );
 
     this.selectedIsotopeProperty.setInitialValue( 'polonium-211' );
     this.selectedIsotopeProperty.reset();

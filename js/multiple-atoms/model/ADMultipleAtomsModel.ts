@@ -20,7 +20,7 @@ export default class ADMultipleAtomsModel extends MultipleAtomsModel {
     const options = optionize<ADMultipleAtomsModelOptions, SelfOptions, MultipleAtomDecayModelOptions>()( {
     }, providedOptions );
 
-    super( AlphaDecayConstants.SELECTABLE_ISOTOPES, options );
+    super( AlphaDecayConstants.SELECTABLE_ISOTOPES, 'alphaDecay', options );
 
     this.selectedIsotopeProperty.setInitialValue( 'polonium-211' );
     this.selectedIsotopeProperty.reset();

@@ -20,7 +20,7 @@ export default class ADDecayRateModel extends DecayRateModel {
     const options = optionize<ADDecayRateModelOptions, SelfOptions, DecayRateModelOptions>()( {
     }, providedOptions );
 
-    super( AlphaDecayConstants.SELECTABLE_ISOTOPES, options );
+    super( AlphaDecayConstants.SELECTABLE_ISOTOPES, 'alphaDecay', options );
 
     this.selectedIsotopeProperty.setInitialValue( 'polonium-211' );
     this.selectedIsotopeProperty.reset();
