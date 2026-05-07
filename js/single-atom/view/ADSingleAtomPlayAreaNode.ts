@@ -17,8 +17,8 @@ import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/Nuc
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import ScientificNotationNode from '../../../../scenery-phet/js/ScientificNotationNode.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
@@ -47,34 +47,20 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       accessibleHeading: AlphaDecayFluent.a11y.radioactiveAtomHeadingStringProperty
     }, providedOptions );
 
+    const elapsedLinearTimeText = new RichText( model.timeProperty.derived(
+      t => t > 0 ? toFixed( t, 1 ) : '--'
+    ), {
+      font: NuclearDecayCommonConstants.CONTROL_FONT,
+      visibleProperty: model.timescaleProperty.derived( scale => scale === 'linear' )
+    } );
 
-    // Decay Time label, top-left
-    const elapsedTimeStringProperty = new DerivedStringProperty(
-      [
-        model.timeProperty,
-        NuclearDecayCommonFluent.timeSecondsStringProperty
-      ], ( time: number, pattern: string ) => {
-        const atom = model.atomPool[ 0 ];
+    const elapsedLogTimeText = new ScientificNotationNode( model.timeProperty, {
+      font: NuclearDecayCommonConstants.CONTROL_FONT,
+      visibleProperty: model.timescaleProperty.derived( scale => scale === 'exponential' ),
+      showZeroExponent: true
+    } );
 
-        // Show the current time unless the single atom has decayed, in which case we show the decay time.
-        const decayTime = atom.decayTime ? atom.decayTime : time;
-
-        if ( model.selectedIsotopeProperty.value === 'custom' ) {
-
-          const decayLogTime = toFixed( Math.log10( decayTime ), 1 );
-          const exponent = `10<sup>${decayLogTime}</sup>`;
-          return StringUtils.fillIn( pattern, {
-            time: time > 0 ? exponent : '--'
-          } );
-        }
-        else {
-          return StringUtils.fillIn( pattern, {
-            time: time > 0 ? toFixed( decayTime, 1 ) : '--'
-          } );
-        }
-      }
-    );
-    const elapsedTimeText = new RichText( elapsedTimeStringProperty, {
+    const unitsText = new RichText( NuclearDecayCommonFluent.secondsStringProperty, {
       font: NuclearDecayCommonConstants.CONTROL_FONT
     } );
 
@@ -84,7 +70,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
     const decayTimeReadout = new HBox( {
       spacing: 5,
-      children: [ decayTimeText, elapsedTimeText ]
+      children: [ decayTimeText, elapsedLinearTimeText, elapsedLogTimeText, unitsText ]
     } );
 
     // Isotope name properties used in context responses and atom description — defined here so they are
