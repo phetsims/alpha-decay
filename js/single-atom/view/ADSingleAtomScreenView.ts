@@ -10,8 +10,8 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/common/view/EnergyDiagramAccordionBox.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
+import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/single-atom/view/EnergyDiagramAccordionBox.js';
 import SingleAtomScreenView, { SingleAtomScreenViewOptions } from '../../../../nuclear-decay-common/js/single-atom/view/SingleAtomScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
@@ -39,7 +39,7 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     const energyDiagramBounds = new Bounds2(
       this.layoutBounds.minX + NuclearDecayCommonConstants.SCREEN_VIEW_X_MARGIN,
       0,
-      this.timeControlNode.left - 100,
+      this.timeControlNode.left - 110,
       this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
     );
     const energyDiagramAccordionBox = new EnergyDiagramAccordionBox(
