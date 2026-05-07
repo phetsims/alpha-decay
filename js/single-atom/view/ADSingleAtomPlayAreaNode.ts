@@ -183,7 +183,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
         model.resetAtomDecayStates();
         model.activateAtom();
       },
-      tandem: options.tandem.createTandem( 'resetDecayButton' )
+      tandem: options.tandem.createTandem( 'resetDecayButton' ),
+      enabledProperty: model.isPlayAreaEmptyProperty.derived( empty => !empty )
     } );
 
     // Linking the ui components' position to the changing bounds
