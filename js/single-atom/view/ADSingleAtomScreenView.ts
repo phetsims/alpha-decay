@@ -9,9 +9,10 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import { clamp } from '../../../../dot/js/util/clamp.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
-import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/single-atom/view/EnergyDiagramAccordionBox.js';
+import EnergyDiagramAccordionBox, { WELL_HALF_WIDTH } from '../../../../nuclear-decay-common/js/single-atom/view/EnergyDiagramAccordionBox.js';
 import SingleAtomScreenView, { SingleAtomScreenViewOptions } from '../../../../nuclear-decay-common/js/single-atom/view/SingleAtomScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
@@ -66,6 +67,13 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
         this.modelViewTransformProperty
       ], ( point, mvt ) => {
         model.escapeDistanceProperty.value = mvt.viewToModelX( point.x );
+
+        if ( model.mappingInProgress ) { return; }
+
+        // Alter the half-life based on the escape distance
+        model.mappingInProgress = true;
+        model.customHalfLifeProperty.value = clamp( ( point.x - WELL_HALF_WIDTH ) / ( 3 * WELL_HALF_WIDTH ), 0, 1 );
+        model.mappingInProgress = false;
       }
     );
 
