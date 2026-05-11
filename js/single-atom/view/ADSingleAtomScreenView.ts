@@ -6,6 +6,7 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -15,7 +16,7 @@ import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/Nuc
 import EnergyDiagramAccordionBox, { WELL_HALF_WIDTH } from '../../../../nuclear-decay-common/js/single-atom/view/EnergyDiagramAccordionBox.js';
 import SingleAtomScreenView, { SingleAtomScreenViewOptions } from '../../../../nuclear-decay-common/js/single-atom/view/SingleAtomScreenView.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
+import Line, { LineOptions } from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import AlphaDecayFluent from '../../AlphaDecayFluent.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
@@ -43,11 +44,17 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
       this.timeControlNode.left - 110,
       this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
     );
+
+    const energyDiagramExpandedProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'energyDiagramExpandedProperty' )
+    } );
+
     const energyDiagramAccordionBox = new EnergyDiagramAccordionBox(
       model, energyDiagramBounds, this.modelViewTransformProperty,
       {
         fill: NuclearDecayCommonConstants.MAIN_PANEL_FILL,
-        tandem: options.tandem.createTandem( 'energyDiagramAccordionBox' )
+        tandem: options.tandem.createTandem( 'energyDiagramAccordionBox' ),
+        expandedProperty: energyDiagramExpandedProperty
       } );
     this.addChild( energyDiagramAccordionBox );
 
@@ -101,11 +108,12 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     this.children = [ this.playAreaBoundsRectangle, playAreaNode, ...this.children ];
 
 
-    const markerLineOptions = {
+    const markerLineOptions: LineOptions = {
       stroke: 'black',
       lineWidth: 1,
       lineDash: [ 5, 5 ],
-      visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
+      visibleProperty: new DerivedProperty( [ model.isPlayAreaEmptyProperty, energyDiagramExpandedProperty ],
+        ( isEmpty, expanded ) => !isEmpty && expanded )
     };
     const leftMarkerLine = new Line( 0, 0, 0, 0, markerLineOptions );
     const rightMarkerLine = new Line( 0, 0, 0, 0, markerLineOptions );
