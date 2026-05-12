@@ -18,6 +18,7 @@ export default class ADMultipleAtomsModel extends MultipleAtomsModel {
 
   public constructor( providedOptions: ADMultipleAtomsModelOptions ) {
     const options = optionize<ADMultipleAtomsModelOptions, SelfOptions, MultipleAtomDecayModelOptions>()( {
+      useStopwatch: true
     }, providedOptions );
 
     super( AlphaDecayConstants.SELECTABLE_ISOTOPES, 'alphaDecay', options );
