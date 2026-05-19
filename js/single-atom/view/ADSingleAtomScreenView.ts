@@ -40,7 +40,7 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     const energyDiagramBounds = new Bounds2(
       this.layoutBounds.minX + NuclearDecayCommonConstants.SCREEN_VIEW_X_MARGIN,
       0,
-      this.timeControlNode.left - 110,
+      this.decayTimeHistogramPanel.right,
       this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
     );
 
@@ -61,7 +61,7 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
       this.playAreaBoundsProperty.value = new Bounds2(
         this.decayTimeHistogramPanel.left,
         this.decayTimeHistogramPanel.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
-        this.rightColumnControls.left - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+        this.decayTimeHistogramPanel.right,
         energyDiagramAccordionBox.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
       );
     } );
