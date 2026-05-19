@@ -112,7 +112,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
     const polonium = NuclearDecayCommonConstants.POLONIUM_211;
     const decayingAtom = new NuclearDecayAtom( polonium, 'alphaDecay' );
-    const decayingAtomNode = new DynamicNucleusNode( decayingAtom, modelViewTransformProperty, {
+    const decayingAtomNode = new DynamicNucleusNode( decayingAtom, modelViewTransformProperty, model.isPlayingProperty, {
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
     } );
 
