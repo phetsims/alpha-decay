@@ -22,7 +22,9 @@ the parent model's aggregate state. `NuclearDecayAtomIO` defines `fromStateObjec
 serialized data. The model's `applyState` then uses `atom.set()` to copy the deserialized values into the existing
 pool atoms, or pushes new instances into `decayedAtoms`.
 
-The atom arrays (`atomPool`, `decayedAtoms`) are wrapped in `ReferenceArrayIO( NuclearDecayAtomIO )`.
+Similarly, every `NuclearDecayAtom` has an array of `EjectedDecayParticles`, which although extensions of shred's Particle class, and thus, of `PhetioObject`, are also serialized as data types, ignoring their default instrumentation by opting out of the tandem. `EjectedDecayParticleIO` defines `fromStateObject` to create new particle instances from serialized data, and the parent atom uses `particle.set()` to copy the deserialized values into the existing particles.
+
+The atom arrays (`atomPool`, `decayedAtoms` in the model, and `ejectedDecayParticles` in each atom) are wrapped in `ArrayIO( NuclearDecayAtomIO )`.
 
 See the [PhET-iO serialization docs](https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization)
 for full details on data type vs reference type serialization.
