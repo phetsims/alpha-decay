@@ -10,11 +10,11 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import NuclearDecayAtom from '../../../../nuclear-decay-common/js/common/model/NuclearDecayAtom.js';
 import DynamicNucleusNode from '../../../../nuclear-decay-common/js/common/view/DynamicNucleusNode.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -110,8 +110,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       tandem: options.tandem.createTandem( 'addAtomButton' )
     } );
 
-    const polonium = NuclearDecayCommonConstants.POLONIUM_211;
-    const decayingAtom = new NuclearDecayAtom( polonium, 'alphaDecay' );
+    affirm( model.atomPool.length === 1, 'expected one and only one atom in the model' );
+    const decayingAtom = model.atomPool[ 0 ];
     const decayingAtomNode = new DynamicNucleusNode( decayingAtom, model.isPlayingProperty, {
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
     } );
