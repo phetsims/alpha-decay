@@ -99,7 +99,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     const addAtomButton = new RectangularPushButton( {
       visibleProperty: model.isPlayAreaEmptyProperty,
       content: new Text( NuclearDecayCommonFluent.addAtomStringProperty, {
-        font: NuclearDecayCommonConstants.CONTROL_BOLD_FONT
+        font: NuclearDecayCommonConstants.CONTROL_FONT
       } ),
       baseColor: NuclearDecayCommonColors.addButtonProperty,
       accessibleHelpText: AlphaDecayFluent.a11y.addAtomButton.accessibleHelpTextStringProperty,
