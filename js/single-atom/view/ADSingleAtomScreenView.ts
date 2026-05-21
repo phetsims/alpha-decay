@@ -88,13 +88,19 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
       }
     );
 
+    const potentialLinesVisibleProperty = new DerivedProperty( [ model.isPlayAreaEmptyProperty, energyDiagramExpandedProperty ],
+      ( isEmpty, expanded ) => !isEmpty && expanded );
+
     const playAreaNode = new ADSingleAtomPlayAreaNode(
       model,
       this.playAreaBoundsProperty,
       this.modelViewTransformProperty,
       energyIntersectionPointProperty,
       {
-        tandem: options.tandem.createTandem( 'playAreaNode' )
+        tandem: options.tandem.createTandem( 'playAreaNode' ),
+        potentialCircleOptions: {
+          visibleProperty: potentialLinesVisibleProperty
+        }
       }
     );
     this.children = [ this.playAreaBoundsRectangle, playAreaNode, ...this.children ];
@@ -104,8 +110,7 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
       stroke: 'black',
       lineWidth: 1,
       lineDash: [ 5, 5 ],
-      visibleProperty: new DerivedProperty( [ model.isPlayAreaEmptyProperty, energyDiagramExpandedProperty ],
-        ( isEmpty, expanded ) => !isEmpty && expanded )
+      visibleProperty: potentialLinesVisibleProperty
     };
     const leftMarkerLine = new Line( 0, 0, 0, 0, markerLineOptions );
     const rightMarkerLine = new Line( 0, 0, 0, 0, markerLineOptions );

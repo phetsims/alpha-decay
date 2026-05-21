@@ -15,12 +15,12 @@ import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/Nuclea
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ScientificNotationNode from '../../../../scenery-phet/js/ScientificNotationNode.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-import Circle from '../../../../scenery/js/nodes/Circle.js';
+import Circle, { CircleOptions } from '../../../../scenery/js/nodes/Circle.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -31,7 +31,9 @@ import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushBut
 import AlphaDecayFluent from '../../AlphaDecayFluent.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  potentialCircleOptions?: CircleOptions;
+};
 
 export type ADSingleAtomPlayAreaNodeOptions = SelfOptions & WithRequired<NodeOptions, 'tandem'>;
 
@@ -44,7 +46,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     providedOptions?: ADSingleAtomPlayAreaNodeOptions
   ) {
     const options = optionize<ADSingleAtomPlayAreaNodeOptions, EmptySelfOptions, ADSingleAtomPlayAreaNodeOptions>()( {
-      accessibleHeading: AlphaDecayFluent.a11y.radioactiveAtomHeadingStringProperty
+      accessibleHeading: AlphaDecayFluent.a11y.radioactiveAtomHeadingStringProperty,
+      potentialCircleOptions: {}
     }, providedOptions );
 
     const elapsedLinearTimeText = new RichText( model.timeProperty.derived(
@@ -116,12 +119,11 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
     } );
 
-    const potentialAreaCircle = new Circle( 50, {
+    const potentialAreaCircle = new Circle( 50, combineOptions<CircleOptions>( {
       stroke: 'black',
       lineWidth: 1,
-      lineDash: [ 5, 5 ],
-      visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
-    } );
+      lineDash: [ 5, 5 ]
+    }, options.potentialCircleOptions ) );
     energyIntersectionPointProperty.link( point => {
       potentialAreaCircle.radius = point.x;
     } );
