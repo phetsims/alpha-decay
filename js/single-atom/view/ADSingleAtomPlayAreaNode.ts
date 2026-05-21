@@ -5,6 +5,7 @@
  * @author Agustín Vallejo
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -116,7 +117,11 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     affirm( model.atomPool.length === 1, 'expected one and only one atom in the model' );
     const decayingAtom = model.atomPool[ 0 ];
     const decayingAtomNode = new DynamicNucleusNode( decayingAtom, model.isPlayingProperty, {
-      visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty )
+      visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty ),
+      escapeRadiusProperty: new DerivedProperty(
+        [ model.escapeDistanceProperty, modelViewTransformProperty ],
+        ( escapeDistance, modelViewTransform ) => modelViewTransform.modelToViewDeltaX( escapeDistance )
+      )
     } );
 
     const potentialAreaCircle = new Circle( 50, combineOptions<CircleOptions>( {
@@ -182,7 +187,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       resetDecayButton.right = bounds.right;
       resetDecayButton.top = bounds.top;
       addAtomButton.center = bounds.center;
-      decayingAtomNode.center = bounds.center;
+      decayingAtomNode.translation = bounds.center;
       potentialAreaCircle.center = bounds.center;
     } );
 

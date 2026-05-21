@@ -14,6 +14,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/single-atom/view/EnergyDiagramAccordionBox.js';
 import SingleAtomScreenView, { SingleAtomScreenViewOptions } from '../../../../nuclear-decay-common/js/single-atom/view/SingleAtomScreenView.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Line, { LineOptions } from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -59,9 +60,9 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
 
     this.decayTimeHistogramPanel.boundsProperty.link( bounds => {
       this.playAreaBoundsProperty.value = new Bounds2(
-        this.decayTimeHistogramPanel.left,
-        this.decayTimeHistogramPanel.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
-        this.decayTimeHistogramPanel.right,
+        bounds.left,
+        bounds.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+        bounds.right,
         energyDiagramAccordionBox.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
       );
     } );
@@ -71,8 +72,13 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
       [
         energyDiagramAccordionBox.energyIntersectionPointProperty,
         this.modelViewTransformProperty
-      ], ( point, mvt ) => {
-        model.escapeDistanceProperty.value = mvt.viewToModelX( point.x );
+      ],
+      ( energyIntersectionPoint, modelViewTransform ) => {
+
+        affirm( energyIntersectionPoint.x > 0, 'expected positive value for energy intersection point' );
+
+        // Note that this assumes the atom is at position (0,0).
+        model.escapeDistanceProperty.value = modelViewTransform.viewToModelDeltaX( energyIntersectionPoint.x );
       }
     );
 
@@ -83,7 +89,8 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
         energyDiagramAccordionBox.energyIntersectionPointProperty,
         energyDiagramAccordionBox.boundsProperty,
         this.playAreaBoundsProperty
-      ], ( intersectionPoint, diagramBounds, playAreaBounds ) => {
+      ],
+      ( intersectionPoint, diagramBounds, playAreaBounds ) => {
         return intersectionPoint.plusXY( 0, diagramBounds.centerY - playAreaBounds.centerY );
       }
     );
