@@ -5,7 +5,6 @@
  * @author Agustín Vallejo
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -43,6 +42,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     model: ADSingleAtomModel,
     boundsProperty: TReadOnlyProperty<Bounds2>,
     modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+    // TODO: Describe what this is and how to use it in constructor docs. See https://github.com/phetsims/alpha-decay/issues/3.
     energyIntersectionPointProperty: TReadOnlyProperty<Vector2>,
     providedOptions?: ADSingleAtomPlayAreaNodeOptions
   ) {
@@ -116,12 +116,9 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
     affirm( model.atomPool.length === 1, 'expected one and only one atom in the model' );
     const decayingAtom = model.atomPool[ 0 ];
-    const decayingAtomNode = new DynamicNucleusNode( decayingAtom, model.isPlayingProperty, {
+    const decayingAtomNode = new DynamicNucleusNode( decayingAtom, {
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty ),
-      escapeRadiusProperty: new DerivedProperty(
-        [ model.escapeDistanceProperty, modelViewTransformProperty ],
-        ( escapeDistance, modelViewTransform ) => modelViewTransform.modelToViewDeltaX( escapeDistance )
-      )
+      escapeRadiusProperty: energyIntersectionPointProperty.derived( point => point.x )
     } );
 
     const potentialAreaCircle = new Circle( 50, combineOptions<CircleOptions>( {
