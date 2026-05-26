@@ -128,7 +128,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
     affirm( model.atomPool.length === 1, 'expected one and only one atom in the model' );
     const decayingAtom = model.atomPool[ 0 ];
-    const decayingAtomNode = new DynamicNucleusNode( decayingAtom, {
+    const decayingAtomNode = new DynamicNucleusNode( decayingAtom, model.isPlayingProperty, {
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty ),
       escapeRadiusProperty: energyIntersectionPointProperty.derived( point => point.x )
     } );
