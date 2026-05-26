@@ -5,6 +5,7 @@
  * @author Agustín Vallejo
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -27,6 +28,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import undoSolidShape from '../../../../sherpa/js/fontawesome-5/undoSolidShape.js';
 import AtomNameUtils from '../../../../shred/js/AtomNameUtils.js';
+import InfinityNode from '../../../../shred/js/view/InfinityNode.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import AlphaDecayFluent from '../../AlphaDecayFluent.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
@@ -60,8 +62,18 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
     const elapsedLogTimeText = new ScientificNotationNode( model.timeProperty, {
       font: NuclearDecayCommonConstants.CONTROL_FONT,
-      visibleProperty: model.timescaleProperty.derived( scale => scale === 'exponential' ),
+      visibleProperty: new DerivedProperty(
+        [ model.timescaleProperty, model.isTimeInfiniteProperty ], ( timescale, timeInfinite ) => {
+          return timescale === 'exponential' && !timeInfinite;
+        }
+      ),
       showZeroExponent: true
+    } );
+
+    const infinityNode = new InfinityNode( {
+      radius: 3,
+      lineWidth: 1,
+      visibleProperty: model.isTimeInfiniteProperty
     } );
 
     const unitsText = new RichText( NuclearDecayCommonFluent.secondsStringProperty, {
@@ -74,7 +86,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
     const decayTimeReadout = new HBox( {
       spacing: 5,
-      children: [ decayTimeText, elapsedLinearTimeText, elapsedLogTimeText, unitsText ]
+      children: [ decayTimeText, elapsedLinearTimeText, elapsedLogTimeText, infinityNode, unitsText ]
     } );
 
     // Isotope name properties used in context responses and atom description — defined here so they are
