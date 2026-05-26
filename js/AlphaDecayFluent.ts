@@ -5,7 +5,7 @@
 /* eslint-disable */
 /* @formatter:off */
 
-import { TReadOnlyProperty } from '../../axon/js/TReadOnlyProperty.js';
+import {TReadOnlyProperty} from '../../axon/js/TReadOnlyProperty.js';
 import FluentLibrary from '../../chipper/js/browser-and-node/FluentLibrary.js';
 import FluentConstant from '../../chipper/js/browser/FluentConstant.js';
 import FluentContainer from '../../chipper/js/browser/FluentContainer.js';
@@ -46,6 +46,8 @@ addToMapIfDefined( 'a11y_atomDecay_alphaParticleEmitted', 'a11y.atomDecay.alphaP
 addToMapIfDefined( 'a11y_resetAtomButton_accessibleName', 'a11y.resetAtomButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_resetAtomButton_accessibleContextResponse', 'a11y.resetAtomButton.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_decayDataHeading', 'a11y.decayDataHeadingStringProperty' );
+addToMapIfDefined( 'a11y_multipleAtomsScreen_decayParticle', 'a11y.multipleAtomsScreen.decayParticleStringProperty' );
+addToMapIfDefined( 'a11y_multipleAtomsScreen_particleLegend_accessibleParagraph', 'a11y.multipleAtomsScreen.particleLegend.accessibleParagraphStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
 const createFluentFile = (): string => {
@@ -94,7 +96,13 @@ const AlphaDecayFluent = {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_resetAtomButton_accessibleName', _.get( AlphaDecayStrings, 'a11y.resetAtomButton.accessibleNameStringProperty' ) ),
       accessibleContextResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_resetAtomButton_accessibleContextResponse', _.get( AlphaDecayStrings, 'a11y.resetAtomButton.accessibleContextResponseStringProperty' ) )
     },
-    decayDataHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_decayDataHeading', _.get( AlphaDecayStrings, 'a11y.decayDataHeadingStringProperty' ) )
+    decayDataHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_decayDataHeading', _.get( AlphaDecayStrings, 'a11y.decayDataHeadingStringProperty' ) ),
+    multipleAtomsScreen: {
+      decayParticleStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_multipleAtomsScreen_decayParticle', _.get( AlphaDecayStrings, 'a11y.multipleAtomsScreen.decayParticleStringProperty' ) ),
+      particleLegend: {
+        accessibleParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_multipleAtomsScreen_particleLegend_accessibleParagraph', _.get( AlphaDecayStrings, 'a11y.multipleAtomsScreen.particleLegend.accessibleParagraphStringProperty' ) )
+      }
+    }
   }
 };
 

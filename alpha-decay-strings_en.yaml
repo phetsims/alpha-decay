@@ -34,3 +34,9 @@ a11y:
     accessibleName: Reset Atom
     accessibleContextResponse: Nucleus reset.
   decayDataHeading: Decay Data
+  multipleAtomsScreen:
+    decayParticle: Alpha
+    particleLegend:
+      accessibleParagraph: >-
+        Particle legend shows: Proton: red sphere. Neutron: grey sphere. Alpha Particle: cluster of 2 protons
+        and 2 neutrons.

@@ -48,6 +48,12 @@ type StringsType = {
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
     'decayDataHeadingStringProperty': LocalizedStringProperty;
+    'multipleAtomsScreen': {
+      'decayParticleStringProperty': LocalizedStringProperty;
+      'particleLegend': {
+        'accessibleParagraphStringProperty': LocalizedStringProperty;
+      }
+    }
   }
 };
 
