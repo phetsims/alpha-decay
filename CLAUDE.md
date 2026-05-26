@@ -55,7 +55,7 @@ js/
 
 ## Key Details
 
-- **Selectable isotopes**: `AlphaDecayModel` restricts `SelectableIsotopes` to `'custom'` and `'polonium-211'` (the only alpha-emitting options).
+- **Selectable isotopes**: `AlphaDecayModel` restricts `StartingIsotopes` to `'custom'` and `'polonium-211'` (the only alpha-emitting options).
 - **Custom mode**: When `selectedIsotopeProperty === 'custom'`, the half-life slider in `DecayTimeHistogramPanel` becomes visible and `selectedHalfLifeProperty` is user-editable.
 - **Most view components** live in `nuclear-decay-common` — alpha-decay mostly assembles and configures them per screen.
 

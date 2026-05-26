@@ -7,8 +7,8 @@
  */
 
 // Selectable isotopes in alpha-decay
-const ADSelectableIsotopesValues = [ 'custom', 'polonium-211' ] as const;
-export type ADSelectableIsotopes = ( typeof ADSelectableIsotopesValues )[ number ];
+const ADStartingIsotopesValues = [ 'custom', 'polonium-211' ] as const;
+export type ADStartingIsotopes = ( typeof ADStartingIsotopesValues )[ number ];
 
 export default class AlphaDecayConstants {
 
@@ -19,6 +19,6 @@ export default class AlphaDecayConstants {
   public static readonly SCREEN_VIEW_X_MARGIN = 15;
   public static readonly SCREEN_VIEW_Y_MARGIN = 15;
 
-  public static readonly SELECTABLE_ISOTOPES = [ ...ADSelectableIsotopesValues ];
+  public static readonly SELECTABLE_ISOTOPES = [ ...ADStartingIsotopesValues ];
 
 }
