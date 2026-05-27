@@ -11,6 +11,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import AtomLabelNode from '../../../../nuclear-decay-common/js/common/view/AtomLabelNode.js';
 import DynamicNucleusNode from '../../../../nuclear-decay-common/js/common/view/DynamicNucleusNode.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
@@ -132,6 +133,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       visibleProperty: model.isPlayAreaEmptyProperty.derived( isEmpty => !isEmpty ),
       escapeRadiusProperty: energyIntersectionPointProperty.derived( point => point.x )
     } );
+    const atomLabelNode = new AtomLabelNode(
+      decayingAtom, model.selectedIsotopeProperty, { visibleProperty: decayingAtomNode.visibleProperty } );
 
     const potentialAreaCircle = new Circle( 50, combineOptions<CircleOptions>( {
       stroke: 'black',
@@ -198,6 +201,11 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       addAtomButton.center = bounds.center;
       decayingAtomNode.translation = bounds.center;
       potentialAreaCircle.center = bounds.center;
+
+      // Adjusting the label's Y position for custom since it's more vertically tight
+      atomLabelNode.updatePosition( bounds.withY(
+        model.selectedIsotopeProperty.value === 'custom' ? 150 : 100
+      ) );
     } );
 
     // Fire two context responses when the atom decays: one describing the decay event,
@@ -218,6 +226,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       addAtomButton,
       resetDecayButton,
       decayingAtomNode,
+      atomLabelNode,
       potentialAreaCircle,
       atomDescriptionNode
     ];
