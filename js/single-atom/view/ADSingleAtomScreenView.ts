@@ -95,8 +95,12 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
       }
     );
 
-    const potentialLinesVisibleProperty = new DerivedProperty( [ model.isPlayAreaEmptyProperty, energyDiagramExpandedProperty ],
-      ( isEmpty, expanded ) => !isEmpty && expanded );
+    const potentialLinesVisibleProperty = new DerivedProperty( [
+        model.isPlayAreaEmptyProperty,
+        model.hasDecayOccurredProperty,
+        energyDiagramExpandedProperty
+      ],
+      ( isEmpty, hasDecayed, expanded ) => !isEmpty && !hasDecayed && expanded );
 
     const playAreaNode = new ADSingleAtomPlayAreaNode(
       model,
