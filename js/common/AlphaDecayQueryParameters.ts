@@ -11,7 +11,11 @@ import logGlobal from '../../../phet-core/js/logGlobal.js';
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
 
 const AlphaDecayQueryParameters = QueryStringMachine.getAll( {
-  //NOTE: add schemas for query parameters
+  quantumMode: {
+    type: 'boolean',
+    defaultValue: true,
+    public: true
+  }
 } );
 
 // Log query parameters

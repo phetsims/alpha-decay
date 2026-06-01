@@ -1,4 +1,6 @@
 alpha-decay.title: 'Alpha Decay'
+preferences.quantumMode.title: 'Placeholder: Quantum Mode'
+preferences.quantumMode.description: 'Placeholder description'
 screen.singleAtom: 'Single Atom'
 screen.multipleAtoms: 'Multiple Atoms'
 screen.decayRate: 'Decay Rate'

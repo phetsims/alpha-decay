@@ -15,6 +15,12 @@ type StringsType = {
   'alpha-decay': {
     'titleStringProperty': LocalizedStringProperty;
   };
+  'preferences': {
+    'quantumMode': {
+      'titleStringProperty': LocalizedStringProperty;
+      'descriptionStringProperty': LocalizedStringProperty;
+    }
+  };
   'screen': {
     'singleAtomStringProperty': LocalizedStringProperty;
     'multipleAtomsStringProperty': LocalizedStringProperty;

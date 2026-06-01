@@ -19,6 +19,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import Line, { LineOptions } from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import AlphaDecayFluent from '../../AlphaDecayFluent.js';
+import AlphaDecayPreferences from '../../common/model/AlphaDecayPreferences.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 import ADSingleAtomPlayAreaNode from './ADSingleAtomPlayAreaNode.js';
 import ADSingleAtomScreenSummaryContent from './ADSingleAtomScreenSummaryContent.js';
@@ -54,7 +55,8 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
       {
         fill: NuclearDecayCommonConstants.MAIN_PANEL_FILL,
         tandem: options.tandem.createTandem( 'energyDiagramAccordionBox' ),
-        expandedProperty: energyDiagramExpandedProperty
+        expandedProperty: energyDiagramExpandedProperty,
+        visibleProperty: AlphaDecayPreferences.quantumModeProperty
       } );
     this.addChild( energyDiagramAccordionBox );
 
@@ -98,9 +100,10 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     const potentialLinesVisibleProperty = new DerivedProperty( [
         model.isPlayAreaEmptyProperty,
         model.hasDecayOccurredProperty,
-        energyDiagramExpandedProperty
+        energyDiagramExpandedProperty,
+        AlphaDecayPreferences.quantumModeProperty
       ],
-      ( isEmpty, hasDecayed, expanded ) => !isEmpty && !hasDecayed && expanded );
+      ( isEmpty, hasDecayed, expanded, quantumMode ) => !isEmpty && !hasDecayed && expanded && quantumMode );
 
     const playAreaNode = new ADSingleAtomPlayAreaNode(
       model,

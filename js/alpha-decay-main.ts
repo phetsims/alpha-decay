@@ -6,11 +6,13 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
+import PreferencesModel from '../../joist/js/preferences/PreferencesModel.js';
 import Sim, { SimOptions } from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import AlphaDecayFluent from './AlphaDecayFluent.js';
 import './common/AlphaDecayQueryParameters.js';
+import AlphaDecayPreferencesNode from './common/view/AlphaDecayPreferencesNode.js';
 import ADDecayRateScreen from './decay-rates/ADDecayRateScreen.js';
 import ADMultipleAtomsScreen from './multiple-atoms/ADMultipleAtomsScreen.js';
 import ADSingleAtomScreen from './single-atom/ADSingleAtomScreen.js';
@@ -28,6 +30,15 @@ simLauncher.launch( () => {
   ];
 
   const options: SimOptions = {
+    preferencesModel: new PreferencesModel( {
+      simulationOptions: {
+        customPreferences: [ {
+          createContent: tandem => new AlphaDecayPreferencesNode( {
+            tandem: tandem.createTandem( 'simPreferences' )
+          } )
+        } ]
+      }
+    } ),
 
     // TODO fill in credits, all of these fields are optional, see joist.CreditsNode https://github.com/phetsims/alpha-decay/issues/1
     credits: {

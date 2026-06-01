@@ -2,6 +2,12 @@
   "alpha-decay.title": {
     "value": "Alpha Decay"
   },
+  "preferences.quantumMode.title": {
+    "value": "Placeholder: Quantum Mode"
+  },
+  "preferences.quantumMode.description": {
+    "value": "Placeholder description"
+  },
   "screen.singleAtom": {
     "value": "Single Atom"
   },
