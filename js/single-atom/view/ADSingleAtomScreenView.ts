@@ -100,10 +100,13 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     const potentialLinesVisibleProperty = new DerivedProperty( [
         model.isPlayAreaEmptyProperty,
         model.hasDecayOccurredProperty,
+        model.isNucleusStableProperty,
         energyDiagramExpandedProperty,
         AlphaDecayPreferences.quantumModeProperty
       ],
-      ( isEmpty, hasDecayed, expanded, quantumMode ) => !isEmpty && !hasDecayed && expanded && quantumMode );
+      ( isEmpty, hasDecayed, stable, expanded, quantumMode ) => {
+        return !isEmpty && !hasDecayed && !stable && expanded && quantumMode;
+      } );
 
     const playAreaNode = new ADSingleAtomPlayAreaNode(
       model,
