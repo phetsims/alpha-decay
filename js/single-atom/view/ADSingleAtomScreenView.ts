@@ -60,14 +60,24 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
       } );
     this.addChild( energyDiagramAccordionBox );
 
-    this.decayTimeHistogramPanel.boundsProperty.link( bounds => {
-      this.playAreaBoundsProperty.value = new Bounds2(
-        bounds.left,
-        bounds.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
-        bounds.right,
-        energyDiagramAccordionBox.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
-      );
-    } );
+    // The panels around the play area change shape (top panel increases height on custom, bottom panel can be
+    // toggled off via a preference). So we make sure to adjust the play area bounds so the central atom is
+    // cozy right there in the middle of the available space
+    Multilink.multilink(
+      [
+        this.decayTimeHistogramPanel.boundsProperty,
+        energyDiagramAccordionBox.visibleProperty
+      ], ( bounds, energyDiagramVisible ) => {
+        this.playAreaBoundsProperty.value = new Bounds2(
+          bounds.left,
+          bounds.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
+          bounds.right,
+          energyDiagramVisible ?
+              energyDiagramAccordionBox.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN :
+              this.layoutBounds.bottom - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
+        );
+      }
+    );
 
     // The escape distance from the center of the atom is also given by the intersection point of the energy curves
     Multilink.multilink(
