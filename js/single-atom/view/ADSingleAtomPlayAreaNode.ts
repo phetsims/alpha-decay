@@ -115,7 +115,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       content: new Text( NuclearDecayCommonFluent.addAtomStringProperty, {
         font: NuclearDecayCommonConstants.CONTROL_FONT
       } ),
-      baseColor: NuclearDecayCommonColors.addButtonProperty,
+      baseColor: NuclearDecayCommonColors.setSampleButtonProperty,
       accessibleHelpText: AlphaDecayFluent.a11y.addAtomButton.accessibleHelpTextStringProperty,
       accessibleContextResponse: AlphaDecayFluent.a11y.addAtomButton.accessibleContextResponse.createProperty( {
         isotope: currentIsotopeNameProperty
