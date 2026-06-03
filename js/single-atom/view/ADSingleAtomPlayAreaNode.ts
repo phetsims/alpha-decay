@@ -11,6 +11,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import ResetAtomsButton from '../../../../nuclear-decay-common/js/common/view/ResetAtomsButton.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
@@ -21,10 +22,8 @@ import ScientificNotationNode from '../../../../scenery-phet/js/ScientificNotati
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Circle, { CircleOptions } from '../../../../scenery/js/nodes/Circle.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import undoSolidShape from '../../../../sherpa/js/fontawesome-5/undoSolidShape.js';
 import AtomNameUtils from '../../../../shred/js/AtomNameUtils.js';
 import InfinityNode from '../../../../shred/js/view/InfinityNode.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
@@ -166,18 +165,14 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     } );
 
     // Create the button for resetting the decay state of the atom.
-    const resetDecayButton = new RectangularPushButton( {
-      content: new Path( undoSolidShape, { scale: 0.038, fill: 'black' } ),
-      baseColor: NuclearDecayCommonColors.resetButtonProperty,
+    const resetDecayButton = new ResetAtomsButton( model.isPlayAreaEmptyProperty, {
       accessibleName: AlphaDecayFluent.a11y.resetAtomButton.accessibleNameStringProperty,
       accessibleContextResponse: AlphaDecayFluent.a11y.resetAtomButton.accessibleContextResponseStringProperty,
       listener: () => {
-        model.timeProperty.reset();
         model.resetAtomDecayStates();
         model.activateAtom();
       },
-      tandem: options.tandem.createTandem( 'resetDecayButton' ),
-      enabledProperty: model.isPlayAreaEmptyProperty.derived( empty => !empty )
+      tandem: options.tandem.createTandem( 'resetDecayButton' )
     } );
 
     // Linking the ui components' position to the changing bounds
