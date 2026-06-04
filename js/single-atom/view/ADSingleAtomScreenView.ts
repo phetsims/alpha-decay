@@ -9,6 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
@@ -32,8 +33,11 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
 
   public constructor( model: ADSingleAtomModel, providedOptions: SingleAtomScreenViewOptions ) {
 
+    const escapeRadiusForwardingProperty = new NumberProperty( 0 );
+
     const options = optionize<ADSingleAtomScreenViewOptions, SelfOptions, SingleAtomScreenViewOptions>()( {
-      screenSummaryContent: new ADSingleAtomScreenSummaryContent( model )
+      screenSummaryContent: new ADSingleAtomScreenSummaryContent( model ),
+      escapeRadiusProperty: escapeRadiusForwardingProperty
     }, providedOptions );
 
     super( model, options );
@@ -106,6 +110,10 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
         return intersectionPoint.plusXY( 0, diagramBounds.centerY - playAreaBounds.centerY );
       }
     );
+
+    energyIntersectionPointProperty.link( point => {
+      escapeRadiusForwardingProperty.value = point.x;
+    } );
 
     const potentialLinesVisibleProperty = new DerivedProperty( [
         model.isPlayAreaEmptyProperty,
