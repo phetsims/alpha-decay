@@ -169,7 +169,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       accessibleName: AlphaDecayFluent.a11y.resetAtomButton.accessibleNameStringProperty,
       accessibleContextResponse: AlphaDecayFluent.a11y.resetAtomButton.accessibleContextResponseStringProperty,
       listener: () => {
-        model.resetAtomDecayStates();
+        model.resetTimes();
+        model.resetAtoms();
         model.activateAtom();
       },
       tandem: options.tandem.createTandem( 'resetDecayButton' )
