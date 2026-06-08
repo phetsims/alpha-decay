@@ -9,6 +9,7 @@
 import SingleAtomModel, { SingleAtomDecayModelOptions } from '../../../../nuclear-decay-common/js/single-atom/model/SingleAtomModel.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import AlphaDecayConstants from '../../common/AlphaDecayConstants.js';
+import AlphaDecayPreferences from '../../common/model/AlphaDecayPreferences.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -25,5 +26,11 @@ export default class ADSingleAtomModel extends SingleAtomModel {
 
     this.selectedIsotopeProperty.setInitialValue( 'polonium-211' );
     this.selectedIsotopeProperty.reset();
+
+    AlphaDecayPreferences.quantumModeProperty.link( showQuantumTunneling => {
+      this.atomPool.forEach( atom => {
+        atom.showQuantumTunneling = showQuantumTunneling;
+      } );
+    } );
   }
 }
