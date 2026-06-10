@@ -7,6 +7,8 @@
  */
 
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
+import createNucleusIconNode from '../../../nuclear-decay-common/js/common/view/createNucleusIconNode.js';
 import optionize, { EmptySelfOptions } from '../../../phet-core/js/optionize.js';
 import AlphaDecayFluent from '../AlphaDecayFluent.js';
 import AlphaDecayColors from '../common/AlphaDecayColors.js';
@@ -23,6 +25,7 @@ export default class ADSingleAtomScreen extends Screen<ADSingleAtomModel, ADSing
 
     const options = optionize<AlphaDecayScreenOptions, SelfOptions, ScreenOptions>()( {
       name: AlphaDecayFluent.screen.singleAtomStringProperty,
+      homeScreenIcon: createScreenIcon(),
       backgroundColorProperty: AlphaDecayColors.screenBackgroundColorProperty
     }, providedOptions );
 
@@ -33,3 +36,14 @@ export default class ADSingleAtomScreen extends Screen<ADSingleAtomModel, ADSing
     );
   }
 }
+
+// Radius of individual nucleon spheres used in the icon, in screen coordinates.
+const ICON_NUCLEON_RADIUS = 3;
+
+const createScreenIcon = (): ScreenIcon => {
+  return new ScreenIcon( createNucleusIconNode( 84, 127, ICON_NUCLEON_RADIUS ), {
+    maxIconWidthProportion: 0.9,
+    maxIconHeightProportion: 0.9,
+    fill: AlphaDecayColors.screenBackgroundColorProperty
+  } );
+};
