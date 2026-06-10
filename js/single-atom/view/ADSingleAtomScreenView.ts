@@ -12,6 +12,7 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import DynamicNucleusNode from '../../../../nuclear-decay-common/js/common/view/DynamicNucleusNode.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
 import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/single-atom/view/EnergyDiagramAccordionBox.js';
 import SingleAtomScreenView, { SingleAtomScreenViewOptions } from '../../../../nuclear-decay-common/js/single-atom/view/SingleAtomScreenView.js';
@@ -54,8 +55,13 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
       tandem: options.tandem.createTandem( 'energyDiagramExpandedProperty' )
     } );
 
+    affirm( this.atomNodes.length === 1, 'expected exactly one atom node in single atom screen' );
+    affirm( this.atomNodes[ 0 ] instanceof DynamicNucleusNode, 'expected atom node to be a DynamicNucleusNode' );
     const energyDiagramAccordionBox = new EnergyDiagramAccordionBox(
-      model, energyDiagramBounds, this.modelViewTransformProperty,
+      model,
+      this.atomNodes[ 0 ],
+      energyDiagramBounds,
+      this.modelViewTransformProperty,
       {
         fill: NuclearDecayCommonConstants.MAIN_PANEL_FILL,
         tandem: options.tandem.createTandem( 'energyDiagramAccordionBox' ),
