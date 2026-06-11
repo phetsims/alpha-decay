@@ -177,6 +177,11 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     } );
     this.addChild( decayDataHeadingNode );
 
+    // TODO Uncomment this once we plug the MVT to the atom https://github.com/phetsims/alpha-decay/issues/19
+    // AlphaDecayPreferences.quantumModeProperty.link( tunnelingOn => {
+    //   this.numberOfAtomsInPlayAreaWidthProperty.value = tunnelingOn ? 10 : 5;
+    // } );
+
     // Play area PDOM order: Radioactive Atom → Energy Diagram → Decay Data → Isotope Panel → Particle Counts → Nuclear Equation
     this.pdomPlayAreaNode.pdomOrder = [
       playAreaNode,
