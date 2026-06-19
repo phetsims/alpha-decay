@@ -52,7 +52,7 @@ const createScreenIcon = (): ScreenIcon => {
   const iconNode = new Node( {
     children: [
       new Path( curveShape, {
-        stroke: NuclearDecayCommonColors.undecayedProperty,
+        stroke: NuclearDecayCommonColors.poloniumColorProperty,
         lineWidth: 5,
         lineCap: 'round'
       } )

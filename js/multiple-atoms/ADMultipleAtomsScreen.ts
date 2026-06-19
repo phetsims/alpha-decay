@@ -53,7 +53,7 @@ const createScreenIcon = (): ScreenIcon => {
 
   // Pie chart: 3/4 decayed (black), 1/4 undecayed (magenta).
   const undecayedBackground = new Circle( PIE_RADIUS, {
-    fill: NuclearDecayCommonColors.undecayedProperty,
+    fill: NuclearDecayCommonColors.poloniumColorProperty,
     stroke: 'black',
     lineWidth: 1
   } );
