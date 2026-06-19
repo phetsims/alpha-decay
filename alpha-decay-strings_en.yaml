@@ -1,6 +1,6 @@
 alpha-decay.title: 'Alpha Decay'
-preferences.quantumMode.title: 'Quantum Tunneling'
-preferences.quantumMode.description: 'On the single atom screen, show alpha particle tunneling and energy diagram.'
+preferences.advancedQuantumTunnelling.title: 'Advanced Quantum Tunneling'
+preferences.advancedQuantumTunnelling.description: 'On the Single Atom screen, show alpha particle tunneling and energy diagram.'
 screen.singleAtom: 'Single Atom'
 screen.multipleAtoms: 'Multiple Atoms'
 screen.decayRate: 'Decay Rate'

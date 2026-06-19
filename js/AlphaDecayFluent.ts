@@ -5,7 +5,7 @@
 /* eslint-disable */
 /* @formatter:off */
 
-import { TReadOnlyProperty } from '../../axon/js/TReadOnlyProperty.js';
+import {TReadOnlyProperty} from '../../axon/js/TReadOnlyProperty.js';
 import FluentLibrary from '../../chipper/js/browser-and-node/FluentLibrary.js';
 import FluentConstant from '../../chipper/js/browser/FluentConstant.js';
 import FluentContainer from '../../chipper/js/browser/FluentContainer.js';
@@ -28,8 +28,8 @@ const addToMapIfDefined = ( key: string, path: string ) => {
 };
 
 addToMapIfDefined( 'alpha_decay_title', 'alpha-decay.titleStringProperty' );
-addToMapIfDefined( 'preferences_quantumMode_title', 'preferences.quantumMode.titleStringProperty' );
-addToMapIfDefined( 'preferences_quantumMode_description', 'preferences.quantumMode.descriptionStringProperty' );
+addToMapIfDefined( 'preferences_advancedQuantumTunnelling_title', 'preferences.advancedQuantumTunnelling.titleStringProperty' );
+addToMapIfDefined( 'preferences_advancedQuantumTunnelling_description', 'preferences.advancedQuantumTunnelling.descriptionStringProperty' );
 addToMapIfDefined( 'screen_singleAtom', 'screen.singleAtomStringProperty' );
 addToMapIfDefined( 'screen_multipleAtoms', 'screen.multipleAtomsStringProperty' );
 addToMapIfDefined( 'screen_decayRate', 'screen.decayRateStringProperty' );
@@ -67,9 +67,9 @@ const AlphaDecayFluent = {
     titleStringProperty: _.get( AlphaDecayStrings, 'alpha-decay.titleStringProperty' )
   },
   preferences: {
-    quantumMode: {
-      titleStringProperty: _.get( AlphaDecayStrings, 'preferences.quantumMode.titleStringProperty' ),
-      descriptionStringProperty: _.get( AlphaDecayStrings, 'preferences.quantumMode.descriptionStringProperty' )
+    advancedQuantumTunnelling: {
+      titleStringProperty: _.get( AlphaDecayStrings, 'preferences.advancedQuantumTunnelling.titleStringProperty' ),
+      descriptionStringProperty: _.get( AlphaDecayStrings, 'preferences.advancedQuantumTunnelling.descriptionStringProperty' )
     }
   },
   screen: {

@@ -14,8 +14,8 @@ import AlphaDecayQueryParameters from '../AlphaDecayQueryParameters.js';
 const AlphaDecayPreferences = {
 
   // controls whether the sim is in Quantum mode
-  quantumModeProperty: new BooleanProperty( AlphaDecayQueryParameters.quantumMode, {
-    tandem: Tandem.PREFERENCES.createTandem( 'quantumModeProperty' ),
+  advancedQuantumTunnellingProperty: new BooleanProperty( AlphaDecayQueryParameters.advancedQuantumTunnelling, {
+    tandem: Tandem.PREFERENCES.createTandem( 'advancedQuantumTunnellingProperty' ),
     phetioFeatured: true
   } )
 };

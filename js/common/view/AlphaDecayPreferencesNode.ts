@@ -33,26 +33,26 @@ export default class AlphaDecayPreferencesNode extends VBox {
 
     super( options );
 
-    this.addChild( new QuantumModeControl( options.tandem.createTandem( 'quantumModeControl' ) ) );
+    this.addChild( new AdvancedQuantumTunnelling( options.tandem.createTandem( 'advancedQuantumTunnellingControl' ) ) );
   }
 }
 
-class QuantumModeControl extends PreferencesControl {
+class AdvancedQuantumTunnelling extends PreferencesControl {
 
   public constructor( tandem: Tandem ) {
 
     super( {
       isDisposable: false,
       labelNode: new Text(
-        AlphaDecayFluent.preferences.quantumMode.titleStringProperty,
+        AlphaDecayFluent.preferences.advancedQuantumTunnelling.titleStringProperty,
         PreferencesDialogConstants.CONTROL_LABEL_OPTIONS
       ),
       descriptionNode: new RichText(
-        AlphaDecayFluent.preferences.quantumMode.descriptionStringProperty,
+        AlphaDecayFluent.preferences.advancedQuantumTunnelling.descriptionStringProperty,
         PreferencesDialogConstants.CONTROL_DESCRIPTION_OPTIONS
       ),
       controlNode: new ToggleSwitch(
-        AlphaDecayPreferences.quantumModeProperty,
+        AlphaDecayPreferences.advancedQuantumTunnellingProperty,
         false,
         true,
         PreferencesDialogConstants.TOGGLE_SWITCH_OPTIONS
@@ -65,6 +65,6 @@ class QuantumModeControl extends PreferencesControl {
       }
     } );
 
-    this.addLinkedElement( AlphaDecayPreferences.quantumModeProperty );
+    this.addLinkedElement( AlphaDecayPreferences.advancedQuantumTunnellingProperty );
   }
 }

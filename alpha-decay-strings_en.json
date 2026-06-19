@@ -2,11 +2,11 @@
   "alpha-decay.title": {
     "value": "Alpha Decay"
   },
-  "preferences.quantumMode.title": {
-    "value": "Quantum Tunneling"
+  "preferences.advancedQuantumTunnelling.title": {
+    "value": "Advanced Quantum Tunneling"
   },
-  "preferences.quantumMode.description": {
-    "value": "On the single atom screen, show alpha particle tunneling and energy diagram."
+  "preferences.advancedQuantumTunnelling.description": {
+    "value": "On the Single Atom screen, show alpha particle tunneling and energy diagram."
   },
   "screen.singleAtom": {
     "value": "Single Atom"

@@ -16,7 +16,7 @@ type StringsType = {
     'titleStringProperty': LocalizedStringProperty;
   };
   'preferences': {
-    'quantumMode': {
+    'advancedQuantumTunnelling': {
       'titleStringProperty': LocalizedStringProperty;
       'descriptionStringProperty': LocalizedStringProperty;
     }
