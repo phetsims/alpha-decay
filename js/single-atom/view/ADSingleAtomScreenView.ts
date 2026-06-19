@@ -66,7 +66,7 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
         fill: NuclearDecayCommonConstants.MAIN_PANEL_FILL,
         tandem: options.tandem.createTandem( 'energyDiagramAccordionBox' ),
         expandedProperty: energyDiagramExpandedProperty,
-        visibleProperty: AlphaDecayPreferences.advancedQuantumTunnellingProperty
+        visibleProperty: AlphaDecayPreferences.advancedQuantumPhysicsProperty
       } );
     this.addChild( energyDiagramAccordionBox );
 
@@ -126,10 +126,10 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
         model.hasDecayOccurredProperty,
         model.isNucleusStableProperty,
         energyDiagramExpandedProperty,
-        AlphaDecayPreferences.advancedQuantumTunnellingProperty
+        AlphaDecayPreferences.advancedQuantumPhysicsProperty
       ],
-      ( isEmpty, hasDecayed, stable, expanded, advancedQuantumTunnelling ) => {
-        return !isEmpty && !hasDecayed && !stable && expanded && advancedQuantumTunnelling;
+      ( isEmpty, hasDecayed, stable, expanded, advancedQuantumPhysics ) => {
+        return !isEmpty && !hasDecayed && !stable && expanded && advancedQuantumPhysics;
       } );
 
     const playAreaNode = new ADSingleAtomPlayAreaNode(
@@ -178,7 +178,7 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     this.addChild( decayDataHeadingNode );
 
     // TODO Uncomment this once we plug the MVT to the atom https://github.com/phetsims/alpha-decay/issues/19
-    // AlphaDecayPreferences.advancedQuantumTunnellingProperty.link( tunnelingOn => {
+    // AlphaDecayPreferences.advancedQuantumPhysicsProperty.link( tunnelingOn => {
     //   this.numberOfAtomsInPlayAreaWidthProperty.value = tunnelingOn ? 10 : 5;
     // } );
 

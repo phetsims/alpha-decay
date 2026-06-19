@@ -27,7 +27,7 @@ export default class ADSingleAtomModel extends SingleAtomModel {
     this.selectedIsotopeProperty.setInitialValue( 'polonium-211' );
     this.selectedIsotopeProperty.reset();
 
-    AlphaDecayPreferences.advancedQuantumTunnellingProperty.link( showQuantumTunneling => {
+    AlphaDecayPreferences.advancedQuantumPhysicsProperty.link( showQuantumTunneling => {
       this.atomPool.forEach( atom => {
         atom.showQuantumTunneling = showQuantumTunneling;
       } );

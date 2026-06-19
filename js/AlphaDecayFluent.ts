@@ -28,8 +28,8 @@ const addToMapIfDefined = ( key: string, path: string ) => {
 };
 
 addToMapIfDefined( 'alpha_decay_title', 'alpha-decay.titleStringProperty' );
-addToMapIfDefined( 'preferences_advancedQuantumTunnelling_title', 'preferences.advancedQuantumTunnelling.titleStringProperty' );
-addToMapIfDefined( 'preferences_advancedQuantumTunnelling_description', 'preferences.advancedQuantumTunnelling.descriptionStringProperty' );
+addToMapIfDefined( 'preferences_advancedQuantumPhysics_title', 'preferences.advancedQuantumPhysics.titleStringProperty' );
+addToMapIfDefined( 'preferences_advancedQuantumPhysics_description', 'preferences.advancedQuantumPhysics.descriptionStringProperty' );
 addToMapIfDefined( 'screen_singleAtom', 'screen.singleAtomStringProperty' );
 addToMapIfDefined( 'screen_multipleAtoms', 'screen.multipleAtomsStringProperty' );
 addToMapIfDefined( 'screen_decayRate', 'screen.decayRateStringProperty' );
@@ -67,9 +67,9 @@ const AlphaDecayFluent = {
     titleStringProperty: _.get( AlphaDecayStrings, 'alpha-decay.titleStringProperty' )
   },
   preferences: {
-    advancedQuantumTunnelling: {
-      titleStringProperty: _.get( AlphaDecayStrings, 'preferences.advancedQuantumTunnelling.titleStringProperty' ),
-      descriptionStringProperty: _.get( AlphaDecayStrings, 'preferences.advancedQuantumTunnelling.descriptionStringProperty' )
+    advancedQuantumPhysics: {
+      titleStringProperty: _.get( AlphaDecayStrings, 'preferences.advancedQuantumPhysics.titleStringProperty' ),
+      descriptionStringProperty: _.get( AlphaDecayStrings, 'preferences.advancedQuantumPhysics.descriptionStringProperty' )
     }
   },
   screen: {
