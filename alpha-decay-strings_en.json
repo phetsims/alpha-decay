@@ -53,7 +53,7 @@
         "value": "{ $isotope } present, ready to decay."
       },
       "nowPresent": {
-        "value": "{ $isotope } now present. Last decay, { $decayTime } seconds."
+        "value": "{ $isotope } now present. Decay time, { $decayTime } seconds."
       }
     },
     "atomDecay": {

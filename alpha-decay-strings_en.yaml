@@ -28,7 +28,7 @@ a11y:
     accessibleContextResponse: '{ $isotope } added.'
   atomInPlayArea:
     readyToDecay: '{ $isotope } present, ready to decay.'
-    nowPresent: '{ $isotope } now present. Last decay, { $decayTime } seconds.'
+    nowPresent: '{ $isotope } now present. Decay time, { $decayTime } seconds.'
   atomDecay:
     alphaParticleEmitted: 'Alpha particle emitted from nucleus. Decay time, { $decayTime } seconds.'
   resetAtomButton:
