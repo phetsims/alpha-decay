@@ -43,7 +43,6 @@ type StringsType = {
     };
     'atomInPlayArea': {
       'readyToDecayStringProperty': LocalizedStringProperty;
-      'readyToDecayLastDecayStringProperty': LocalizedStringProperty;
       'nowPresentStringProperty': LocalizedStringProperty;
     };
     'atomDecay': {

@@ -50,10 +50,7 @@
     },
     "atomInPlayArea": {
       "readyToDecay": {
-        "value": "{ $isotope } ready to decay."
-      },
-      "readyToDecayLastDecay": {
-        "value": "{ $isotope } ready to decay. Last decay, { $decayTime } seconds."
+        "value": "{ $isotope } present, ready to decay."
       },
       "nowPresent": {
         "value": "{ $isotope } now present. Last decay, { $decayTime } seconds."

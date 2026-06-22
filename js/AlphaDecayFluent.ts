@@ -42,7 +42,6 @@ addToMapIfDefined( 'a11y_radioactiveAtomHeading', 'a11y.radioactiveAtomHeadingSt
 addToMapIfDefined( 'a11y_addAtomButton_accessibleHelpText', 'a11y.addAtomButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_addAtomButton_accessibleContextResponse', 'a11y.addAtomButton.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_atomInPlayArea_readyToDecay', 'a11y.atomInPlayArea.readyToDecayStringProperty' );
-addToMapIfDefined( 'a11y_atomInPlayArea_readyToDecayLastDecay', 'a11y.atomInPlayArea.readyToDecayLastDecayStringProperty' );
 addToMapIfDefined( 'a11y_atomInPlayArea_nowPresent', 'a11y.atomInPlayArea.nowPresentStringProperty' );
 addToMapIfDefined( 'a11y_atomDecay_alphaParticleEmitted', 'a11y.atomDecay.alphaParticleEmittedStringProperty' );
 addToMapIfDefined( 'a11y_resetAtomButton_accessibleName', 'a11y.resetAtomButton.accessibleNameStringProperty' );
@@ -94,7 +93,6 @@ const AlphaDecayFluent = {
     },
     atomInPlayArea: {
       readyToDecay: new FluentPattern<{ isotope: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_atomInPlayArea_readyToDecay', _.get( AlphaDecayStrings, 'a11y.atomInPlayArea.readyToDecayStringProperty' ), [{"name":"isotope"}] ),
-      readyToDecayLastDecay: new FluentPattern<{ decayTime: FluentVariable, isotope: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_atomInPlayArea_readyToDecayLastDecay', _.get( AlphaDecayStrings, 'a11y.atomInPlayArea.readyToDecayLastDecayStringProperty' ), [{"name":"decayTime"},{"name":"isotope"}] ),
       nowPresent: new FluentPattern<{ decayTime: FluentVariable, isotope: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_atomInPlayArea_nowPresent', _.get( AlphaDecayStrings, 'a11y.atomInPlayArea.nowPresentStringProperty' ), [{"name":"decayTime"},{"name":"isotope"}] )
     },
     atomDecay: {

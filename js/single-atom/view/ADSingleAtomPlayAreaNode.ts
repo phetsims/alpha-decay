@@ -150,9 +150,6 @@ export default class ADSingleAtomPlayAreaNode extends Node {
         if ( hasDecayOccurred ) {
           return AlphaDecayFluent.a11y.atomInPlayArea.nowPresent.format( { isotope: isotopeName, decayTime: decayTimeFormatted } );
         }
-        else if ( lastDecayTime !== null ) {
-          return AlphaDecayFluent.a11y.atomInPlayArea.readyToDecayLastDecay.format( { isotope: isotopeName, decayTime: decayTimeFormatted } );
-        }
         else {
           return AlphaDecayFluent.a11y.atomInPlayArea.readyToDecay.format( { isotope: isotopeName } );
         }

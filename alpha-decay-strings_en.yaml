@@ -27,8 +27,7 @@ a11y:
     accessibleHelpText: Add atom to begin observations.
     accessibleContextResponse: '{ $isotope } added.'
   atomInPlayArea:
-    readyToDecay: '{ $isotope } ready to decay.'
-    readyToDecayLastDecay: '{ $isotope } ready to decay. Last decay, { $decayTime } seconds.'
+    readyToDecay: '{ $isotope } present, ready to decay.'
     nowPresent: '{ $isotope } now present. Last decay, { $decayTime } seconds.'
   atomDecay:
     alphaParticleEmitted: 'Alpha particle emitted from nucleus. Decay time, { $decayTime } seconds.'
