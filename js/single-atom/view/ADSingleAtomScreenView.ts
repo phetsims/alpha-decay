@@ -6,7 +6,6 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -32,6 +31,8 @@ type ADSingleAtomScreenViewOptions = SelfOptions & SingleAtomScreenViewOptions;
 
 export default class ADSingleAtomScreenView extends SingleAtomScreenView {
 
+  private readonly energyDiagramAccordionBox: EnergyDiagramAccordionBox;
+
   public constructor( model: ADSingleAtomModel, providedOptions: SingleAtomScreenViewOptions ) {
 
     const escapeRadiusForwardingProperty = new NumberProperty( 0 );
@@ -51,13 +52,10 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
       this.layoutBounds.maxY - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
     );
 
-    const energyDiagramExpandedProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'energyDiagramExpandedProperty' )
-    } );
-
     affirm( this.atomNodes.length === 1, 'expected exactly one atom node in single atom screen' );
     affirm( this.atomNodes[ 0 ] instanceof DynamicNucleusNode, 'expected atom node to be a DynamicNucleusNode' );
-    const energyDiagramAccordionBox = new EnergyDiagramAccordionBox(
+
+    this.energyDiagramAccordionBox = new EnergyDiagramAccordionBox(
       model,
       this.atomNodes[ 0 ],
       energyDiagramBounds,
@@ -65,10 +63,9 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
       {
         fill: NuclearDecayCommonConstants.MAIN_PANEL_FILL,
         tandem: options.tandem.createTandem( 'energyDiagramAccordionBox' ),
-        expandedProperty: energyDiagramExpandedProperty,
         visibleProperty: AlphaDecayPreferences.advancedQuantumPhysicsProperty
       } );
-    this.addChild( energyDiagramAccordionBox );
+    this.addChild( this.energyDiagramAccordionBox );
 
     // The panels around the play area change shape (top panel increases height on custom, bottom panel can be
     // toggled off via a preference). So we make sure to adjust the play area bounds so the central atom is
@@ -76,14 +73,14 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     Multilink.multilink(
       [
         this.decayTimeHistogramPanel.boundsProperty,
-        energyDiagramAccordionBox.visibleProperty
+        this.energyDiagramAccordionBox.visibleProperty
       ], ( bounds, energyDiagramVisible ) => {
         this.playAreaBoundsProperty.value = new Bounds2(
           bounds.left,
           bounds.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
           bounds.right,
           energyDiagramVisible ?
-              energyDiagramAccordionBox.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN :
+              this.energyDiagramAccordionBox.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN :
               this.layoutBounds.bottom - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
         );
       }
@@ -92,7 +89,7 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     // The escape distance from the center of the atom is also given by the intersection point of the energy curves
     Multilink.multilink(
       [
-        energyDiagramAccordionBox.energyIntersectionPointProperty,
+        this.energyDiagramAccordionBox.energyIntersectionPointProperty,
         this.modelViewTransformProperty
       ],
       ( energyIntersectionPoint, modelViewTransform ) => {
@@ -108,8 +105,8 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     // own coordinates, it has to be shifted downwards for the correct positioning
     const energyIntersectionPointProperty = new DerivedProperty(
       [
-        energyDiagramAccordionBox.energyIntersectionPointProperty,
-        energyDiagramAccordionBox.boundsProperty,
+        this.energyDiagramAccordionBox.energyIntersectionPointProperty,
+        this.energyDiagramAccordionBox.boundsProperty,
         this.playAreaBoundsProperty
       ],
       ( intersectionPoint, diagramBounds, playAreaBounds ) => {
@@ -125,7 +122,7 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
         model.isPlayAreaEmptyProperty,
         model.hasDecayOccurredProperty,
         model.isNucleusStableProperty,
-        energyDiagramExpandedProperty,
+        this.energyDiagramAccordionBox.expandedProperty,
         AlphaDecayPreferences.advancedQuantumPhysicsProperty
       ],
       ( isEmpty, hasDecayed, stable, expanded, advancedQuantumPhysics ) => {
@@ -185,11 +182,16 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     // Play area PDOM order: Radioactive Atom → Energy Diagram → Decay Data → Isotope Panel → Particle Counts → Nuclear Equation
     this.pdomPlayAreaNode.pdomOrder = [
       playAreaNode,
-      energyDiagramAccordionBox,
+      this.energyDiagramAccordionBox,
       decayDataHeadingNode,
       this.isotopePanel,
       this.particleCountsAccordionBox,
       this.equationAccordionBox
     ];
+  }
+
+  public override reset(): void {
+    super.reset();
+    this.energyDiagramAccordionBox.reset();
   }
 }
