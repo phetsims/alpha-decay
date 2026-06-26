@@ -118,15 +118,17 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
       escapeRadiusForwardingProperty.value = point.x;
     } );
 
+    // Potential lines are shown if a number of conditions are met:
     const potentialLinesVisibleProperty = new DerivedProperty( [
-        model.isPlayAreaEmptyProperty,
-        model.hasDecayOccurredProperty,
-        model.isNucleusStableProperty,
-        this.energyDiagramAccordionBox.expandedProperty,
-        AlphaDecayPreferences.advancedQuantumPhysicsProperty
+        model.isPlayAreaEmptyProperty, // There is an atom in the play area
+        model.alphaParticleDistanceProperty, // The alpha particle distance is lower than the escape distance (plus a threshold)
+        model.escapeDistanceProperty,
+        model.isNucleusStableProperty, // Nucleus is NOT stable
+        this.energyDiagramAccordionBox.expandedProperty, // Energies accordion box is open
+        AlphaDecayPreferences.advancedQuantumPhysicsProperty // User is using the preference of advances quantum physics
       ],
-      ( isEmpty, hasDecayed, stable, expanded, advancedQuantumPhysics ) => {
-        return !isEmpty && !hasDecayed && !stable && expanded && advancedQuantumPhysics;
+      ( isEmpty, particleDistance, escapeDistance, stable, expanded, advancedQuantumPhysics ) => {
+        return !isEmpty && !stable && expanded && advancedQuantumPhysics && particleDistance < 1.1 * escapeDistance;
       } );
 
     const playAreaNode = new ADSingleAtomPlayAreaNode(

@@ -37,11 +37,20 @@ type SelfOptions = {
 export type ADSingleAtomPlayAreaNodeOptions = SelfOptions & WithRequired<NodeOptions, 'tandem'>;
 
 export default class ADSingleAtomPlayAreaNode extends Node {
+
+  /**
+   *
+   * @param model
+   * @param boundsProperty - bounds of the play area
+   * @param modelViewTransformProperty - mvt to convert coordinates between model and view
+   * @param energyIntersectionPointProperty - we need to reference the point at which energy curves intersect,
+   *                                          it will define the size of the escape zone
+   * @param providedOptions
+   */
   public constructor(
     model: ADSingleAtomModel,
     boundsProperty: TReadOnlyProperty<Bounds2>,
     modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
-    // TODO: Describe what this is and how to use it in constructor docs. See https://github.com/phetsims/alpha-decay/issues/3.
     energyIntersectionPointProperty: TReadOnlyProperty<Vector2>,
     providedOptions?: ADSingleAtomPlayAreaNodeOptions
   ) {
