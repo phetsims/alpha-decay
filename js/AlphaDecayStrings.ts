@@ -25,41 +25,6 @@ type StringsType = {
     'singleAtomStringProperty': LocalizedStringProperty;
     'multipleAtomsStringProperty': LocalizedStringProperty;
     'decayRateStringProperty': LocalizedStringProperty;
-  };
-  'a11y': {
-    'screenSummary': {
-      'playAreaStringProperty': LocalizedStringProperty;
-      'energyGraphStringProperty': LocalizedStringProperty;
-      'playAreaSelectorStringProperty': LocalizedStringProperty;
-      'controlAreaStringProperty': LocalizedStringProperty;
-      'currentDetailsStringProperty': LocalizedStringProperty;
-      'interactionHint': {
-        'addAtomStringProperty': LocalizedStringProperty;
-        'afterDecayStringProperty': LocalizedStringProperty;
-      }
-    };
-    'radioactiveAtomHeadingStringProperty': LocalizedStringProperty;
-    'addAtomButton': {
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
-    };
-    'atomInPlayArea': {
-      'readyToDecayStringProperty': LocalizedStringProperty;
-      'nowPresentStringProperty': LocalizedStringProperty;
-    };
-    'atomDecay': {
-      'alphaParticleEmittedStringProperty': LocalizedStringProperty;
-    };
-    'resetAtomButton': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleContextResponseStringProperty': LocalizedStringProperty;
-    };
-    'decayDataHeadingStringProperty': LocalizedStringProperty;
-    'multipleAtomsScreen': {
-      'decayParticleStringProperty': LocalizedStringProperty;
-      'particleLegend': {
-        'accessibleParagraphStringProperty': LocalizedStringProperty;
-      }
-    }
   }
 };
 

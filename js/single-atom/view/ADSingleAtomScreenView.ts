@@ -13,13 +13,13 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import DynamicNucleusNode from '../../../../nuclear-decay-common/js/common/view/DynamicNucleusNode.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
+import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/single-atom/view/EnergyDiagramAccordionBox.js';
 import SingleAtomScreenView, { SingleAtomScreenViewOptions } from '../../../../nuclear-decay-common/js/single-atom/view/SingleAtomScreenView.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Line, { LineOptions } from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import AlphaDecayFluent from '../../AlphaDecayFluent.js';
 import AlphaDecayPreferences from '../../common/model/AlphaDecayPreferences.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 import ADSingleAtomPlayAreaNode from './ADSingleAtomPlayAreaNode.js';
@@ -172,7 +172,7 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
 
     // Heading node grouping the decay timeline histogram panel under "Decay Data".
     const decayDataHeadingNode = new Node( {
-      accessibleHeading: AlphaDecayFluent.a11y.decayDataHeadingStringProperty
+      accessibleHeading: NuclearDecayCommonFluent.a11y.alphaDecay.decayDataHeadingStringProperty
     } );
     this.addChild( decayDataHeadingNode );
 

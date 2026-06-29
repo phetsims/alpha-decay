@@ -27,7 +27,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import AtomNameUtils from '../../../../shred/js/AtomNameUtils.js';
 import InfinityNode from '../../../../shred/js/view/InfinityNode.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import AlphaDecayFluent from '../../AlphaDecayFluent.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 
 type SelfOptions = {
@@ -55,7 +54,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     providedOptions?: ADSingleAtomPlayAreaNodeOptions
   ) {
     const options = optionize<ADSingleAtomPlayAreaNodeOptions, EmptySelfOptions, ADSingleAtomPlayAreaNodeOptions>()( {
-      accessibleHeading: AlphaDecayFluent.a11y.radioactiveAtomHeadingStringProperty,
+      accessibleHeading: NuclearDecayCommonFluent.a11y.alphaDecay.radioactiveAtomHeadingStringProperty,
       potentialCircleOptions: {}
     }, providedOptions );
 
@@ -124,7 +123,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
         font: NuclearDecayCommonConstants.CONTROL_FONT
       } ),
       baseColor: NuclearDecayCommonColors.setSampleButtonProperty,
-      accessibleContextResponse: AlphaDecayFluent.a11y.addAtomButton.accessibleContextResponse.createProperty( {
+      accessibleContextResponse: NuclearDecayCommonFluent.a11y.alphaDecay.addAtomButton.accessibleContextResponse.createProperty( {
         isotope: currentIsotopeNameProperty
       } ),
       listener: () => model.activateAtom(),
@@ -156,10 +155,10 @@ export default class ADSingleAtomPlayAreaNode extends Node {
         const decimalPlaces = selectedIsotope === 'custom' ? 1 : 2;
         const decayTimeFormatted = lastDecayTime !== null ? toFixed( lastDecayTime, decimalPlaces ) : '';
         if ( hasDecayOccurred ) {
-          return AlphaDecayFluent.a11y.atomInPlayArea.nowPresent.format( { isotope: isotopeName, decayTime: decayTimeFormatted } );
+          return NuclearDecayCommonFluent.a11y.alphaDecay.atomInPlayArea.nowPresent.format( { isotope: isotopeName, decayTime: decayTimeFormatted } );
         }
         else {
-          return AlphaDecayFluent.a11y.atomInPlayArea.readyToDecay.format( { isotope: isotopeName } );
+          return NuclearDecayCommonFluent.a11y.alphaDecay.atomInPlayArea.readyToDecay.format( { isotope: isotopeName } );
         }
       }
     );
@@ -171,8 +170,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
 
     // Create the button for resetting the decay state of the atom.
     const resetDecayButton = new ResetAtomsButton( model.isPlayAreaEmptyProperty, {
-      accessibleName: AlphaDecayFluent.a11y.resetAtomButton.accessibleNameStringProperty,
-      accessibleContextResponse: AlphaDecayFluent.a11y.resetAtomButton.accessibleContextResponseStringProperty,
+      accessibleName: NuclearDecayCommonFluent.a11y.alphaDecay.resetAtomButton.accessibleNameStringProperty,
+      accessibleContextResponse: NuclearDecayCommonFluent.a11y.alphaDecay.resetAtomButton.accessibleContextResponseStringProperty,
       listener: () => {
         model.resetTimes();
         model.resetAtoms();
@@ -199,7 +198,7 @@ export default class ADSingleAtomPlayAreaNode extends Node {
                           ? toFixed( model.lastDecayTimeProperty.value, 2 )
                           : toFixed( model.timeProperty.value, 2 );
         atomDescriptionNode.addAccessibleContextResponse(
-          AlphaDecayFluent.a11y.atomDecay.alphaParticleEmitted.format( { decayTime: decayTime } )
+          NuclearDecayCommonFluent.a11y.alphaDecay.atomDecay.alphaParticleEmitted.format( { decayTime: decayTime } )
         );
       }
     } );

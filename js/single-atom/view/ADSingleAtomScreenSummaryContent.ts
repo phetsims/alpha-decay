@@ -10,7 +10,6 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import AtomNameUtils from '../../../../shred/js/AtomNameUtils.js';
-import AlphaDecayFluent from '../../AlphaDecayFluent.js';
 import AlphaDecayPreferences from '../../common/model/AlphaDecayPreferences.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 
@@ -39,7 +38,7 @@ export default class ADSingleAtomScreenSummaryContent extends ScreenSummaryConte
       }
     );
 
-    const currentDetailsStringProperty = AlphaDecayFluent.a11y.screenSummary.currentDetails.createProperty( {
+    const currentDetailsStringProperty = NuclearDecayCommonFluent.a11y.alphaDecay.screenSummary.currentDetails.createProperty( {
       atom: model.isPlayAreaEmptyProperty.derived( isEmpty => isEmpty ? 'noAtom' : 'withAtom' ),
       isotope: currentAtomNameProperty
     } );
@@ -47,8 +46,8 @@ export default class ADSingleAtomScreenSummaryContent extends ScreenSummaryConte
     const interactionHintStringProperty = new DerivedStringProperty(
       [
         model.hasDecayOccurredProperty,
-        AlphaDecayFluent.a11y.screenSummary.interactionHint.addAtomStringProperty,
-        AlphaDecayFluent.a11y.screenSummary.interactionHint.afterDecayStringProperty
+        NuclearDecayCommonFluent.a11y.alphaDecay.screenSummary.interactionHint.addAtomStringProperty,
+        NuclearDecayCommonFluent.a11y.alphaDecay.screenSummary.interactionHint.afterDecayStringProperty
       ],
       ( hasDecayOccurred, addAtomHint, afterDecayHint ) => {
         return hasDecayOccurred ? afterDecayHint : addAtomHint;
@@ -56,10 +55,10 @@ export default class ADSingleAtomScreenSummaryContent extends ScreenSummaryConte
     );
 
     super( {
-      playAreaContent: AlphaDecayFluent.a11y.screenSummary.playAreaSelector.createProperty( {
+      playAreaContent: NuclearDecayCommonFluent.a11y.alphaDecay.screenSummary.playAreaSelector.createProperty( {
         quantum: AlphaDecayPreferences.advancedQuantumPhysicsProperty.derived( quantum => quantum ? 'true' : 'false' )
       } ),
-      controlAreaContent: AlphaDecayFluent.a11y.screenSummary.controlAreaStringProperty,
+      controlAreaContent: NuclearDecayCommonFluent.a11y.alphaDecay.screenSummary.controlAreaStringProperty,
       currentDetailsContent: currentDetailsStringProperty,
       interactionHintContent: interactionHintStringProperty
     } );

@@ -7,8 +7,8 @@
  */
 
 import MultipleAtomsScreenView, { MultipleAtomsScreenViewOptions } from '../../../../nuclear-decay-common/js/multiple-atoms/view/MultipleAtomsScreenView.js';
+import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import AlphaDecayFluent from '../../AlphaDecayFluent.js';
 import ADMultipleAtomsModel from '../model/ADMultipleAtomsModel.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -20,11 +20,11 @@ export default class ADMultipleAtomsScreenView extends MultipleAtomsScreenView {
   public constructor( model: ADMultipleAtomsModel, providedOptions: ADMultipleAtomsScreenViewOptions ) {
 
     const options = optionize<ADMultipleAtomsScreenViewOptions, SelfOptions, MultipleAtomsScreenViewOptions>()( {
-      decayParticleStringProperty: AlphaDecayFluent.a11y.multipleAtomsScreen.decayParticleStringProperty
+      decayParticleStringProperty: NuclearDecayCommonFluent.a11y.alphaDecay.multipleAtomsScreen.decayParticleStringProperty
     }, providedOptions );
 
     super( model, options );
 
-    this.particleLegendPanel.accessibleParagraph = AlphaDecayFluent.a11y.multipleAtomsScreen.particleLegend.accessibleParagraphStringProperty;
+    this.particleLegendPanel.accessibleParagraph = NuclearDecayCommonFluent.a11y.alphaDecay.multipleAtomsScreen.particleLegend.accessibleParagraphStringProperty;
   }
 }
