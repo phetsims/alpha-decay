@@ -29,6 +29,8 @@ type StringsType = {
   'a11y': {
     'screenSummary': {
       'playAreaStringProperty': LocalizedStringProperty;
+      'energyGraphStringProperty': LocalizedStringProperty;
+      'playAreaSelectorStringProperty': LocalizedStringProperty;
       'controlAreaStringProperty': LocalizedStringProperty;
       'currentDetailsStringProperty': LocalizedStringProperty;
       'interactionHint': {

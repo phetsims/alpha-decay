@@ -11,6 +11,7 @@ import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import AtomNameUtils from '../../../../shred/js/AtomNameUtils.js';
 import AlphaDecayFluent from '../../AlphaDecayFluent.js';
+import AlphaDecayPreferences from '../../common/model/AlphaDecayPreferences.js';
 import ADSingleAtomModel from '../model/ADSingleAtomModel.js';
 
 export default class ADSingleAtomScreenSummaryContent extends ScreenSummaryContent {
@@ -55,7 +56,9 @@ export default class ADSingleAtomScreenSummaryContent extends ScreenSummaryConte
     );
 
     super( {
-      playAreaContent: AlphaDecayFluent.a11y.screenSummary.playAreaStringProperty,
+      playAreaContent: AlphaDecayFluent.a11y.screenSummary.playAreaSelector.createProperty( {
+        quantum: AlphaDecayPreferences.advancedQuantumPhysicsProperty.derived( quantum => quantum ? 'true' : 'false' )
+      } ),
       controlAreaContent: AlphaDecayFluent.a11y.screenSummary.controlAreaStringProperty,
       currentDetailsContent: currentDetailsStringProperty,
       interactionHintContent: interactionHintStringProperty

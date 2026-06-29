@@ -5,7 +5,7 @@
 /* eslint-disable */
 /* @formatter:off */
 
-import { TReadOnlyProperty } from '../../axon/js/TReadOnlyProperty.js';
+import {TReadOnlyProperty} from '../../axon/js/TReadOnlyProperty.js';
 import FluentLibrary from '../../chipper/js/browser-and-node/FluentLibrary.js';
 import FluentConstant from '../../chipper/js/browser/FluentConstant.js';
 import FluentContainer from '../../chipper/js/browser/FluentContainer.js';
@@ -34,6 +34,8 @@ addToMapIfDefined( 'screen_singleAtom', 'screen.singleAtomStringProperty' );
 addToMapIfDefined( 'screen_multipleAtoms', 'screen.multipleAtomsStringProperty' );
 addToMapIfDefined( 'screen_decayRate', 'screen.decayRateStringProperty' );
 addToMapIfDefined( 'a11y_screenSummary_playArea', 'a11y.screenSummary.playAreaStringProperty' );
+addToMapIfDefined( 'a11y_screenSummary_energyGraph', 'a11y.screenSummary.energyGraphStringProperty' );
+addToMapIfDefined( 'a11y_screenSummary_playAreaSelector', 'a11y.screenSummary.playAreaSelectorStringProperty' );
 addToMapIfDefined( 'a11y_screenSummary_controlArea', 'a11y.screenSummary.controlAreaStringProperty' );
 addToMapIfDefined( 'a11y_screenSummary_currentDetails', 'a11y.screenSummary.currentDetailsStringProperty' );
 addToMapIfDefined( 'a11y_screenSummary_interactionHint_addAtom', 'a11y.screenSummary.interactionHint.addAtomStringProperty' );
@@ -79,6 +81,8 @@ const AlphaDecayFluent = {
   a11y: {
     screenSummary: {
       playAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screenSummary_playArea', _.get( AlphaDecayStrings, 'a11y.screenSummary.playAreaStringProperty' ) ),
+      energyGraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screenSummary_energyGraph', _.get( AlphaDecayStrings, 'a11y.screenSummary.energyGraphStringProperty' ) ),
+      playAreaSelector: new FluentPattern<{ quantum: 'true' | 'false' | TReadOnlyProperty<'true' | 'false'> }>( fluentSupport.bundleProperty, 'a11y_screenSummary_playAreaSelector', _.get( AlphaDecayStrings, 'a11y.screenSummary.playAreaSelectorStringProperty' ), [{"name":"quantum","variants":["true","false"]}] ),
       controlAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screenSummary_controlArea', _.get( AlphaDecayStrings, 'a11y.screenSummary.controlAreaStringProperty' ) ),
       currentDetails: new FluentPattern<{ atom: 'noAtom' | 'withAtom' | TReadOnlyProperty<'noAtom' | 'withAtom'>, isotope: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_screenSummary_currentDetails', _.get( AlphaDecayStrings, 'a11y.screenSummary.currentDetailsStringProperty' ), [{"name":"atom","variants":["noAtom","withAtom"]},{"name":"isotope"}] ),
       interactionHint: {

@@ -20,7 +20,13 @@
   "a11y": {
     "screenSummary": {
       "playArea": {
-        "value": "A radioactive atom with jiggling nucleons sits in the center. You can watch it decay, observe how the nucleus changes, and reset the atom to repeat your experiment. A timeline shows the moment of each decay relative to half-life. An energy diagram shows the potential energy barrier and alpha particle energy. With a custom isotope, you can experiment with the barrier height, alpha particle energy, and half-life."
+        "value": "A radioactive atom with jiggling nucleons sits in the center. You can watch it decay, observe how the nucleus changes, and reset the atom to repeat your experiment. A timeline shows the moment of each decay relative to half-life."
+      },
+      "energyGraph": {
+        "value": "An energy diagram shows the potential energy barrier and alpha particle energy. With a custom isotope, you can experiment with the barrier height, alpha particle energy, and half-life."
+      },
+      "playAreaSelector": {
+        "value": "{ $quantum ->\n  [true] { a11y_screenSummary_playArea } { a11y_screenSummary_energyGraph }\n  *[false] { a11y_screenSummary_playArea }\n}"
       },
       "controlArea": {
         "value": "You can replay the last decay and control how fast the action happens. Reset sim to start over."
