@@ -178,6 +178,7 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
       playAreaNode,
       this.energyDiagramAccordionBox,
       this.decayTimeHistogramPanel,
+      this.particleLegendPanel,
       this.isotopePanel,
       this.particleCountsAccordionBox,
       this.equationAccordionBox

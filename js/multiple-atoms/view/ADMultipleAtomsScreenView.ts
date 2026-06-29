@@ -24,7 +24,5 @@ export default class ADMultipleAtomsScreenView extends MultipleAtomsScreenView {
     }, providedOptions );
 
     super( model, options );
-
-    this.particleLegendPanel.accessibleParagraph = NuclearDecayCommonFluent.a11y.alphaDecay.multipleAtomsScreen.particleLegend.accessibleParagraphStringProperty;
   }
 }
