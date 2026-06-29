@@ -130,7 +130,8 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       listener: () => {
         model.activateAtom();
         this.addAccessibleContextResponse( NuclearDecayCommonFluent.a11y.alphaDecay.addAtomButton.accessibleContextResponse.format( {
-          isotope: model.selectedIsotopeProperty.derived( isotope => NuclearDecayAtom.getNameAndMassString( isotope ) )
+          isotope: model.selectedIsotopeProperty.derived( isotope => NuclearDecayAtom.getNameAndMassString(
+            isotope, NuclearDecayCommonFluent.isotopeAStringProperty.value ) )
         } ) );
       },
       tandem: options.tandem.createTandem( 'addAtomButton' )
