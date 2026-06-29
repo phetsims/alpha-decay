@@ -212,9 +212,9 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     options.children = [
       decayTimeReadout,
       addAtomButton,
-      resetDecayButton,
       potentialAreaCircle,
-      atomDescriptionNode
+      atomDescriptionNode,
+      resetDecayButton
     ];
 
     super( options );
