@@ -30,7 +30,6 @@ a11y:
       afterDecay: Reset atom to continue observations.
   radioactiveAtomHeading: Radioactive Atom
   addAtomButton:
-    accessibleHelpText: Add atom to begin observations.
     accessibleContextResponse: '{ $isotope } added.'
   atomInPlayArea:
     readyToDecay: '{ $isotope } present, ready to decay.'

@@ -41,7 +41,6 @@ addToMapIfDefined( 'a11y_screenSummary_currentDetails', 'a11y.screenSummary.curr
 addToMapIfDefined( 'a11y_screenSummary_interactionHint_addAtom', 'a11y.screenSummary.interactionHint.addAtomStringProperty' );
 addToMapIfDefined( 'a11y_screenSummary_interactionHint_afterDecay', 'a11y.screenSummary.interactionHint.afterDecayStringProperty' );
 addToMapIfDefined( 'a11y_radioactiveAtomHeading', 'a11y.radioactiveAtomHeadingStringProperty' );
-addToMapIfDefined( 'a11y_addAtomButton_accessibleHelpText', 'a11y.addAtomButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_addAtomButton_accessibleContextResponse', 'a11y.addAtomButton.accessibleContextResponseStringProperty' );
 addToMapIfDefined( 'a11y_atomInPlayArea_readyToDecay', 'a11y.atomInPlayArea.readyToDecayStringProperty' );
 addToMapIfDefined( 'a11y_atomInPlayArea_nowPresent', 'a11y.atomInPlayArea.nowPresentStringProperty' );
@@ -92,7 +91,6 @@ const AlphaDecayFluent = {
     },
     radioactiveAtomHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_radioactiveAtomHeading', _.get( AlphaDecayStrings, 'a11y.radioactiveAtomHeadingStringProperty' ) ),
     addAtomButton: {
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_addAtomButton_accessibleHelpText', _.get( AlphaDecayStrings, 'a11y.addAtomButton.accessibleHelpTextStringProperty' ) ),
       accessibleContextResponse: new FluentPattern<{ isotope: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_addAtomButton_accessibleContextResponse', _.get( AlphaDecayStrings, 'a11y.addAtomButton.accessibleContextResponseStringProperty' ), [{"name":"isotope"}] )
     },
     atomInPlayArea: {

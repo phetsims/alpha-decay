@@ -40,7 +40,6 @@ type StringsType = {
     };
     'radioactiveAtomHeadingStringProperty': LocalizedStringProperty;
     'addAtomButton': {
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
     'atomInPlayArea': {

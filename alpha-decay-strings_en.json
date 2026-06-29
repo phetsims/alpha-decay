@@ -47,9 +47,6 @@
       "value": "Radioactive Atom"
     },
     "addAtomButton": {
-      "accessibleHelpText": {
-        "value": "Add atom to begin observations."
-      },
       "accessibleContextResponse": {
         "value": "{ $isotope } added."
       }
