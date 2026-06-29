@@ -11,6 +11,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import NuclearDecayAtom from '../../../../nuclear-decay-common/js/common/model/NuclearDecayAtom.js';
 import ResetAtomsButton from '../../../../nuclear-decay-common/js/common/view/ResetAtomsButton.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
@@ -126,7 +127,12 @@ export default class ADSingleAtomPlayAreaNode extends Node {
       accessibleContextResponse: NuclearDecayCommonFluent.a11y.alphaDecay.addAtomButton.accessibleContextResponse.createProperty( {
         isotope: currentIsotopeNameProperty
       } ),
-      listener: () => model.activateAtom(),
+      listener: () => {
+        model.activateAtom();
+        this.addAccessibleContextResponse( NuclearDecayCommonFluent.a11y.alphaDecay.addAtomButton.accessibleContextResponse.format( {
+          isotope: model.selectedIsotopeProperty.derived( isotope => NuclearDecayAtom.getNameAndMassString( isotope ) )
+        } ) );
+      },
       tandem: options.tandem.createTandem( 'addAtomButton' )
     } );
 
