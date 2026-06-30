@@ -173,6 +173,11 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     //   this.numberOfAtomsInPlayAreaWidthProperty.value = tunnelingOn ? 10 : 5;
     // } );
 
+    // Depending on this preference, child components will decide whether to emit certain context response
+    AlphaDecayPreferences.advancedQuantumPhysicsProperty.link( tunnelingOn => {
+      this.decayTimeHistogramPanel.setContextResponseEmission( tunnelingOn );
+    } );
+
     // Play area PDOM order: Radioactive Atom → Energy Diagram → Decay Data → Isotope Panel → Particle Counts → Nuclear Equation
     this.pdomPlayAreaNode.pdomOrder = [
       playAreaNode,
