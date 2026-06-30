@@ -12,6 +12,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import NuclearDecayAtom from '../../../../nuclear-decay-common/js/common/model/NuclearDecayAtom.js';
+import formatTimescaleStrings from '../../../../nuclear-decay-common/js/common/view/formatTimescaleStrings.js';
 import ResetAtomsButton from '../../../../nuclear-decay-common/js/common/view/ResetAtomsButton.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
@@ -152,17 +153,26 @@ export default class ADSingleAtomPlayAreaNode extends Node {
         model.isPlayAreaEmptyProperty,
         model.hasDecayOccurredProperty,
         model.lastDecayTimeProperty,
-        model.selectedIsotopeProperty,
+        model.timescaleProperty,
         currentIsotopeNameProperty
       ],
-      ( isPlayAreaEmpty, hasDecayOccurred, lastDecayTime, selectedIsotope, isotopeName ) => {
+      (
+        isPlayAreaEmpty,
+        hasDecayOccurred,
+        lastDecayTime,
+        timescale,
+        isotopeName
+      ) => {
         if ( isPlayAreaEmpty ) {
           return '';
         }
-        const decimalPlaces = selectedIsotope === 'custom' ? 1 : 2;
-        const decayTimeFormatted = lastDecayTime !== null ? toFixed( lastDecayTime, decimalPlaces ) : '';
+
         if ( hasDecayOccurred ) {
-          return NuclearDecayCommonFluent.a11y.alphaDecay.atomInPlayArea.nowPresent.format( { isotope: isotopeName, decayTime: decayTimeFormatted } );
+          const decayTimeString = lastDecayTime === null ? '' : formatTimescaleStrings( lastDecayTime, timescale );
+          return NuclearDecayCommonFluent.a11y.alphaDecay.atomInPlayArea.nowPresent.format( {
+            isotope: isotopeName,
+            decayTime: decayTimeString
+          } );
         }
         else {
           return NuclearDecayCommonFluent.a11y.alphaDecay.atomInPlayArea.readyToDecay.format( { isotope: isotopeName } );
@@ -201,8 +211,9 @@ export default class ADSingleAtomPlayAreaNode extends Node {
     // and a hint prompting the user to reset.
     model.hasDecayOccurredProperty.lazyLink( hasDecayOccurred => {
       if ( hasDecayOccurred ) {
-        const decayTime = model.lastDecayTimeProperty.value !== null
-                          ? toFixed( model.lastDecayTimeProperty.value, 2 )
+        const lastDecayTime = model.lastDecayTimeProperty.value;
+        const decayTime = lastDecayTime !== null
+                          ? formatTimescaleStrings( lastDecayTime, model.timescaleProperty.value )
                           : toFixed( model.timeProperty.value, 2 );
         atomDescriptionNode.addAccessibleContextResponse(
           NuclearDecayCommonFluent.a11y.alphaDecay.atomDecay.alphaParticleEmitted.format( { decayTime: decayTime } )
