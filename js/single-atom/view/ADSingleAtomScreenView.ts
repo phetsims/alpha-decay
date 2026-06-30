@@ -13,7 +13,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import DynamicNucleusNode from '../../../../nuclear-decay-common/js/common/view/DynamicNucleusNode.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
-import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/single-atom/view/EnergyDiagramAccordionBox.js';
 import SingleAtomScreenView, { SingleAtomScreenViewOptions } from '../../../../nuclear-decay-common/js/single-atom/view/SingleAtomScreenView.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
@@ -115,24 +114,6 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
 
     energyIntersectionPointProperty.link( point => {
       escapeRadiusProperty.value = point.x;
-    } );
-
-    escapeRadiusProperty.lazyLink( ( radius, previousRadius ) => {
-
-      const distanceProgress = radius > previousRadius ?
-                       NuclearDecayCommonFluent.a11y.qualitative.progressLargerStringProperty :
-                       NuclearDecayCommonFluent.a11y.qualitative.progressSmallerStringProperty;
-
-      const halfLifeProgress = radius > previousRadius ?
-                               NuclearDecayCommonFluent.a11y.qualitative.progressLongerStringProperty :
-                               NuclearDecayCommonFluent.a11y.qualitative.progressShorterStringProperty;
-
-      this.addAccessibleContextResponse( NuclearDecayCommonFluent.a11y.escapeDistanceContextResponse.format( {
-        distanceProgress: distanceProgress,
-        hLifeProgress: halfLifeProgress
-      } ), {
-        responseGroup: 'escapeProgress'
-      } );
     } );
 
     // Potential lines are shown if a number of conditions are met:
