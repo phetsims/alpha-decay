@@ -13,6 +13,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import DynamicNucleusNode from '../../../../nuclear-decay-common/js/common/view/DynamicNucleusNode.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
+import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/single-atom/view/EnergyDiagramAccordionBox.js';
 import SingleAtomScreenView, { SingleAtomScreenViewOptions } from '../../../../nuclear-decay-common/js/single-atom/view/SingleAtomScreenView.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
@@ -33,11 +34,11 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
 
   public constructor( model: ADSingleAtomModel, providedOptions: SingleAtomScreenViewOptions ) {
 
-    const escapeRadiusForwardingProperty = new NumberProperty( 0 );
+    const escapeRadiusProperty = new NumberProperty( 0 );
 
     const options = optionize<ADSingleAtomScreenViewOptions, SelfOptions, SingleAtomScreenViewOptions>()( {
       screenSummaryContent: new ADSingleAtomScreenSummaryContent( model ),
-      escapeRadiusProperty: escapeRadiusForwardingProperty
+      escapeRadiusProperty: escapeRadiusProperty
     }, providedOptions );
 
     super( model, options );
@@ -78,8 +79,8 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
           bounds.bottom + NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN,
           bounds.right,
           energyDiagramVisible ?
-              this.energyDiagramAccordionBox.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN :
-              this.layoutBounds.bottom - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
+          this.energyDiagramAccordionBox.top - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN :
+          this.layoutBounds.bottom - NuclearDecayCommonConstants.SCREEN_VIEW_Y_MARGIN
         );
       }
     );
@@ -113,7 +114,25 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     );
 
     energyIntersectionPointProperty.link( point => {
-      escapeRadiusForwardingProperty.value = point.x;
+      escapeRadiusProperty.value = point.x;
+    } );
+
+    escapeRadiusProperty.lazyLink( ( radius, previousRadius ) => {
+
+      const distanceProgress = radius > previousRadius ?
+                       NuclearDecayCommonFluent.a11y.qualitative.progressLargerStringProperty :
+                       NuclearDecayCommonFluent.a11y.qualitative.progressSmallerStringProperty;
+
+      const halfLifeProgress = radius > previousRadius ?
+                               NuclearDecayCommonFluent.a11y.qualitative.progressLongerStringProperty :
+                               NuclearDecayCommonFluent.a11y.qualitative.progressShorterStringProperty;
+
+      this.addAccessibleContextResponse( NuclearDecayCommonFluent.a11y.escapeDistanceContextResponse.format( {
+        distanceProgress: distanceProgress,
+        hLifeProgress: halfLifeProgress
+      } ), {
+        responseGroup: 'escapeProgress'
+      } );
     } );
 
     // Potential lines are shown if a number of conditions are met:
