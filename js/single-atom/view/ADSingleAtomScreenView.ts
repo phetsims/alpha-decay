@@ -13,6 +13,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import DynamicNucleusNode from '../../../../nuclear-decay-common/js/common/view/DynamicNucleusNode.js';
 import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
+import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import EnergyDiagramAccordionBox from '../../../../nuclear-decay-common/js/single-atom/view/EnergyDiagramAccordionBox.js';
 import SingleAtomScreenView, { SingleAtomScreenViewOptions } from '../../../../nuclear-decay-common/js/single-atom/view/SingleAtomScreenView.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
@@ -175,7 +176,19 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
 
     // Depending on this preference, child components will decide whether to emit certain context response
     AlphaDecayPreferences.advancedQuantumPhysicsProperty.link( tunnelingOn => {
-      this.decayTimeHistogramPanel.setContextResponseEmission( tunnelingOn );
+      const contextResponse = ( _: number, newValue: number, oldValue: number ): string => {
+        const increased = newValue > oldValue;
+        const initialEProgress = increased
+                                 ? NuclearDecayCommonFluent.a11y.qualitative.progressLowerStringProperty.value
+                                 : NuclearDecayCommonFluent.a11y.qualitative.progressHigherStringProperty.value;
+        const distanceProgress = increased
+                                 ? NuclearDecayCommonFluent.a11y.qualitative.progressLargerStringProperty.value
+                                 : NuclearDecayCommonFluent.a11y.qualitative.progressSmallerStringProperty.value;
+        return NuclearDecayCommonFluent.a11y.halfLifeSlider.accessibleContextResponse.format( {
+          initialEProgress: initialEProgress, distanceProgress: distanceProgress
+        } );
+      };
+      this.decayTimeHistogramPanel.setHalfLifeGrabberContextResponseAlert( tunnelingOn ? contextResponse : null );
     } );
 
     // Play area PDOM order: Radioactive Atom → Energy Diagram → Decay Data → Isotope Panel → Particle Counts → Nuclear Equation
