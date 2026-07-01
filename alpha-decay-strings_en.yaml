@@ -4,3 +4,16 @@ preferences.advancedQuantumPhysics.description: 'On the Single Atom screen, show
 screen.singleAtom: 'Single Atom'
 screen.multipleAtoms: 'Multiple Atoms'
 screen.decayRate: 'Decay Rate'
+
+a11y:
+
+  screens:
+
+    singleAtomScreen:
+      screenButtonsHelpText: Observe how an atom changes during decay and explore the relationship between energy and half-life.
+
+    multipleAtomsScreen:
+      screenButtonsHelpText: Track when atoms decay and discover the meaning of half-life.
+
+    decayRateScreen:
+      screenButtonsHelpText: Analyze how much radioactive sample remains after each half-life.

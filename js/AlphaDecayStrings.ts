@@ -25,6 +25,19 @@ type StringsType = {
     'singleAtomStringProperty': LocalizedStringProperty;
     'multipleAtomsStringProperty': LocalizedStringProperty;
     'decayRateStringProperty': LocalizedStringProperty;
+  };
+  'a11y': {
+    'screens': {
+      'singleAtomScreen': {
+        'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
+      };
+      'multipleAtomsScreen': {
+        'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
+      };
+      'decayRateScreen': {
+        'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
+      }
+    }
   }
 };
 

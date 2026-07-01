@@ -6,6 +6,7 @@
 /* @formatter:off */
 
 import FluentLibrary from '../../chipper/js/browser-and-node/FluentLibrary.js';
+import FluentConstant from '../../chipper/js/browser/FluentConstant.js';
 import FluentContainer from '../../chipper/js/browser/FluentContainer.js';
 import alphaDecay from './alphaDecay.js';
 import AlphaDecayStrings from './AlphaDecayStrings.js';
@@ -29,6 +30,9 @@ addToMapIfDefined( 'preferences_advancedQuantumPhysics_description', 'preference
 addToMapIfDefined( 'screen_singleAtom', 'screen.singleAtomStringProperty' );
 addToMapIfDefined( 'screen_multipleAtoms', 'screen.multipleAtomsStringProperty' );
 addToMapIfDefined( 'screen_decayRate', 'screen.decayRateStringProperty' );
+addToMapIfDefined( 'a11y_screens_singleAtomScreen_screenButtonsHelpText', 'a11y.screens.singleAtomScreen.screenButtonsHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_screens_multipleAtomsScreen_screenButtonsHelpText', 'a11y.screens.multipleAtomsScreen.screenButtonsHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_screens_decayRateScreen_screenButtonsHelpText', 'a11y.screens.decayRateScreen.screenButtonsHelpTextStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
 const createFluentFile = (): string => {
@@ -55,6 +59,19 @@ const AlphaDecayFluent = {
     singleAtomStringProperty: _.get( AlphaDecayStrings, 'screen.singleAtomStringProperty' ),
     multipleAtomsStringProperty: _.get( AlphaDecayStrings, 'screen.multipleAtomsStringProperty' ),
     decayRateStringProperty: _.get( AlphaDecayStrings, 'screen.decayRateStringProperty' )
+  },
+  a11y: {
+    screens: {
+      singleAtomScreen: {
+        screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_singleAtomScreen_screenButtonsHelpText', _.get( AlphaDecayStrings, 'a11y.screens.singleAtomScreen.screenButtonsHelpTextStringProperty' ) )
+      },
+      multipleAtomsScreen: {
+        screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_multipleAtomsScreen_screenButtonsHelpText', _.get( AlphaDecayStrings, 'a11y.screens.multipleAtomsScreen.screenButtonsHelpTextStringProperty' ) )
+      },
+      decayRateScreen: {
+        screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_screens_decayRateScreen_screenButtonsHelpText', _.get( AlphaDecayStrings, 'a11y.screens.decayRateScreen.screenButtonsHelpTextStringProperty' ) )
+      }
+    }
   }
 };
 

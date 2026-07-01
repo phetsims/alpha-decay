@@ -16,5 +16,24 @@
   },
   "screen.decayRate": {
     "value": "Decay Rate"
+  },
+  "a11y": {
+    "screens": {
+      "singleAtomScreen": {
+        "screenButtonsHelpText": {
+          "value": "Observe how an atom changes during decay and explore the relationship between energy and half-life."
+        }
+      },
+      "multipleAtomsScreen": {
+        "screenButtonsHelpText": {
+          "value": "Track when atoms decay and discover the meaning of half-life."
+        }
+      },
+      "decayRateScreen": {
+        "screenButtonsHelpText": {
+          "value": "Analyze how much radioactive sample remains after each half-life."
+        }
+      }
+    }
   }
 }

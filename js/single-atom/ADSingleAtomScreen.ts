@@ -30,7 +30,8 @@ export default class ADSingleAtomScreen extends Screen<ADSingleAtomModel, ADSing
     const options = optionize<AlphaDecayScreenOptions, SelfOptions, ScreenOptions>()( {
       name: AlphaDecayFluent.screen.singleAtomStringProperty,
       homeScreenIcon: createScreenIcon(),
-      backgroundColorProperty: AlphaDecayColors.screenBackgroundColorProperty
+      backgroundColorProperty: AlphaDecayColors.screenBackgroundColorProperty,
+      screenButtonsHelpText: AlphaDecayFluent.a11y.screens.singleAtomScreen.screenButtonsHelpTextStringProperty
     }, providedOptions );
 
     super(

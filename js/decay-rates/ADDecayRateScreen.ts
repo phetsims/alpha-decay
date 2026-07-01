@@ -29,7 +29,8 @@ export default class ADDecayRateScreen extends Screen<ADDecayRateModel, ADDecayR
     const options = optionize<AlphaDecayScreenOptions, SelfOptions, ScreenOptions>()( {
       name: AlphaDecayFluent.screen.decayRateStringProperty,
       homeScreenIcon: createScreenIcon(),
-      backgroundColorProperty: AlphaDecayColors.screenBackgroundColorProperty
+      backgroundColorProperty: AlphaDecayColors.screenBackgroundColorProperty,
+      screenButtonsHelpText: AlphaDecayFluent.a11y.screens.decayRateScreen.screenButtonsHelpTextStringProperty
     }, providedOptions );
 
     super(

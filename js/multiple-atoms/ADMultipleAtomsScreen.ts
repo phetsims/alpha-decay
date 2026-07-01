@@ -32,7 +32,8 @@ export default class ADMultipleAtomsScreen extends Screen<ADMultipleAtomsModel, 
     const options = optionize<AlphaDecayScreenOptions, SelfOptions, ScreenOptions>()( {
       name: AlphaDecayFluent.screen.multipleAtomsStringProperty,
       homeScreenIcon: createScreenIcon(),
-      backgroundColorProperty: AlphaDecayColors.screenBackgroundColorProperty
+      backgroundColorProperty: AlphaDecayColors.screenBackgroundColorProperty,
+      screenButtonsHelpText: AlphaDecayFluent.a11y.screens.multipleAtomsScreen.screenButtonsHelpTextStringProperty
     }, providedOptions );
 
     super(
