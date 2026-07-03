@@ -175,21 +175,30 @@ export default class ADSingleAtomScreenView extends SingleAtomScreenView {
     // } );
 
     // Depending on this preference, child components will decide whether to emit certain context response
-    AlphaDecayPreferences.advancedQuantumPhysicsProperty.link( tunnelingOn => {
-      const contextResponse = ( _: number, newValue: number, oldValue: number ): string => {
-        const increased = newValue > oldValue;
-        const initialEProgress = increased
-                                 ? NuclearDecayCommonFluent.a11y.qualitative.progressLowerStringProperty.value
-                                 : NuclearDecayCommonFluent.a11y.qualitative.progressHigherStringProperty.value;
-        const distanceProgress = increased
-                                 ? NuclearDecayCommonFluent.a11y.qualitative.progressLargerStringProperty.value
-                                 : NuclearDecayCommonFluent.a11y.qualitative.progressSmallerStringProperty.value;
-        return NuclearDecayCommonFluent.a11y.halfLifeSlider.accessibleContextResponse.format( {
-          initialEProgress: initialEProgress, distanceProgress: distanceProgress
-        } );
-      };
-      this.decayTimeHistogramPanel.setHalfLifeGrabberContextResponseAlert( tunnelingOn ? contextResponse : null );
-    } );
+    Multilink.multilink(
+      [
+        AlphaDecayPreferences.advancedQuantumPhysicsProperty,
+        model.isPlayAreaEmptyProperty,
+        this.energyDiagramAccordionBox.expandedProperty
+      ],
+      ( tunnelingOn, isPlayAreaEmpty, energyAccordionExpanded ) => {
+
+        // Context response alert takes a dynamical function that decides what to do when context response will be emitted
+        const contextResponse = ( _: number, newValue: number, oldValue: number ): string => {
+          const increased = newValue > oldValue;
+          const initialEProgress = increased
+                                   ? NuclearDecayCommonFluent.a11y.qualitative.progressLowerStringProperty.value
+                                   : NuclearDecayCommonFluent.a11y.qualitative.progressHigherStringProperty.value;
+          const distanceProgress = increased
+                                   ? NuclearDecayCommonFluent.a11y.qualitative.progressLargerStringProperty.value
+                                   : NuclearDecayCommonFluent.a11y.qualitative.progressSmallerStringProperty.value;
+          return NuclearDecayCommonFluent.a11y.halfLifeSlider.accessibleContextResponse.format( {
+            initialEProgress: initialEProgress, distanceProgress: distanceProgress
+          } );
+        };
+        this.decayTimeHistogramPanel.setHalfLifeGrabberContextResponseAlert(
+          tunnelingOn && !isPlayAreaEmpty && energyAccordionExpanded ? contextResponse : null );
+      } );
 
     // Play area PDOM order: Radioactive Atom → Energy Diagram → Decay Data → Isotope Panel → Particle Counts → Nuclear Equation
     this.pdomPlayAreaNode.pdomOrder = [
