@@ -19,6 +19,7 @@ import Path from '../../../scenery/js/nodes/Path.js';
 import AlphaDecayFluent from '../AlphaDecayFluent.js';
 import AlphaDecayColors from '../common/AlphaDecayColors.js';
 import ADMultipleAtomsModel from './model/ADMultipleAtomsModel.js';
+import ADMultipleAtomsKeyboardHelpContent from './view/ADMultipleAtomsKeyboardHelpContent.js';
 import ADMultipleAtomsScreenView from './view/ADMultipleAtomsScreenView.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -33,7 +34,8 @@ export default class ADMultipleAtomsScreen extends Screen<ADMultipleAtomsModel, 
       name: AlphaDecayFluent.screen.multipleAtomsStringProperty,
       homeScreenIcon: createScreenIcon(),
       backgroundColorProperty: AlphaDecayColors.screenBackgroundColorProperty,
-      screenButtonsHelpText: AlphaDecayFluent.a11y.screens.multipleAtomsScreen.screenButtonsHelpTextStringProperty
+      screenButtonsHelpText: AlphaDecayFluent.a11y.screens.multipleAtomsScreen.screenButtonsHelpTextStringProperty,
+      createKeyboardHelpNode: () => new ADMultipleAtomsKeyboardHelpContent()
     }, providedOptions );
 
     super(

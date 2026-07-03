@@ -17,6 +17,7 @@ import Node from '../../../scenery/js/nodes/Node.js';
 import AlphaDecayFluent from '../AlphaDecayFluent.js';
 import AlphaDecayColors from '../common/AlphaDecayColors.js';
 import ADSingleAtomModel from './model/ADSingleAtomModel.js';
+import ADSingleAtomKeyboardHelpContent from './view/ADSingleAtomKeyboardHelpContent.js';
 import ADSingleAtomScreenView from './view/ADSingleAtomScreenView.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -31,7 +32,8 @@ export default class ADSingleAtomScreen extends Screen<ADSingleAtomModel, ADSing
       name: AlphaDecayFluent.screen.singleAtomStringProperty,
       homeScreenIcon: createScreenIcon(),
       backgroundColorProperty: AlphaDecayColors.screenBackgroundColorProperty,
-      screenButtonsHelpText: AlphaDecayFluent.a11y.screens.singleAtomScreen.screenButtonsHelpTextStringProperty
+      screenButtonsHelpText: AlphaDecayFluent.a11y.screens.singleAtomScreen.screenButtonsHelpTextStringProperty,
+      createKeyboardHelpNode: () => new ADSingleAtomKeyboardHelpContent()
     }, providedOptions );
 
     super(

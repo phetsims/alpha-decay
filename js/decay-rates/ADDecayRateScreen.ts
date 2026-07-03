@@ -16,6 +16,7 @@ import Path from '../../../scenery/js/nodes/Path.js';
 import AlphaDecayFluent from '../AlphaDecayFluent.js';
 import AlphaDecayColors from '../common/AlphaDecayColors.js';
 import ADDecayRateModel from './model/ADDecayRateModel.js';
+import ADDecayRateKeyboardHelpContent from './view/ADDecayRateKeyboardHelpContent.js';
 import ADDecayRateScreenView from './view/ADDecayRateScreenView.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -30,7 +31,8 @@ export default class ADDecayRateScreen extends Screen<ADDecayRateModel, ADDecayR
       name: AlphaDecayFluent.screen.decayRateStringProperty,
       homeScreenIcon: createScreenIcon(),
       backgroundColorProperty: AlphaDecayColors.screenBackgroundColorProperty,
-      screenButtonsHelpText: AlphaDecayFluent.a11y.screens.decayRateScreen.screenButtonsHelpTextStringProperty
+      screenButtonsHelpText: AlphaDecayFluent.a11y.screens.decayRateScreen.screenButtonsHelpTextStringProperty,
+      createKeyboardHelpNode: () => new ADDecayRateKeyboardHelpContent()
     }, providedOptions );
 
     super(
