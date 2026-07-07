@@ -15,7 +15,7 @@ import NuclearDecayAtom from '../../../../nuclear-decay-common/js/common/model/N
 import formatTimescaleStrings from '../../../../nuclear-decay-common/js/common/view/formatTimescaleStrings.js';
 import ResetAtomsButton from '../../../../nuclear-decay-common/js/common/view/ResetAtomsButton.js';
 import NuclearDecayCommonColors from '../../../../nuclear-decay-common/js/NuclearDecayCommonColors.js';
-import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/NuclearDecayCommonConstants.js';
+import NuclearDecayCommonConstants from '../../../../nuclear-decay-common/js/common/NuclearDecayCommonConstants.js';
 import NuclearDecayCommonFluent from '../../../../nuclear-decay-common/js/NuclearDecayCommonFluent.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
