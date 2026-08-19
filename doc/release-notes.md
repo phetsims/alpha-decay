@@ -1,4 +1,4 @@
-# {{SIM_TITLE}} - Release Notes
+# Alpha Decay - Release Notes
 <!-- 
 Instructions:
 * Replace {{SIM_TITLE}} with the simulation title.
@@ -9,11 +9,11 @@ Instructions:
 * Developer and designer should collaborate on what to include for any release beyond 1.0. 
 * For each new version, add a section to the top of these release notes - reverse chronological order, with the most-recent version at the top.
 
-For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/blob/main/doc/release-notes.md
+For an exemplar, see [release-notes.md](../../balancing-chemical-equations/doc/release-notes.md)
 -->
 
 <!-- 
-## {{MAJOR.MINOR}} ({{PUBLICATION_DATE}})
+## {{VERSION}} ({{PUBLICATION_DATE}})
 
 ### New Features
 * Describe a new feature.
@@ -29,4 +29,13 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 *
 -->
 
-## 1.0 ({{PUBLICATION_DATE}})
+## 1.0 (2026-09-01)
+
+* Preferences
+* Dynamic locale: see _Preferences > Localization > Languages_
+* Alternative Input
+* Interactive Highlights
+* Core Description
+* Basic Sound
+* PhET-iO
+* TypeScript implementation

@@ -10,29 +10,31 @@ js/
   decay-rates/     Decay rates screen (ADDecayRateModel/ADDecayRateScreenView)
 ```
 
-Most view components live in `nuclear-decay-common`; alpha-decay assembles and configures them per screen.
+Alpha Decay is part of the Nuclear Decay Suite of simulations (Alpha Decay, Beta Decay, Radioactive Dating Game), with
+shared components declared in the `nuclear-decay-common` repository. 
 
-## PhET-iO Serialization
+[We suggest reading those implementation notes first to have a better grasp of the shared components, then you can see the specifics of Alpha Decay here.](https://github.com/phetsims/totality/blob/main/nuclear-decay-common/doc/implementation-notes.md)
 
-`NuclearDecayModel` uses **reference type serialization**, it is a `PhetioObject` that persists for the lifetime of
-the sim. Its `NuclearDecayModelIO` defines `applyState` to restore mutable state onto the existing instance.
+Some relevant files for this sim are:
 
-`NuclearDecayAtom` uses **data type serialization**, it is *not* a `PhetioObject` and is instead serialized as part of
-the parent model's aggregate state. `NuclearDecayAtomIO` defines `fromStateObject` to create new atom instances from
-serialized data. The model's `applyState` then uses `atom.set()` to copy the deserialized values into the existing
-pool atoms, or pushes new instances into `decayedAtoms`.
+- `ADSingleAtomModel.ts`: Declares the properties related to the energy diagram: Alpha Particle Energy and Potential
+    Energy. This one in particular will give birth to `ADSingleAtomModel.ts`, which doesn't do much.
+- `EnergyDiagramAccordionBox.ts`: Assembles and wires the first screen's energy diagram. This component has a
+  view to model data flow, which is unusual. The reason for this is something called the Intersection Point, which is
+  where the potential and alpha-particle energies cross, computed in the view, it will inform the size of the tunneling
+  radius of the atom, which is needed back in the model to position the ejected decay particles. All this is disabled if
+  the preference Advances Quantum
+  Physics is off.
 
-Similarly, every `NuclearDecayAtom` has an array of `EjectedDecayParticles`, which although extensions of shred's Particle class, and thus, of `PhetioObject`, are also serialized as data types, ignoring their default instrumentation by opting out of the tandem. `EjectedDecayParticleIO` defines `fromStateObject` to create new particle instances from serialized data, and the parent atom uses `particle.set()` to copy the deserialized values into the existing particles.
+  The diagram's pieces live alongside it in `single-atom/view/`, and the accordion box is the only thing that knows how
+  they fit together:
 
-The atom arrays (`atomPool`, `decayedAtoms` in the model, and `ejectedDecayParticles` in each atom) are wrapped in `ArrayIO( NuclearDecayAtomIO )`.
-
-See the [PhET-iO serialization docs](https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization)
-for full details on data type vs reference type serialization.
-
-## Model
-
-TODO
-
-## View
-
-TODO
+  | File                           | Responsibility                                                                   |
+  |--------------------------------|----------------------------------------------------------------------------------|
+  | `EnergyDiagramConstants.ts`   | Layout and curve-shape constants, in the diagram's local (inverted-Y) frame.      |
+  | `computeEnergyWellGeometry.ts`| Pure math: the well curve `Shape` and the Intersection Point described above.     |
+  | `EnergyGrabberNode.ts`        | A draggable energy level (arrow plus guide line); one per adjustable energy.      |
+  | `EnergyWellParticleLayer.ts`  | The alpha particles on the graph, their jitter in the well, and their tunneling.  |
+  | `PreDecayWellMarkerNode.ts`   | After-decay marker showing where the well bottom used to be.                      |
+  | `EnergyDiagramLegendNode.ts`  | The legend.                                                                       |
+  | `EnergyDiagramDescriber.ts`   | Accessible (screen reader) description content for the diagram.                   |
