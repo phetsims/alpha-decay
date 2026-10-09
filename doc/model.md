@@ -62,10 +62,9 @@ the forbidden zone more pronounced than a linear relationship would.
 
 The sim does not model energy conservation for the decay process itself. Potential energy barrier height and alpha
 particle energy are qualitative, relative values, not values derived from (or checked against) any physical energy
-calculation. The change in depth of the energy well is equal to the alpha particle energy.
+calculation.
 
-On the Single Atom screen, when Custom is selected, barrier height and alpha particle energy can be adjusted directly, 
-and changing either one recalculates the resulting half-life (and vice versa).
+On the Single Atom screen, when Custom is selected, barrier height and alpha particle energy can be adjusted directly, and changing either one recalculates the resulting half-life (and vice versa).
 
 An **Advanced Quantum Physics** preference (on by default, Single Atom screen only) shows or hides a potential energy
 diagram. When on, a dashed circle around the nucleus marks the distance the alpha particle must tunnel through to
