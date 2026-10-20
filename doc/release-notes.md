@@ -29,13 +29,14 @@ For an exemplar, see [release-notes.md](../../balancing-chemical-equations/doc/r
 *
 -->
 
-## 1.0 (2026-09-01)
+## 1.0 (2026-10-12)
 
-* Preferences
+### Features
 * Dynamic locale: see _Preferences > Localization > Languages_
 * Alternative Input
 * Interactive Highlights
 * Core Description
+* Sim-Specific Preferences
 * Basic Sound
 * PhET-iO
-* TypeScript implementation
+* TypeScript Implementation
